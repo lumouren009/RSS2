@@ -21,10 +21,7 @@
 @dynamic title;
 @dynamic update;
 
-+ (LZItem *)getItemByIdentifier:(NSString *)identifier {
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
++ (LZItem *)getItemByIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)managedObjectContext{
     
     LZItem *item = nil;
     
@@ -48,11 +45,9 @@
     return item;
 }
 
-+ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
-    
-    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier];
++ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem withContext:(NSManagedObjectContext *)managedObjectContext {
+
+    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
     if (item == nil) {
         item = (LZItem *)[NSEntityDescription insertNewObjectForEntityForName:kLZItemEntityString inManagedObjectContext:managedObjectContext];
         item.author = feedItem.author;
@@ -73,11 +68,9 @@
     return item;
 }
 
-+ (LZItem *)convertMWFeedItemIntoItem:(MWFeedItem *)feedItem {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
++ (LZItem *)convertMWFeedItemIntoItem:(MWFeedItem *)feedItem withContext:(NSManagedObjectContext *)managedObjectContext {
     
-    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier];
+    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
     if (item == nil) {
         item = (LZItem *)[NSEntityDescription insertNewObjectForEntityForName:kLZItemEntityString inManagedObjectContext:managedObjectContext];
         item.author = feedItem.author;
@@ -92,11 +85,11 @@
     return item;
 }
 
-+ (LZItem *)insertIntoItemDBWithItem:(LZItem *)myItem {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
++ (LZItem *)insertIntoItemDBWithItem:(LZItem *)myItem withContext:(NSManagedObjectContext *)managedObjectContext {
+
+
     
-    LZItem *item = [LZItem getItemByIdentifier:myItem.identifier];
+    LZItem *item = [LZItem getItemByIdentifier:myItem.identifier withContext:managedObjectContext];
     if (item == nil) {
         item = (LZItem *)[NSEntityDescription insertNewObjectForEntityForName:kLZItemEntityString inManagedObjectContext:managedObjectContext];
         item.author = myItem.author;

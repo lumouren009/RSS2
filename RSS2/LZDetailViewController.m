@@ -65,11 +65,11 @@
     textBackgroundColorTag = [(NSNumber *)[userDefaults objectForKey:kTextBackgroundColorTag] integerValue];
     nPagesViewd = 0;
     
-    if (OBJ_IS_NIL([LZLikeItem getLikeItemByIdentifier:feedItem.identifier])) {
+    if (OBJ_IS_NIL([LZLikeItem getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext])) {
         isBookmarked = NO;
     } else {
-        NSLog(@"LZItem:%@",[[LZItem getItemByIdentifier:feedItem.identifier]description ]);
-        NSLog(@"LZLikeItem:%@", [[LZLikeItem getLikeItemByIdentifier:feedItem.identifier]description]);
+        NSLog(@"LZItem:%@",[[LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext]description ]);
+        NSLog(@"LZLikeItem:%@", [[LZLikeItem getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext]description]);
         isBookmarked = YES;
     }
     
@@ -353,8 +353,8 @@
 - (void)addToBookMarks {
     
     if (!isBookmarked) {
-        LZItem *item = [LZItem insertIntoItemDBWithItem:feedItem];
-        [LZLikeItem insertIntoLikeDBWithItem:item andFeedTitle:feedTitle];
+        LZItem *item = [LZItem insertIntoItemDBWithItem:feedItem withContext:managedObjectContext];
+        [LZLikeItem insertIntoLikeDBWithItem:item andFeedTitle:feedTitle withContext:managedObjectContext];
         
         bookmarkBtn.image = [UIImage imageNamed:@"ic_star_y"];
         bookmarkBtn.tintColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.38 alpha:1.0];
@@ -400,8 +400,8 @@
 
 - (void)removeLZLikeItemAndLZItem{
 
-    LZLikeItem *likeItem = [LZLikeItem getLikeItemByIdentifier:feedItem.identifier];
-    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier];
+    LZLikeItem *likeItem = [LZLikeItem getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
+    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
     
     if (item==nil) {
         NSLog(@"Item is nil");

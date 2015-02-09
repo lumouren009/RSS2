@@ -21,12 +21,9 @@
 
 
 
-+ (void)insertIntoLikeDBWithItem:(LZItem *)item andFeedTitle:(NSString *)feedTitle {
++ (void)insertIntoLikeDBWithItem:(LZItem *)item andFeedTitle:(NSString *)feedTitle withContext:(NSManagedObjectContext *)managedObjectContext {
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
-    
-    LZLikeItem *likeItem = [LZLikeItem getLikeItemByIdentifier:item.identifier];
+    LZLikeItem *likeItem = [LZLikeItem getLikeItemByIdentifier:item.identifier withContext:managedObjectContext];
     
     if (likeItem != nil) {
         NSLog(@"likeItem is not nil !!!!");
@@ -50,10 +47,8 @@
 }
 
 
-+ (LZLikeItem *)getLikeItemByIdentifier:(NSString *)identifier {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
-    
++ (LZLikeItem *)getLikeItemByIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)managedObjectContext {
+   
     LZLikeItem *likeItem = nil;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
@@ -76,10 +71,10 @@
     return likeItem;
 }
 
-+ (NSMutableArray *)getAllLikeItems {
++ (NSMutableArray *)getAllLikeItemsWithContext:(NSManagedObjectContext *)managedObjectContext {
     NSLog(@"%@ :%@", THIS_FILE, THIS_METHOD);
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
+
+
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:kLZLikeItemEntityString inManagedObjectContext:managedObjectContext];

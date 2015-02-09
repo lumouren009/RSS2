@@ -51,7 +51,7 @@
     self.menuViewController = [[LZMenuViewController alloc] initWithNibName:nil bundle:nil];
     self.mainViewController = [[LZMainViewController alloc] initWithNibName:nil bundle:nil];
     
-    self.likeMainViewController = [[LZMainViewController alloc]initWithNibName:nil bundle:nil];
+    self.likeMainViewController = [[LZLikeMainTableViewController alloc]initWithNibName:nil bundle:nil];
     
     
     

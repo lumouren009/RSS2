@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) LZItem *item;
 
-+ (void)insertIntoLikeDBWithItem:(LZItem *)item andFeedTitle:(NSString *)feedTitle;
-+ (LZLikeItem *)getLikeItemByIdentifier:(NSString *)identifier;
-+ (NSMutableArray *)getAllLikeItems;
++ (void)insertIntoLikeDBWithItem:(LZItem *)item andFeedTitle:(NSString *)feedTitle withContext:(NSManagedObjectContext *)managedObjectContext;
++ (LZLikeItem *)getLikeItemByIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext*)managedObjectContext;
++ (NSMutableArray *)getAllLikeItemsWithContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

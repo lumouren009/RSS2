@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */; };
 		46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */; };
 		4665F4951A85E68200A2F031 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4941A85E68200A2F031 /* main.m */; };
 		4665F49E1A85E68200A2F031 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4665F49C1A85E68200A2F031 /* Main.storyboard */; };
@@ -55,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		277E47D3768A5A998B1EB693 /* Pods-RSS2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSS2/Pods-RSS2.debug.xcconfig"; sourceTree = "<group>"; };
+		46269C5A1A890BF9006DD639 /* LZSubscribeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSubscribeFeed.h; path = Model/LZSubscribeFeed.h; sourceTree = "<group>"; };
+		46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSubscribeFeed.m; path = Model/LZSubscribeFeed.m; sourceTree = "<group>"; };
 		46358F711A86485B00FF37F6 /* LZLikeMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZLikeMainTableViewController.h; path = Controllers/LZLikeMainTableViewController.h; sourceTree = "<group>"; };
 		46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZLikeMainTableViewController.m; path = Controllers/LZLikeMainTableViewController.m; sourceTree = "<group>"; };
 		4665F48F1A85E68200A2F031 /* RSS2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSS2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				4665F50A1A85E93700A2F031 /* LZFeedInfo.xcdatamodeld */,
+				46269C5A1A890BF9006DD639 /* LZSubscribeFeed.h */,
+				46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */,
 				4665F5141A85EC5300A2F031 /* LZLikeItem.h */,
 				4665F5151A85EC5300A2F031 /* LZLikeItem.m */,
 				4665F5111A85EC5300A2F031 /* LZFeedInfo.h */,
@@ -492,6 +497,7 @@
 				4665F4D91A85E74100A2F031 /* NSDate+InternetDateTime.m in Sources */,
 				4665F5101A85EC5300A2F031 /* LZItem.m in Sources */,
 				4665F50C1A85E93700A2F031 /* LZFeedInfo.xcdatamodeld in Sources */,
+				46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */,
 				46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */,
 				4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */,
 				4665F5131A85EC5300A2F031 /* LZFeedInfo.m in Sources */,

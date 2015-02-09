@@ -164,8 +164,8 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewCellIndentifier];
     }
-    NSLog(@"feedInfo.count:%ld", (long)feedInfos.count);
-    NSLog(@"indexPath.row:%ld", (long)indexPath.row);
+
+
     LZFeedInfo *info;
     switch (indexPath.section) {
         case 0:

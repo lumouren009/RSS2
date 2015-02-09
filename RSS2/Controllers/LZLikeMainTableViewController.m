@@ -38,7 +38,7 @@
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
     self.sideMenuViewController = appDelegate.sideMenuViewController;
-    self.likeItemArray = [LZLikeItem getAllLikeItems];
+    self.likeItemArray = [LZLikeItem getAllLikeItemsWithContext:managedObjectContext];
     self.title = @"Bookmarks";
     
     formatter = [[NSDateFormatter alloc]init];
@@ -49,8 +49,7 @@
     // BarButtons
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(openButtonPressed)];
     
-    // Setup Notification
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modifyDataSource:) name:kModifyLZLikeItemArrayNotification object:nil];
+ 
     
     
 }
@@ -58,7 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"%@: %@", THIS_FILE, THIS_METHOD);
     [super viewDidAppear:animated];
-    self.likeItemArray = [LZLikeItem getAllLikeItems];
+    self.likeItemArray = [LZLikeItem getAllLikeItemsWithContext:managedObjectContext];
     [self.tableView reloadData];
     [self.navigationController.navigationBar setHidden:NO];
 }

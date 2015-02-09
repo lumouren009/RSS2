@@ -23,9 +23,14 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LZItem" syncable="YES"/>
     </entity>
+    <entity name="LZSubscribeFeed" representedClassName="LZSubscribeFeed" syncable="YES">
+        <attribute name="feedId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feedTitle" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="LZFeedInfo" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="LZItem" positionX="25" positionY="204" width="128" height="163"/>
         <element name="LZLikeItem" positionX="124" positionY="-27" width="128" height="103"/>
+        <element name="LZSubscribeFeed" positionX="27" positionY="126" width="128" height="75"/>
     </elements>
 </model>

@@ -15,6 +15,7 @@
 #import "LZFeedInfo.h"
 #import "constants.h"
 #import "LZInfoTableViewCell.h"
+#import "LZSubscribeFeed.h"
 
 
 
@@ -315,7 +316,7 @@
 {
     // Show detail
     LZDetailViewController *detail = [[LZDetailViewController alloc]init];
-    detail.feedItem = [LZItem convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row]];
+    detail.feedItem = [LZItem convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:managedObjectContext];
     detail.feedTitle = self.feedInfo.title;
 
     [self.navigationController pushViewController:detail animated:YES];
