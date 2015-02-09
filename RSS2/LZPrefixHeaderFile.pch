@@ -1,0 +1,37 @@
+//
+//  LZPrefixHeaderFile.pch
+//  RSS2
+//
+//  Created by luzheng1208 on 15/2/7.
+//  Copyright (c) 2015年 luzheng. All rights reserved.
+//
+
+#ifndef RSS2_LZPrefixHeaderFile_pch
+#define RSS2_LZPrefixHeaderFile_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <DDLog.h>
+#import "constants.h"
+#import <FontasticIcons.h>
+#endif
+
+#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_ERROR;
+#endif
+
+
+
+
+
+#endif
