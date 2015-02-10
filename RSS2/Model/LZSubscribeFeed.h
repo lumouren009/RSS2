@@ -15,4 +15,8 @@
 @property (nonatomic, retain) NSString * feedId;
 @property (nonatomic, retain) NSString * feedTitle;
 
+
++(void)insertIntoSubscribeFeedDBWithTitle:(NSString *)title andFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
++(LZSubscribeFeed *)getSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
+
 @end

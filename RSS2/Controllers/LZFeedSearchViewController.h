@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LZFeedSearchViewController : UISearchController
+@interface LZFeedSearchViewController : UISearchController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @end

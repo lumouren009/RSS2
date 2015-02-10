@@ -18,6 +18,7 @@
 #define kLZLikeItemEntityString     @"LZLikeItem"
 #define kLZItemEntityString         @"LZItem"
 #define kLZFeedInfo                 @"LZFeedInfo"
+#define kLZSubsFeedEntityString                 @"LZSubscribeFeed"
 
 
 // Macro

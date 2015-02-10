@@ -10,9 +10,7 @@
 		46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */; };
 		46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */; };
 		4665F4951A85E68200A2F031 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4941A85E68200A2F031 /* main.m */; };
-		4665F49E1A85E68200A2F031 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4665F49C1A85E68200A2F031 /* Main.storyboard */; };
 		4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4665F49F1A85E68200A2F031 /* Images.xcassets */; };
-		4665F4A31A85E68200A2F031 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4665F4A11A85E68200A2F031 /* LaunchScreen.xib */; };
 		4665F4AF1A85E68300A2F031 /* RSS2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4AE1A85E68300A2F031 /* RSS2Tests.m */; };
 		4665F4CB1A85E6F600A2F031 /* LZSubscribeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4C91A85E6F600A2F031 /* LZSubscribeTextField.m */; };
 		4665F4CC1A85E6F600A2F031 /* FontChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4CA1A85E6F600A2F031 /* FontChangeView.m */; };
@@ -29,7 +27,6 @@
 		4665F4F31A85E78F00A2F031 /* TWTSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4EC1A85E78F00A2F031 /* TWTSideMenuViewController.m */; };
 		4665F4F41A85E78F00A2F031 /* LZDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4EF1A85E78F00A2F031 /* LZDetailViewController.m */; };
 		4665F4FA1A85E83400A2F031 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4F91A85E83400A2F031 /* AppDelegate.m */; };
-		4665F4FC1A85E85600A2F031 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4665F4FB1A85E85600A2F031 /* Info.plist */; };
 		4665F5021A85E88B00A2F031 /* mainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4665F4FE1A85E88B00A2F031 /* mainWindow.xib */; };
 		4665F5031A85E88B00A2F031 /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 4665F4FF1A85E88B00A2F031 /* galaxy.png */; };
 		4665F5041A85E88B00A2F031 /* LZDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4665F5001A85E88B00A2F031 /* LZDetailViewController.xib */; };
@@ -422,14 +419,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4665F4FC1A85E85600A2F031 /* Info.plist in Resources */,
 				4665F5041A85E88B00A2F031 /* LZDetailViewController.xib in Resources */,
 				4665F5031A85E88B00A2F031 /* galaxy.png in Resources */,
 				46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */,
 				4665F5081A85E8CB00A2F031 /* ic_bookmark.png in Resources */,
 				4665F5021A85E88B00A2F031 /* mainWindow.xib in Resources */,
-				4665F49E1A85E68200A2F031 /* Main.storyboard in Resources */,
-				4665F4A31A85E68200A2F031 /* LaunchScreen.xib in Resources */,
 				4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
