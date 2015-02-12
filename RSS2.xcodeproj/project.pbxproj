@@ -44,6 +44,7 @@
 		468232FF1A8C451B00356B38 /* LZImageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 468232FE1A8C451B00356B38 /* LZImageTools.m */; };
 		4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4693A8B21A88A5F000AF1B5E /* LZInfoTableViewCell.m */; };
 		46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */; };
+		46DF39EF1A8CE30000A1E8C1 /* LZSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */; };
 		46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */; };
 		8210BB7027119C86F88BF1E4 /* libPods-RSS2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74AEC36DA7D9DEBD34E19329 /* libPods-RSS2.a */; };
 /* End PBXBuildFile section */
@@ -137,6 +138,8 @@
 		46D005BF1A86308500C44E1F /* LZPrefixHeaderFile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZPrefixHeaderFile.pch; path = RSS2/LZPrefixHeaderFile.pch; sourceTree = "<group>"; };
 		46DCEB3E1A88592500EED7DF /* LZFeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZFeedSearchViewController.h; path = Controllers/LZFeedSearchViewController.h; sourceTree = "<group>"; };
 		46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZFeedSearchViewController.m; path = Controllers/LZFeedSearchViewController.m; sourceTree = "<group>"; };
+		46DF39ED1A8CE30000A1E8C1 /* LZSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSystemConfig.h; path = Helpers/LZSystemConfig.h; sourceTree = "<group>"; };
+		46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSystemConfig.m; path = Helpers/LZSystemConfig.m; sourceTree = "<group>"; };
 		46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		74AEC36DA7D9DEBD34E19329 /* libPods-RSS2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RSS2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD0F32B94651D250401EE87C /* Pods-RSS2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS2.release.xcconfig"; path = "Pods/Target Support Files/Pods-RSS2/Pods-RSS2.release.xcconfig"; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 		4665F4BB1A85E6D200A2F031 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				46DF39EC1A8CE2E100A1E8C1 /* SystemConfig */,
 				468232FC1A8C44F300356B38 /* Tools */,
 				4665F4E51A85E76100A2F031 /* MWFeedParser */,
 				4665F4CE1A85E72300A2F031 /* Categories */,
@@ -362,6 +366,15 @@
 				46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */,
 			);
 			name = Search;
+			sourceTree = "<group>";
+		};
+		46DF39EC1A8CE2E100A1E8C1 /* SystemConfig */ = {
+			isa = PBXGroup;
+			children = (
+				46DF39ED1A8CE30000A1E8C1 /* LZSystemConfig.h */,
+				46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */,
+			);
+			name = SystemConfig;
 			sourceTree = "<group>";
 		};
 		511C1719E81B9C3D2B388BDA /* Pods */ = {
@@ -520,6 +533,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46DF39EF1A8CE30000A1E8C1 /* LZSystemConfig.m in Sources */,
 				4665F4F01A85E78F00A2F031 /* DetailTableViewController.m in Sources */,
 				4665F5161A85EC5300A2F031 /* LZLikeItem.m in Sources */,
 				4665F4CB1A85E6F600A2F031 /* LZSubscribeTextField.m in Sources */,

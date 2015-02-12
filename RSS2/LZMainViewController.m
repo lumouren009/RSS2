@@ -60,7 +60,7 @@
     self.itemsToDisplay = [NSArray array];
     self.themeColor = [UIColor whiteColor];
     NSInteger colorTag = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:kTextBackgroundColorTag] integerValue];
-    [self configureThemeColorWithTag:colorTag];
+    self.themeColor = [LZSystemConfig themeColorWithTag:colorTag];
 
 
     
@@ -295,41 +295,9 @@
     [self.sideMenuViewController openMenuAnimated:YES completion:nil];
 }
 
-- (void)configureThemeColorWithTag:(NSInteger) colorTag {
-    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
-    switch (colorTag) {
-        case 0:
-            themeColor = [UIColor whiteColor];
-            //[toolbar setBarTintColor:[UIColor whiteColor]];
-            [UIScreen mainScreen].brightness = 0.8;
-            
-            break;
-        case 1:
-            themeColor = [UIColor colorWithRed:1.00 green:0.95 blue:0.80 alpha:1.0];
-            //[toolbar setBarTintColor:[UIColor colorWithRed:1.00 green:0.95 blue:0.80 alpha:1.0]];
-            [UIScreen mainScreen].brightness = 0.6;
-            break;
-            
-        case 2:
-            themeColor = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0];
-            //[toolbar setBarTintColor:[UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0]];
-            [UIScreen mainScreen].brightness = 0.4;
-            break;
-            
-        case 3:
-            themeColor = [UIColor blackColor];
-            [UIScreen mainScreen].brightness = 0.2;
-
-            break;
-        default:
-            break;
-    }
-
-}
-
 - (void)changeThemeColor:(NSNotification *)notification {
     NSInteger tag = [[notification.userInfo objectForKey:@"themeColorTag"] integerValue];
-    [self configureThemeColorWithTag:tag];
+    themeColor  = [LZSystemConfig themeColorWithTag:tag];
 }
 
 

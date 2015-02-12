@@ -281,7 +281,7 @@
     
     NSString *htmlData  = [NSString stringWithFormat:
                            @"<h1>%@</h1><p class='date'>%@ / %@</p> %@", itemTitle, self.feedTitle, self.dateString, feedItem.content.length > feedItem.summary.length ? self.contentString : self.summaryString];
-    [self setThemeBackgroundColorWithTag:textBackgroundColorTag];
+    blogWebView.backgroundColor =  [LZSystemConfig themeColorWithTag:textBackgroundColorTag];
     [blogWebView loadHTMLString:[cssTypeString stringByAppendingString:htmlData] baseURL:nil];
     [blogWebView setOpaque:NO];
     blogWebView.delegate = self;
@@ -445,48 +445,13 @@
 - (void)setThemeColor:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:kChangeThemeColorNotification object:nil userInfo:@{@"themeColorTag":[NSNumber numberWithInteger:sender.tag]}];
     NSUInteger tag = sender.tag;
-    [self setThemeBackgroundColorWithTag:tag];
-}
-
-- (void)setThemeBackgroundColorWithTag:(NSInteger)tag {
+    [blogWebView setBackgroundColor:[LZSystemConfig themeColorWithTag:tag]];
     textBackgroundColorTag = tag;
-    switch (tag) {
-        case 0:
-            [blogWebView setBackgroundColor:[UIColor whiteColor]];
-            
-            //[toolbar setBarTintColor:[UIColor whiteColor]];
-            [UIScreen mainScreen].brightness = 0.8;
-            
-            break;
-        case 1:
-            [blogWebView setBackgroundColor:[UIColor colorWithRed:1.00 green:0.95 blue:0.80 alpha:1.0]];
-            //[toolbar setBarTintColor:[UIColor colorWithRed:1.00 green:0.95 blue:0.80 alpha:1.0]];
-            [UIScreen mainScreen].brightness = 0.6;
-            break;
-            
-        case 2:
-            [blogWebView setBackgroundColor:[UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0]];
-            //[toolbar setBarTintColor:[UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0]];
-            [UIScreen mainScreen].brightness = 0.4;
-            break;
-            
-        case 3:
-            [blogWebView setBackgroundColor:[UIColor blackColor]];
-            
-            [UIScreen mainScreen].brightness = 0.2;
-            //Change Toolbar tint color
-            
-            break;
-        default:
-            break;
-    }
-
 }
 
 - (void) changeScreenBrightness:(UISlider *)sender {
     [[UIScreen mainScreen] setBrightness:sender.value];
 }
-
 
 #pragma mark -
 #pragma mark Recognizer methods

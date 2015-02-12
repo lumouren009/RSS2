@@ -23,6 +23,7 @@
 #import "constants.h"
 #import <FontasticIcons.h>
 #import "LZManagedObjectManager.h"
+#import "LZSystemConfig.h"
 #endif
 
 #ifdef DEBUG
