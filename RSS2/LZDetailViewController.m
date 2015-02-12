@@ -443,7 +443,7 @@
 
 
 - (void)setThemeColor:(UIButton *)sender {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kChangeThemeColorNotification object:nil userInfo:@{@"themeColorTag":[NSNumber numberWithInteger:sender.tag]}];
     NSUInteger tag = sender.tag;
     [self setThemeBackgroundColorWithTag:tag];
 }
@@ -453,6 +453,7 @@
     switch (tag) {
         case 0:
             [blogWebView setBackgroundColor:[UIColor whiteColor]];
+            
             //[toolbar setBarTintColor:[UIColor whiteColor]];
             [UIScreen mainScreen].brightness = 0.8;
             
@@ -474,7 +475,6 @@
             
             [UIScreen mainScreen].brightness = 0.2;
             //Change Toolbar tint color
-            
             
             break;
         default:

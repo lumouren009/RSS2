@@ -9,6 +9,7 @@
 // Notification
 #define kAddFeedNotification @"kAddFeedNotification"
 #define kModifyLZLikeItemArrayNotification @"kModifyLZLikeItemArrayNotification"
+#define kChangeThemeColorNotification      @"ChangeThemeColorNotification"
 
 #define kGlobalFontSize             @"kGlobalFontSize"
 #define kTextBackgroundColorTag     @"kTextBackgroundColorTag"

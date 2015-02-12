@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */; };
 		46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */; };
+		4635D74B1A8CCD4D003E124F /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 4635D7481A8CCD4D003E124F /* UIImage+ProportionalFill.m */; };
+		4635D74C1A8CCD4D003E124F /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4635D74A1A8CCD4D003E124F /* UIImage+Tint.m */; };
 		463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96611A8C8C620084BD55 /* LZStringTools.m */; };
 		463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96641A8C9B130084BD55 /* LZFileTools.m */; };
 		463C96681A8CAB480084BD55 /* LZManagedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96671A8CAB480084BD55 /* LZManagedObjectManager.m */; };
@@ -62,6 +64,10 @@
 		46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSubscribeFeed.m; path = Model/LZSubscribeFeed.m; sourceTree = "<group>"; };
 		46358F711A86485B00FF37F6 /* LZLikeMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZLikeMainTableViewController.h; path = Controllers/LZLikeMainTableViewController.h; sourceTree = "<group>"; };
 		46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZLikeMainTableViewController.m; path = Controllers/LZLikeMainTableViewController.m; sourceTree = "<group>"; };
+		4635D7471A8CCD4D003E124F /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
+		4635D7481A8CCD4D003E124F /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
+		4635D7491A8CCD4D003E124F /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
+		4635D74A1A8CCD4D003E124F /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
 		463C96601A8C8C620084BD55 /* LZStringTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZStringTools.h; path = Helpers/LZStringTools.h; sourceTree = "<group>"; };
 		463C96611A8C8C620084BD55 /* LZStringTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZStringTools.m; path = Helpers/LZStringTools.m; sourceTree = "<group>"; };
 		463C96631A8C9B130084BD55 /* LZFileTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZFileTools.h; sourceTree = "<group>"; };
@@ -341,6 +347,10 @@
 				463C96611A8C8C620084BD55 /* LZStringTools.m */,
 				463C96631A8C9B130084BD55 /* LZFileTools.h */,
 				463C96641A8C9B130084BD55 /* LZFileTools.m */,
+				4635D7471A8CCD4D003E124F /* UIImage+ProportionalFill.h */,
+				4635D7481A8CCD4D003E124F /* UIImage+ProportionalFill.m */,
+				4635D7491A8CCD4D003E124F /* UIImage+Tint.h */,
+				4635D74A1A8CCD4D003E124F /* UIImage+Tint.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -517,10 +527,12 @@
 				4665F4FA1A85E83400A2F031 /* AppDelegate.m in Sources */,
 				4665F4D81A85E74100A2F031 /* NSString+HTML.m in Sources */,
 				4665F4E21A85E75800A2F031 /* MWFeedParser.m in Sources */,
+				4635D74B1A8CCD4D003E124F /* UIImage+ProportionalFill.m in Sources */,
 				4665F4D71A85E74100A2F031 /* NSString+XMLEntities.m in Sources */,
 				463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */,
 				4665F4DA1A85E74100A2F031 /* GTMNSString+HTML.m in Sources */,
 				46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */,
+				4635D74C1A8CCD4D003E124F /* UIImage+Tint.m in Sources */,
 				4665F4CC1A85E6F600A2F031 /* FontChangeView.m in Sources */,
 				4665F4F41A85E78F00A2F031 /* LZDetailViewController.m in Sources */,
 				4665F4F11A85E78F00A2F031 /* LZMenuViewController.m in Sources */,
