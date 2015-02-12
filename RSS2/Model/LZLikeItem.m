@@ -52,7 +52,7 @@
     LZLikeItem *likeItem = nil;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:kLZItemEntityString inManagedObjectContext:managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kLZLikeItemEntityString inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];

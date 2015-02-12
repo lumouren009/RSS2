@@ -70,18 +70,23 @@
 
 + (LZItem *)convertMWFeedItemIntoItem:(MWFeedItem *)feedItem withContext:(NSManagedObjectContext *)managedObjectContext {
     
-    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
-    if (item == nil) {
-        item = (LZItem *)[NSEntityDescription insertNewObjectForEntityForName:kLZItemEntityString inManagedObjectContext:managedObjectContext];
-        item.author = feedItem.author;
-        item.content = feedItem.content;
-        item.date = feedItem.date;
-        item.identifier = feedItem.identifier;
-        item.link = feedItem.link;
-        item.summary = feedItem.summary;
-        item.title = feedItem.title;
+    //LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kLZItemEntityString inManagedObjectContext:context];
+    LZItem *item = (LZItem *)[[NSManagedObject alloc]initWithEntity:entity insertIntoManagedObjectContext:nil];
 
-    }
+
+    item.author = feedItem.author;
+    item.content = feedItem.content;
+    item.date = feedItem.date;
+    item.identifier = feedItem.identifier;
+    item.link = feedItem.link;
+    item.summary = feedItem.summary;
+    item.title = feedItem.title;
+
+    
     return item;
 }
 

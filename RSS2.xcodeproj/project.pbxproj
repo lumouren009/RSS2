@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */; };
 		46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */; };
+		463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96611A8C8C620084BD55 /* LZStringTools.m */; };
+		463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96641A8C9B130084BD55 /* LZFileTools.m */; };
+		4646EEF31A8B46F900995B9D /* Lacalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4646EEF51A8B46F900995B9D /* Lacalizable.strings */; };
 		4665F4951A85E68200A2F031 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4941A85E68200A2F031 /* main.m */; };
 		4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4665F49F1A85E68200A2F031 /* Images.xcassets */; };
 		4665F4AF1A85E68300A2F031 /* RSS2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4AE1A85E68300A2F031 /* RSS2Tests.m */; };
@@ -35,6 +38,7 @@
 		4665F5101A85EC5300A2F031 /* LZItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F50F1A85EC5300A2F031 /* LZItem.m */; };
 		4665F5131A85EC5300A2F031 /* LZFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F5121A85EC5300A2F031 /* LZFeedInfo.m */; };
 		4665F5161A85EC5300A2F031 /* LZLikeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F5151A85EC5300A2F031 /* LZLikeItem.m */; };
+		468232FF1A8C451B00356B38 /* LZImageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 468232FE1A8C451B00356B38 /* LZImageTools.m */; };
 		4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4693A8B21A88A5F000AF1B5E /* LZInfoTableViewCell.m */; };
 		46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */; };
 		46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */; };
@@ -57,6 +61,14 @@
 		46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSubscribeFeed.m; path = Model/LZSubscribeFeed.m; sourceTree = "<group>"; };
 		46358F711A86485B00FF37F6 /* LZLikeMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZLikeMainTableViewController.h; path = Controllers/LZLikeMainTableViewController.h; sourceTree = "<group>"; };
 		46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZLikeMainTableViewController.m; path = Controllers/LZLikeMainTableViewController.m; sourceTree = "<group>"; };
+		463C96601A8C8C620084BD55 /* LZStringTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZStringTools.h; path = Helpers/LZStringTools.h; sourceTree = "<group>"; };
+		463C96611A8C8C620084BD55 /* LZStringTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZStringTools.m; path = Helpers/LZStringTools.m; sourceTree = "<group>"; };
+		463C96631A8C9B130084BD55 /* LZFileTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZFileTools.h; sourceTree = "<group>"; };
+		463C96641A8C9B130084BD55 /* LZFileTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZFileTools.m; sourceTree = "<group>"; };
+		4646EEF11A8B46F200995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		4646EEF21A8B46F200995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		4646EEF41A8B46F900995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Lacalizable.strings"; sourceTree = "<group>"; };
+		4646EEF61A8B470000995B9D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Lacalizable.strings; sourceTree = "<group>"; };
 		4665F48F1A85E68200A2F031 /* RSS2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSS2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4665F4941A85E68200A2F031 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4665F49D1A85E68200A2F031 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +121,8 @@
 		4665F5121A85EC5300A2F031 /* LZFeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZFeedInfo.m; path = Model/LZFeedInfo.m; sourceTree = "<group>"; };
 		4665F5141A85EC5300A2F031 /* LZLikeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZLikeItem.h; path = Model/LZLikeItem.h; sourceTree = "<group>"; };
 		4665F5151A85EC5300A2F031 /* LZLikeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZLikeItem.m; path = Model/LZLikeItem.m; sourceTree = "<group>"; };
+		468232FD1A8C451B00356B38 /* LZImageTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZImageTools.h; path = Helpers/LZImageTools.h; sourceTree = "<group>"; };
+		468232FE1A8C451B00356B38 /* LZImageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZImageTools.m; path = Helpers/LZImageTools.m; sourceTree = "<group>"; };
 		4693A8B11A88A5F000AF1B5E /* LZInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZInfoTableViewCell.h; path = Views/LZInfoTableViewCell.h; sourceTree = "<group>"; };
 		4693A8B21A88A5F000AF1B5E /* LZInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZInfoTableViewCell.m; path = Views/LZInfoTableViewCell.m; sourceTree = "<group>"; };
 		46D005BF1A86308500C44E1F /* LZPrefixHeaderFile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZPrefixHeaderFile.pch; path = RSS2/LZPrefixHeaderFile.pch; sourceTree = "<group>"; };
@@ -141,6 +155,7 @@
 		4665F4861A85E68200A2F031 = {
 			isa = PBXGroup;
 			children = (
+				4646EEF51A8B46F900995B9D /* Lacalizable.strings */,
 				46D005BF1A86308500C44E1F /* LZPrefixHeaderFile.pch */,
 				46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */,
 				4665F4911A85E68200A2F031 /* RSS2 */,
@@ -256,6 +271,7 @@
 		4665F4BB1A85E6D200A2F031 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				468232FC1A8C44F300356B38 /* Tools */,
 				4665F4E51A85E76100A2F031 /* MWFeedParser */,
 				4665F4CE1A85E72300A2F031 /* Categories */,
 			);
@@ -309,6 +325,19 @@
 				4665F5061A85E8CB00A2F031 /* ic_bookmark.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		468232FC1A8C44F300356B38 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				468232FD1A8C451B00356B38 /* LZImageTools.h */,
+				468232FE1A8C451B00356B38 /* LZImageTools.m */,
+				463C96601A8C8C620084BD55 /* LZStringTools.h */,
+				463C96611A8C8C620084BD55 /* LZStringTools.m */,
+				463C96631A8C9B130084BD55 /* LZFileTools.h */,
+				463C96641A8C9B130084BD55 /* LZFileTools.m */,
+			);
+			name = Tools;
 			sourceTree = "<group>";
 		};
 		46DCEB3A1A8856FD00EED7DF /* Search */ = {
@@ -423,6 +452,7 @@
 				4665F5031A85E88B00A2F031 /* galaxy.png in Resources */,
 				46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */,
 				4665F5081A85E8CB00A2F031 /* ic_bookmark.png in Resources */,
+				4646EEF31A8B46F900995B9D /* Lacalizable.strings in Resources */,
 				4665F5021A85E88B00A2F031 /* mainWindow.xib in Resources */,
 				4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */,
 			);
@@ -483,16 +513,19 @@
 				4665F4D81A85E74100A2F031 /* NSString+HTML.m in Sources */,
 				4665F4E21A85E75800A2F031 /* MWFeedParser.m in Sources */,
 				4665F4D71A85E74100A2F031 /* NSString+XMLEntities.m in Sources */,
+				463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */,
 				4665F4DA1A85E74100A2F031 /* GTMNSString+HTML.m in Sources */,
 				46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */,
 				4665F4CC1A85E6F600A2F031 /* FontChangeView.m in Sources */,
 				4665F4F41A85E78F00A2F031 /* LZDetailViewController.m in Sources */,
 				4665F4F11A85E78F00A2F031 /* LZMenuViewController.m in Sources */,
+				468232FF1A8C451B00356B38 /* LZImageTools.m in Sources */,
 				4665F4D91A85E74100A2F031 /* NSDate+InternetDateTime.m in Sources */,
 				4665F5101A85EC5300A2F031 /* LZItem.m in Sources */,
 				4665F50C1A85E93700A2F031 /* LZFeedInfo.xcdatamodeld in Sources */,
 				46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */,
 				46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */,
+				463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */,
 				4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */,
 				4665F5131A85EC5300A2F031 /* LZFeedInfo.m in Sources */,
 				4665F4F21A85E78F00A2F031 /* LZMainViewController.m in Sources */,
@@ -521,10 +554,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4646EEF51A8B46F900995B9D /* Lacalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4646EEF41A8B46F900995B9D /* zh-Hans */,
+				4646EEF61A8B470000995B9D /* en */,
+			);
+			name = Lacalizable.strings;
+			sourceTree = "<group>";
+		};
 		4665F49C1A85E68200A2F031 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4665F49D1A85E68200A2F031 /* Base */,
+				4646EEF11A8B46F200995B9D /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -533,6 +576,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4665F4A21A85E68200A2F031 /* Base */,
+				4646EEF21A8B46F200995B9D /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

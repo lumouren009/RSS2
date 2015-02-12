@@ -3,10 +3,10 @@
 
 target 'RSS2' do
 pod 'CocoaLumberjack'
-pod 'FontasticIcons'
 pod 'MBProgressHud'
 pod 'SBJson4', '~> 4.0.1'
 pod "AFNetworking", "~> 2.0"
+pod 'FontasticIcons'
 end
 
 target 'RSS2Tests' do

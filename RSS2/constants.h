@@ -17,7 +17,7 @@
 // DB Constants
 #define kLZLikeItemEntityString     @"LZLikeItem"
 #define kLZItemEntityString         @"LZItem"
-#define kLZFeedInfo                 @"LZFeedInfo"
+#define kLZFeedInfoEntityString                 @"LZFeedInfo"
 #define kLZSubsFeedEntityString                 @"LZSubscribeFeed"
 
 

@@ -15,6 +15,7 @@
 #import "LZSubscribeTextField.h"
 #import "LZLikeMainTableViewController.h"
 #import "LZFeedSearchViewController.h"
+#import "LZSubscribeFeed.h"
 
 
 
@@ -35,7 +36,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 @property (nonatomic, strong) NSMutableArray *feedURLArray;
 
-@property (nonatomic, strong) NSArray *feedInfos;
+@property (nonatomic, strong) NSMutableArray *subscribeFeeds;
 
 @property (nonatomic, strong) AppDelegate *appDelegate;
 
@@ -48,7 +49,8 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 @synthesize  subscribeURLTextField, addWebsiteBtn, subscribeBtn, appDelegate, feedsTitleTableView, managedObjectContext;
 
-@synthesize feedInfos;
+@synthesize subscribeFeeds;
+
 
 
 -(AppDelegate*)appDelegate
@@ -65,7 +67,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     self.managedObjectContext = appDelegate.managedObjectContext;
     
     // Fetch blog titles
-    self.feedInfos = [self feedInfos];
+    self.subscribeFeeds = [[LZSubscribeFeed getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
     
     // Setup UI
     [self setupUI];
@@ -78,15 +80,15 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 #pragma mark -
 #pragma mark Private Methods
 
-- (NSArray *) feedInfos
-{
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LZFeedInfo" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    return fetchedObjects;
-}
+//- (NSArray *) feedInfos
+//{
+//    NSError *error;
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LZFeedInfo" inManagedObjectContext:managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//    return fetchedObjects;
+//}
 
 
 - (void)setupUI
@@ -152,7 +154,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 }
 
 - (void)updateFeedsTitleTableView:(NSNotification*)notification{
-    self.feedInfos = [self feedInfos];
+    self.subscribeFeeds = [[LZSubscribeFeed getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
     NSLog(@"Observe the notification");
     [feedsTitleTableView reloadData];
 }
@@ -166,15 +168,16 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     }
 
 
-    LZFeedInfo *info;
+    LZSubscribeFeed *feed;
     switch (indexPath.section) {
         case 0:
             cell.textLabel.text = @"Read it Later";
             break;
         case 1:
-            if (feedInfos.count>0 && indexPath.row >0) {
-                info = (LZFeedInfo*)[feedInfos objectAtIndex:indexPath.row-1];
-                cell.textLabel.text = info.title;
+            if (subscribeFeeds.count>0 && indexPath.row >0) {
+                feed = (LZSubscribeFeed*)[subscribeFeeds objectAtIndex:indexPath.row-1];
+                cell.textLabel.text = feed.feedTitle;
+                
             }else {
                 cell.textLabel.text = @"Blogs";
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -200,7 +203,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             return 1;
             break;
         case 1:
-            return feedInfos.count+1;
+            return subscribeFeeds.count+1;
             break;
         case 2:
             return 1;
@@ -233,12 +236,30 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             break;
         }
         default:
-
             break;
     }
 
 
 }
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"subscribeFeeds.count:%ld", subscribeFeeds.count);
+        LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row-1];
+        [LZSubscribeFeed deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:managedObjectContext];
+        [subscribeFeeds removeObjectAtIndex:indexPath.row-1];
+        [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+    }
+}
+
 
 - (void) loadLZLikeMainViewController {
     NSLog(@"%@:%@", THIS_FILE, THIS_METHOD);
@@ -255,6 +276,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     LZMainViewController *mainViewController;
     UINavigationController *nvController = (UINavigationController *) self.sideMenuViewController.mainViewController;
     mainViewController = [nvController.viewControllers objectAtIndex:0];
+    
     if ([mainViewController isKindOfClass:[LZMainViewController class]]) {
         mainViewController = [nvController.viewControllers objectAtIndex:0];
     } else {
@@ -264,12 +286,12 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         [appDelegate.sideMenuViewController setMainViewController:nvController animated:NO closeMenu:YES];
     }
 
-    LZFeedInfo *info;
+    LZSubscribeFeed *feed;
     if (indexPath.row > 0) {
-        info = [feedInfos objectAtIndex:indexPath.row-1];
+       feed = [subscribeFeeds objectAtIndex:indexPath.row-1];
     }
     
-    NSURL *feedURL = [NSURL URLWithString:info.url];
+    NSURL *feedURL = [NSURL URLWithString:feed.feedId];
     
     switch (indexPath.section) {
         case 0:

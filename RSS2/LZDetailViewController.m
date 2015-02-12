@@ -276,7 +276,7 @@
                                "body { color:#888888 }</style>", @(23*ratio), @(18*ratio), @(15*ratio), @(12*ratio)];
     
     NSString *htmlData  = [NSString stringWithFormat:
-                           @"<h1>%@</h1><p class='date'>%@ / %@</p> %@", itemTitle, self.feedTitle, self.dateString, feedItem.content ? self.contentString : self.summaryString];
+                           @"<h1>%@</h1><p class='date'>%@ / %@</p> %@", itemTitle, self.feedTitle, self.dateString, feedItem.content.length > feedItem.summary.length ? self.contentString : self.summaryString];
     [self setThemeBackgroundColorWithTag:textBackgroundColorTag];
     [blogWebView loadHTMLString:[cssTypeString stringByAppendingString:htmlData] baseURL:nil];
     [blogWebView setOpaque:NO];

@@ -41,6 +41,22 @@
 }
 
 
++(NSArray *)getAllSubscribeFeedsWithContext:(NSManagedObjectContext *)context {
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kLZSubsFeedEntityString inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *fetchObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        NSLog(@"Whoops, couldn't get: %@", [error localizedDescription]);
+    }
+    return fetchObjects;
+    
+}
+
+
 +(void)insertIntoSubscribeFeedDBWithTitle:(NSString *)title andFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context {
     DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
     LZSubscribeFeed *feed = [LZSubscribeFeed getSubscribeFeedWithFeedId:feedId withContext:context];
@@ -59,6 +75,18 @@
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             
         }
+    }
+}
+
+
++ (BOOL)deleteSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context {
+    LZSubscribeFeed *feed = [LZSubscribeFeed getSubscribeFeedWithFeedId:feedId withContext:context];
+    if (feed) {
+        [context deleteObject:feed];
+        return YES;
+    } else {
+        NSLog(@"Delete subscribe feed failure!!");
+        return NO;
     }
 }
 

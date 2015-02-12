@@ -54,7 +54,7 @@
     
     
     // Search bar
-    self.searchBar.placeholder = @"输入URL/关键字";
+    self.searchBar.placeholder = NSLocalizedString(@"Search with URL/Key words", nil);
     self.searchBar.delegate = self;
     
     // HTTP request
@@ -125,7 +125,7 @@
         }
         
         if (nMarked == 0) {
-            [self convertButtonTitle:@"Save" toTitle:@"Cancel" inView:self.searchBar];
+            [self convertButtonTitle:NSLocalizedString(@"Save", nil) toTitle:NSLocalizedString(@"Cancel", nil) inView:self.searchBar];
         }
 
     } else {
@@ -134,8 +134,8 @@
         nMarked += 1;
         cell.accessoryView = nil;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:@"Save"] == NO) {
-            [self convertButtonTitle:@"Cancel" toTitle:@"Save" inView:self.searchBar];
+        if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:NSLocalizedString(@"Save", nil)] == NO) {
+            [self convertButtonTitle:NSLocalizedString(@"Cancel", nil) toTitle:NSLocalizedString(@"Save", nil) inView:self.searchBar];
         }
         [self.subscribeIndexs addObject:[NSNumber numberWithInteger:indexPath.row]];
         
@@ -184,7 +184,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
     nMarked = 0;
-    [self convertButtonTitle:@"Save" toTitle:@"Cancel" inView:self.searchBar];
+    [self convertButtonTitle:NSLocalizedString(@"Save", nil) toTitle:NSLocalizedString(@"Cancel", nil) inView:self.searchBar];
     
     if (searchText.length < 4) {
         [feedTitles removeAllObjects];
@@ -200,9 +200,9 @@
         requestURLString = [requestURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         httpManager = [AFHTTPRequestOperationManager manager];
         [httpManager GET:requestURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"JSON: %@", responseObject);
+            //NSLog(@"JSON: %@", responseObject);
             NSMutableArray *resultsArray = [responseObject objectForKey:@"results"];
-            NSLog(@"resultsArray count:%ld",(long)resultsArray.count);
+            //NSLog(@"resultsArray count:%ld",(long)resultsArray.count);
             [feedTitles removeAllObjects];
             [feedIds removeAllObjects];
             if (resultsArray.count > 0) {
@@ -236,13 +236,14 @@
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:@"Save"]) {
+    if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:NSLocalizedString(@"Save", nil)]) {
         for (NSNumber *number in self.subscribeIndexs) {
             [LZSubscribeFeed insertIntoSubscribeFeedDBWithTitle:[self.feedTitles objectAtIndex:number.integerValue] andFeedId:[self.feedIds objectAtIndex:number.integerValue] withContext:context];
         }
     }
     
     [self setActive:NO];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kAddFeedNotification object:nil];
     
 }
 

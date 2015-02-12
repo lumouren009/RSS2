@@ -16,7 +16,9 @@
 #import "constants.h"
 #import "LZInfoTableViewCell.h"
 #import "LZSubscribeFeed.h"
-
+#import "LZImageTools.h"
+#import "LZStringTools.h"
+#import "LZFileTools.h"
 
 
 @interface LZMainViewController ()
@@ -44,13 +46,12 @@
     self.managedObjectContext = appDelegate.managedObjectContext;
     [self.navigationController.navigationBar setHidden:NO];
     self.refreshControl = [[UIRefreshControl alloc]init];
-   
-   
+    self.imageURLStringArray = [[NSMutableArray alloc]init];
 
     
-    [self.refreshControl addTarget:self action:@selector(refreshTableView:) forControlEvents:UIControlEventValueChanged];
-    
-
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshTableView:)
+                  forControlEvents:UIControlEventValueChanged];
     
     // Setup
     self.title = @"Blog titles";
@@ -62,19 +63,22 @@
     self.itemsToDisplay = [NSArray array];
     
     // BarButtons
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(openButtonPressed)];
+    self.navigationItem.leftBarButtonItem =
+    [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                 target:self action:@selector(openButtonPressed)];
     
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                                                           target:self
-                                                                                           action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItem =
+    [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                 target:self
+                                                 action:@selector(refresh)];
    
     self.feedURLString = @"http://blog.devtang.com/atom.xml";
     [self parseFeedURL:[NSURL URLWithString:_feedURLString]];
     
     
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kTableViewCellIdentifier];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -86,11 +90,14 @@
 #pragma mark Public Methods
 - (void)parseFeedURL:(NSURL *)feedURL
 {
+    
+    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     // Parse
     // NSURL *feedURL = [NSURL URLWithString:@"http://techcrunch.com/feed/"];
     //NSURL *feedURL = [NSURL URLWithString:@"http://blog.devtang.com/atom.xml"];
     //阮一峰 http://www.ruanyifeng.com/blog/atom.xml
     [parsedItems removeAllObjects];
+    [imageURLStringArray removeAllObjects];
     feedParser = [[MWFeedParser alloc]initWithFeedURL:feedURL];
     feedParser.delegate = self;
     feedParser.feedParseType = ParseTypeFull;
@@ -98,77 +105,15 @@
     [feedParser parse];
 }
 
-#pragma mark - 
-#pragma mark Private Methods
-
-- (BOOL)insertIntoFeedInfo:(MWFeedInfo*)info
-{
-    
-    if (!info) {
-        return NO;
-    }
-    
-    LZFeedInfo *infoObject = [self getFeedInfoByURLString:[info.url absoluteString]];
-    
-    if (infoObject == nil) {
-        infoObject = (LZFeedInfo *)[NSEntityDescription insertNewObjectForEntityForName:@"LZFeedInfo" inManagedObjectContext:self.managedObjectContext];
-        infoObject.url = [info.url absoluteString];
-        infoObject.title = info.title;
-        infoObject.summary = info.summary;
-        infoObject.link = info.link;
-        infoObject.createTime = [NSDate date];
-        
-        NSError *error;
-        if (![managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-    }
-    return YES;
-    
-}
-
-
-- (LZFeedInfo *) getFeedInfoByURLString:(NSString*)URLString
-{
-    
-    LZFeedInfo *info = nil;
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LZFeedInfo" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"url == %@", URLString];
-    [fetchRequest setPredicate:predicate];
-    [fetchRequest setFetchLimit:1];
-    
-    
-    
-    NSError *error;
-    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        NSLog(@"Whoops, couldn't get: %@", [error localizedDescription]);
-    }
-    if (fetchedObjects && fetchedObjects.count > 0) {
-        info = (LZFeedInfo*) [fetchedObjects objectAtIndex:0];
-    }
-    
-    return info;
-}
-
-
-- (void)notifyMenuView:(MWFeedInfo*)info
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kAddFeedNotification object:self];
-}
-
-
-#pragma mark - 
+#pragma mark -
 #pragma mark Parsing
 
 // Reset and reparse
 - (void)refresh {
+    DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
     self.title = @"Refreshing";
     [parsedItems removeAllObjects];
+    
     [feedParser stopParsing];
     [feedParser parse];
     self.tableView.userInteractionEnabled = NO;
@@ -176,45 +121,13 @@
 }
 
 - (void)updateTableWithParsedItems {
-    self.itemsToDisplay = [parsedItems sortedArrayUsingDescriptors:[NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO]]];
-    [self parseImageURLStringArray];
+    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
+    self.itemsToDisplay = [parsedItems sortedArrayUsingDescriptors:
+                           [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO]]];
+
     self.tableView.userInteractionEnabled = YES;
     self.tableView.alpha = 1;
     [self.tableView reloadData];
-}
-
-#pragma mark - Private methods
-- (void)parseImageURLStringArray {
-    
-    
-    for (MWFeedItem *item in self.itemsToDisplay) {
-        
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"src=\"[^>]*(jpg|png)\"" options:NSRegularExpressionCaseInsensitive error:nil];
-        NSArray *matchedArray = nil;
-       
-        NSString *content = item.content ? item.content : item.summary;
-        
-        matchedArray = [regex matchesInString:content options:0 range:NSMakeRange(0,content.length)];
-        
-        NSString *str1;
-        if (matchedArray.count > 0) {
-            NSTextCheckingResult *result1 = matchedArray[0];
-        
-            if (result1) {
-                str1 = [content substringWithRange:result1.range];
-                str1 = [str1 substringFromIndex:5];
-                str1 = [str1 substringToIndex:str1.length-1];
-            } else {
-                str1 = @" No match string!";
-            }
-        } else {
-            str1 = @" No match string!!!";
-        }
-        NSLog(@"str1:%@", str1);
-    }
-    
-   
-    
 }
 
 #pragma mark -
@@ -222,20 +135,33 @@
 
 - (void)feedParserDidStart:(MWFeedParser *)parser {
     NSLog(@"Started Parsing: %@", parser.url);
+    [imageURLStringArray removeAllObjects];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
     NSLog(@"Parsed Feed Info: “%@”", info.title);
     self.title = info.title;
     self.feedInfo = info;
-    [self insertIntoFeedInfo:info];
-    [self notifyMenuView:info];
+    [LZFeedInfo insertIntoFeedInfoWithMWFeedInfo:info withContext:managedObjectContext];
     
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
     NSLog(@"Parsed Feed Item: “%@”", item.title);
-    if (item) [parsedItems addObject:item];
+    if (item) {
+        [parsedItems addObject:item];
+        NSString *itemContent = item.content ? item.content:item.summary;
+        itemContent = itemContent ? itemContent : @"[No Content]";
+        NSString *imageURLTag = [LZStringTools firstMatchInString:itemContent withPattern:@"src=[^>]*(jpg|png)"];
+        NSString *str = [imageURLTag isEqualToString:@""] ? @"" : [imageURLTag substringFromIndex:5];
+        NSString *imageFileName = [[str componentsSeparatedByString:@"/"] lastObject];
+        [imageURLStringArray addObject:str];
+        
+        if (![str isEqualToString:@""] && ![LZFileTools isFileExistInDocumentDirectory:imageFileName]) {
+            [LZFileTools saveImageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]] andFileName:imageFileName];
+        }
+
+    }
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser {
@@ -259,11 +185,6 @@
     [self updateTableWithParsedItems];
 }
 
-- (void)openButtonPressed
-{
-    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
-}
-
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -277,29 +198,23 @@
     LZInfoTableViewCell *cell = (LZInfoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewCellIdentifier];
     if (cell==nil) {
         cell = [[LZInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewCellIdentifier];
-        
-        cell.imageView.image = [UIImage imageNamed:@"ic_star_w"];
-        
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    // Configure the cell.
     MWFeedItem *item = [itemsToDisplay objectAtIndex:indexPath.row];
     if (item) {
-        
-        // Process
-        NSString *itemTitle = item.title ? [item.title stringByConvertingHTMLToPlainText] : @"[No Title]";
-        NSString *itemSummary = item.summary ? [item.summary stringByConvertingHTMLToPlainText] : @"[No Summary]";
-        
-        // Set
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        cell.textLabel.text = itemTitle;
-        NSMutableString *subtitle = [NSMutableString string];
-        if (item.date) [subtitle appendFormat:@"%@: ", [formatter stringFromDate:item.date]];
-        [subtitle appendString:[itemSummary substringToIndex:60]];
-        cell.detailTextLabel.text = subtitle;
+        cell.textLabel.text = item.title ? [item.title stringByConvertingHTMLToPlainText] : @"[No Title]";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@", [formatter stringFromDate:item.date ? item.date : [NSDate date]], item.summary ? [item.summary stringByConvertingHTMLToPlainText] : @"[No Summary]"];
 
-        
+        UIImage *cellImage = nil;
+        if (![imageURLStringArray[indexPath.row] isEqualToString:@""]) {
+            NSArray *parts = [imageURLStringArray[indexPath.row] componentsSeparatedByString:@"/"];
+            cellImage = [LZFileTools getImageFromFileWithFileName:[parts lastObject]];
+            cell.imageView.image = [LZImageTools imageWithImage:cellImage scaleToSize:CGSizeMake(60, 60)];
+        } else {
+            cell.imageView.image = [LZImageTools blankImageWithSize:CGSizeMake(60, 60) withColor:[UIColor whiteColor]];
+        }
     }
     return cell;
 
@@ -314,14 +229,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Show detail
+
     LZDetailViewController *detail = [[LZDetailViewController alloc]init];
-    detail.feedItem = [LZItem convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:managedObjectContext];
+    detail.feedItem = [LZItem convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
     detail.feedTitle = self.feedInfo.title;
 
     [self.navigationController pushViewController:detail animated:YES];
-    
-    // Deselect
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
@@ -329,6 +242,7 @@
 
 #pragma mark - Refresh control action
 - (void)refreshTableView:(UIRefreshControl *)sender {
+    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     [self refresh];
    
     UILabel *titleLabel = [[[[self.refreshControl subviews] firstObject] subviews] lastObject];
@@ -338,9 +252,13 @@
         NSString *title = [NSString stringWithFormat:@"Refresh...\nLast update:%@",dateString];
         self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:title];
     }
-    
-
     [sender endRefreshing];
+}
+
+
+- (void)openButtonPressed
+{
+    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
 }
 
 @end

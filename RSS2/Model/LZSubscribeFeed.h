@@ -19,4 +19,9 @@
 +(void)insertIntoSubscribeFeedDBWithTitle:(NSString *)title andFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
 +(LZSubscribeFeed *)getSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
 
++(NSArray *)getAllSubscribeFeedsWithContext:(NSManagedObjectContext *)context;
+
++ (BOOL)deleteSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
+
+
 @end
