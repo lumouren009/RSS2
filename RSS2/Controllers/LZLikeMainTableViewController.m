@@ -38,7 +38,7 @@
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
     self.sideMenuViewController = appDelegate.sideMenuViewController;
-    self.likeItemArray = [LZLikeItem getAllLikeItemsWithContext:managedObjectContext];
+    self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:managedObjectContext];
     self.title = @"Bookmarks";
     
     formatter = [[NSDateFormatter alloc]init];
@@ -57,7 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"%@: %@", THIS_FILE, THIS_METHOD);
     [super viewDidAppear:animated];
-    self.likeItemArray = [LZLikeItem getAllLikeItemsWithContext:managedObjectContext];
+    self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:managedObjectContext];
     [self.tableView reloadData];
     [self.navigationController.navigationBar setHidden:NO];
 }

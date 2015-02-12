@@ -11,7 +11,7 @@
 @implementation LZFileTools
 
 + (BOOL)saveImageWithData:(NSData *)data andFileName:(NSString *)fileName {
-    
+    NSLog(@"%@.%@:save file %@", THIS_FILE, THIS_METHOD, fileName);
     if (data == nil) {
         NSLog(@"%@.%@ data is nil", THIS_FILE, THIS_METHOD);
         return NO;

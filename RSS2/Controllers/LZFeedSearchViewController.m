@@ -134,6 +134,7 @@
         nMarked += 1;
         cell.accessoryView = nil;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        NSLog(@"cancel Btn title:%@", [cancelButton titleColorForState:UIControlStateNormal]);
         if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:NSLocalizedString(@"Save", nil)] == NO) {
             [self convertButtonTitle:NSLocalizedString(@"Cancel", nil) toTitle:NSLocalizedString(@"Save", nil) inView:self.searchBar];
         }
@@ -149,7 +150,7 @@
 - (BOOL)isFeedSubscribedWithFeedId:(NSString *)mfeedId {
     // If the cell's text is not in LZSubscribeFeed
     // Return NO
-    if (OBJ_IS_NIL([LZSubscribeFeed getSubscribeFeedWithFeedId:mfeedId withContext:context]))
+    if (OBJ_IS_NIL([LZManagedObjectManager getSubscribeFeedWithFeedId:mfeedId withContext:context]))
         return NO;
     else
         return YES;
@@ -209,7 +210,7 @@
                 
                 for (NSDictionary *result in resultsArray) {
                     NSString *mFeedId = [[result objectForKey:@"feedId"] substringFromIndex:5];
-                    if (OBJ_IS_NIL([LZSubscribeFeed getSubscribeFeedWithFeedId:mFeedId withContext:context])) {
+                    if (OBJ_IS_NIL([LZManagedObjectManager getSubscribeFeedWithFeedId:mFeedId withContext:context])) {
                         
                         [feedTitles addObject:[result objectForKey:@"title"]];
                         [feedIds addObject:mFeedId];
@@ -238,7 +239,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:NSLocalizedString(@"Save", nil)]) {
         for (NSNumber *number in self.subscribeIndexs) {
-            [LZSubscribeFeed insertIntoSubscribeFeedDBWithTitle:[self.feedTitles objectAtIndex:number.integerValue] andFeedId:[self.feedIds objectAtIndex:number.integerValue] withContext:context];
+            [LZManagedObjectManager insertIntoSubscribeFeedDBWithTitle:[self.feedTitles objectAtIndex:number.integerValue] andFeedId:[self.feedIds objectAtIndex:number.integerValue] withContext:context];
         }
     }
     

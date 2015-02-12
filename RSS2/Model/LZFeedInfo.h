@@ -20,9 +20,5 @@
 @property (nonatomic, retain) NSString * summary;
 
 
-+ (BOOL)insertIntoFeedInfoWithMWFeedInfo:(MWFeedInfo *)info withContext:(NSManagedObjectContext *)context;
-
-
-+ (LZFeedInfo *)getFeedInfoByURLString:(NSString*)URLString withContext:(NSManagedObjectContext *)context;
 
 @end

@@ -19,18 +19,22 @@
 #import "LZImageTools.h"
 #import "LZStringTools.h"
 #import "LZFileTools.h"
+#import <MBProgressHUD.h>
 
 
-@interface LZMainViewController ()
+@interface LZMainViewController () <MBProgressHUDDelegate>
 @property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSMutableArray *imageURLStringArray;
+@property (nonatomic, strong) NSMutableArray *imageURLStringsToDisplay;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 
 @implementation LZMainViewController
 
 @synthesize itemsToDisplay, appDelegate, managedObjectContext;
-@synthesize imageURLStringArray;
+@synthesize imageURLStringArray, imageURLStringsToDisplay;
+@synthesize hud;
 
 -(AppDelegate*)appDelegate
 {
@@ -74,9 +78,16 @@
                                                  action:@selector(refresh)];
    
     self.feedURLString = @"http://blog.devtang.com/atom.xml";
+    
+    // Hud
+    hud = [[MBProgressHUD alloc]initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:hud];
+   
+    hud.delegate = self;
+    hud.labelText = NSLocalizedString(@"Loading", nil);
+    
     [self parseFeedURL:[NSURL URLWithString:_feedURLString]];
-    
-    
+
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 
 }
@@ -101,7 +112,10 @@
     feedParser = [[MWFeedParser alloc]initWithFeedURL:feedURL];
     feedParser.delegate = self;
     feedParser.feedParseType = ParseTypeFull;
+    //feedParser.feedParseType = ParseTypeInfoOnly;
     feedParser.connectionType = ConnectionTypeAsynchronously;
+    //feedParser.connectionType = ConnectionTypeSynchronously;
+    //[hud showWhileExecuting:@selector(parse) onTarget:feedParser withObject:nil animated:YES];
     [feedParser parse];
 }
 
@@ -113,7 +127,7 @@
     DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
     self.title = @"Refreshing";
     [parsedItems removeAllObjects];
-    
+    [imageURLStringArray removeAllObjects];
     [feedParser stopParsing];
     [feedParser parse];
     self.tableView.userInteractionEnabled = NO;
@@ -124,10 +138,12 @@
     DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     self.itemsToDisplay = [parsedItems sortedArrayUsingDescriptors:
                            [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO]]];
-
+    self.imageURLStringsToDisplay = [imageURLStringArray mutableCopy];
+    
     self.tableView.userInteractionEnabled = YES;
     self.tableView.alpha = 1;
     [self.tableView reloadData];
+
 }
 
 #pragma mark -
@@ -135,14 +151,13 @@
 
 - (void)feedParserDidStart:(MWFeedParser *)parser {
     NSLog(@"Started Parsing: %@", parser.url);
-    [imageURLStringArray removeAllObjects];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
     NSLog(@"Parsed Feed Info: “%@”", info.title);
     self.title = info.title;
     self.feedInfo = info;
-    [LZFeedInfo insertIntoFeedInfoWithMWFeedInfo:info withContext:managedObjectContext];
+    [LZManagedObjectManager insertIntoFeedInfoWithMWFeedInfo:info withContext:managedObjectContext];
     
 }
 
@@ -156,7 +171,7 @@
         NSString *str = [imageURLTag isEqualToString:@""] ? @"" : [imageURLTag substringFromIndex:5];
         NSString *imageFileName = [[str componentsSeparatedByString:@"/"] lastObject];
         [imageURLStringArray addObject:str];
-        
+        NSLog(@"imageURLStringArray.count:%ld", (long)imageURLStringArray.count);
         if (![str isEqualToString:@""] && ![LZFileTools isFileExistInDocumentDirectory:imageFileName]) {
             [LZFileTools saveImageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]] andFileName:imageFileName];
         }
@@ -165,7 +180,7 @@
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser {
-    NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
+    NSLog(@"Finished Parse");
     [self updateTableWithParsedItems];
 }
 
@@ -199,7 +214,7 @@
     if (cell==nil) {
         cell = [[LZInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewCellIdentifier];
     }
-    
+
     MWFeedItem *item = [itemsToDisplay objectAtIndex:indexPath.row];
     if (item) {
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
@@ -208,10 +223,11 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@", [formatter stringFromDate:item.date ? item.date : [NSDate date]], item.summary ? [item.summary stringByConvertingHTMLToPlainText] : @"[No Summary]"];
 
         UIImage *cellImage = nil;
-        if (![imageURLStringArray[indexPath.row] isEqualToString:@""]) {
-            NSArray *parts = [imageURLStringArray[indexPath.row] componentsSeparatedByString:@"/"];
+        if (![imageURLStringsToDisplay[indexPath.row] isEqualToString:@""]) {
+            NSArray *parts = [imageURLStringsToDisplay[indexPath.row] componentsSeparatedByString:@"/"];
             cellImage = [LZFileTools getImageFromFileWithFileName:[parts lastObject]];
             cell.imageView.image = [LZImageTools imageWithImage:cellImage scaleToSize:CGSizeMake(60, 60)];
+
         } else {
             cell.imageView.image = [LZImageTools blankImageWithSize:CGSizeMake(60, 60) withColor:[UIColor whiteColor]];
         }
@@ -229,9 +245,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     LZDetailViewController *detail = [[LZDetailViewController alloc]init];
-    detail.feedItem = [LZItem convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
+    detail.feedItem = [LZManagedObjectManager convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
     detail.feedTitle = self.feedInfo.title;
 
     [self.navigationController pushViewController:detail animated:YES];

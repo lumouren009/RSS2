@@ -7,6 +7,7 @@
 */
 
 
-"Save" = "Save";
-"Cancel" = "Cancel";
-"Search with URL/Key words" = "Search with URL/Key words";
+"Save" = "保存";
+"Cancel" = "取消";
+"Search with URL/Key words" = "使用URL/关键字";
+"Loading" = "载入中";

@@ -34,6 +34,7 @@
 @property (nonatomic, strong) UIBarButtonItem *bookmarkBtn, *leftBtnItem, *fontBtn, *shareBtn, *flexibleSpace, *fixedSpace;
 @property (nonatomic, assign) BOOL isBookmarked;
 @property (nonatomic, assign) NSInteger nPagesViewd;
+@property (nonatomic, strong) UIWebView *blogWebView;
 //@property (nonatomic, assign) int fontSize;
 
 @end
@@ -55,6 +56,7 @@
     [super viewDidLoad];
     
     // Initialization
+
     appDelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
     managedObjectContext = appDelegate.managedObjectContext;
     screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -65,16 +67,18 @@
     textBackgroundColorTag = [(NSNumber *)[userDefaults objectForKey:kTextBackgroundColorTag] integerValue];
     nPagesViewd = 0;
     
-    if (OBJ_IS_NIL([LZLikeItem getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext])) {
+    if (OBJ_IS_NIL([LZManagedObjectManager getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext])) {
         isBookmarked = NO;
     } else {
-        NSLog(@"LZItem:%@",[[LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext]description ]);
-        NSLog(@"LZLikeItem:%@", [[LZLikeItem getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext]description]);
+        NSLog(@"LZItem:%@",[[LZManagedObjectManager getItemByIdentifier:feedItem.identifier withContext:managedObjectContext]description ]);
+        NSLog(@"LZLikeItem:%@", [[LZManagedObjectManager getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext]description]);
         isBookmarked = YES;
     }
     
     
     // Setup UI
+    self.blogWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    [self.view addSubview:blogWebView];
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setupToolBar];
@@ -145,7 +149,7 @@
 #pragma mark Private Methods
 - (void)setupToolBar {
     DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
-    self.blogWebView.frame = [UIScreen mainScreen].bounds;
+    
     
     toolbar = [[UIToolbar alloc]init];
     toolbar.frame = CGRectMake(0, self.view.frame.size.height-75, [UIScreen mainScreen].bounds.size.width , 44);
@@ -353,8 +357,8 @@
 - (void)addToBookMarks {
     
     if (!isBookmarked) {
-        LZItem *item = [LZItem insertIntoItemDBWithItem:feedItem withContext:managedObjectContext];
-        [LZLikeItem insertIntoLikeDBWithItem:item andFeedTitle:feedTitle withContext:managedObjectContext];
+        LZItem *item = [LZManagedObjectManager insertIntoItemDBWithItem:feedItem withContext:managedObjectContext];
+        [LZManagedObjectManager insertIntoLikeDBWithItem:item andFeedTitle:feedTitle withContext:managedObjectContext];
         
         bookmarkBtn.image = [UIImage imageNamed:@"ic_star_y"];
         bookmarkBtn.tintColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.38 alpha:1.0];
@@ -390,9 +394,6 @@
         
         [hud hide:YES afterDelay:1];
 
-        
-        
-        
         NSLog(@"No bookmark!!!");
     }
 }
@@ -400,8 +401,8 @@
 
 - (void)removeLZLikeItemAndLZItem{
 
-    LZLikeItem *likeItem = [LZLikeItem getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
-    LZItem *item = [LZItem getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
+    LZLikeItem *likeItem = [LZManagedObjectManager getLikeItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
+    LZItem *item = [LZManagedObjectManager getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
     
     if (item==nil) {
         NSLog(@"Item is nil");

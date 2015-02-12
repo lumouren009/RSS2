@@ -67,7 +67,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     self.managedObjectContext = appDelegate.managedObjectContext;
     
     // Fetch blog titles
-    self.subscribeFeeds = [[LZSubscribeFeed getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
+    self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
     
     // Setup UI
     [self setupUI];
@@ -154,7 +154,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 }
 
 - (void)updateFeedsTitleTableView:(NSNotification*)notification{
-    self.subscribeFeeds = [[LZSubscribeFeed getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
+    self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
     NSLog(@"Observe the notification");
     [feedsTitleTableView reloadData];
 }
@@ -253,7 +253,8 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"subscribeFeeds.count:%ld", subscribeFeeds.count);
         LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row-1];
-        [LZSubscribeFeed deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:managedObjectContext];
+        [LZManagedObjectManager deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:managedObjectContext];
+        
         [subscribeFeeds removeObjectAtIndex:indexPath.row-1];
         [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         
@@ -311,14 +312,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 - (void)addWebsiteBtnPressed
 {
-//    addWebsiteBtn.alpha = 0.0;
-//    subscribeBtn.alpha = 1.0;
-//    [UIView animateWithDuration:1.0f animations:^{
-//        subscribeBtn.frame = CGRectMake(180.0f, 124.0f, 58.0f, 30.0f);
-//        subscribeURLTextField.alpha = 1.0;
-//    }];
-//    addWebsiteBtn.frame = subscribeBtn.frame;
-    
+
     UITableViewController *resultTableVC = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
     
 
@@ -366,7 +360,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
                                             }];
     }
 }
-
 
 
 # pragma mark - UITextFieldDelegate

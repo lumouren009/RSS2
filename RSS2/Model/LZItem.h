@@ -23,9 +23,6 @@
 @property (nonatomic, retain) NSDate * update;
 
 
-+ (LZItem *)getItemByIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)managedObjectContext;
-+ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem withContext:(NSManagedObjectContext *)managedObjectContext;
-+ (LZItem *)insertIntoItemDBWithItem:(LZItem *)item withContext:(NSManagedObjectContext *)managedObjectContext;
-+ (LZItem *)convertMWFeedItemIntoItem:(MWFeedItem*)feedItem withContext:(NSManagedObjectContext *)managedObjectContext;
+
 
 @end

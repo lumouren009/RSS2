@@ -22,6 +22,7 @@
 #import <DDLog.h>
 #import "constants.h"
 #import <FontasticIcons.h>
+#import "LZManagedObjectManager.h"
 #endif
 
 #ifdef DEBUG
