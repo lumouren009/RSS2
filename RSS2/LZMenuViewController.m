@@ -199,9 +199,11 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             break;
         }
         case 1: {
-
-                feed = (LZSubscribeFeed*)[subscribeFeeds objectAtIndex:indexPath.row];
-                cell.textLabel.text = feed.feedTitle;
+            feed = (LZSubscribeFeed*)[subscribeFeeds objectAtIndex:indexPath.row];
+            cell.textLabel.text = feed.feedTitle;
+            FIIcon *icon = [FIEntypoIcon dotIcon];
+            UIImage *image = [icon imageWithBounds:CGRectMake(0, 0, 5, 5) color:[UIColor grayColor]];
+            cell.imageView.image = image;
             break;
         }
         case 2: {

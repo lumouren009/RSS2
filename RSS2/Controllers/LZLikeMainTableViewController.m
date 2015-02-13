@@ -49,9 +49,6 @@
     // BarButtons
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(openButtonPressed)];
     
- 
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -110,6 +107,24 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"likeItem.count%ld", (long)likeItemArray.count);
+        LZLikeItem *deleteLikeItem = [likeItemArray objectAtIndex:indexPath.row];
+        if (deleteLikeItem) {
+            [managedObjectContext deleteObject:deleteLikeItem];
+            [managedObjectContext save:nil];
+            
+        }
+        [likeItemArray removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -131,70 +146,5 @@
 {
     [self.sideMenuViewController openMenuAnimated:YES completion:nil];
 }
-
-#pragma mark - Notification Responder 
-//- (void)modifyDataSource:(NSNotification *)notification {
-//    NSLog(@"%@:%@", THIS_FILE, THIS_METHOD);
-//    NSMutableArray *identifiers = [[NSMutableArray alloc]init];
-//    NSString *identiferToBeDeleted = [notification.userInfo objectForKey:@"identifier"];
-//    for (LZLikeItem *likeItem in likeItemArray) {
-//        [identifiers addObject:likeItem.item.identifier];
-//
-//    }
-//    if ([identifiers containsObject:identiferToBeDeleted]) {
-//        NSLog(@"Delete the likeitem");
-//        NSUInteger index = [identifiers indexOfObject:identiferToBeDeleted];
-//        NSLog(@"index:%ld",(long)index);
-//        [likeItemArray removeObjectAtIndex:index];
-//        NSLog(@"LikeItemArray count:%ld", (long)likeItemArray.count);
-//    }
-//    //NSLog(@"LikeItemArray count:%ld", (long)likeItemArray.count);
-//}
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
