@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "624453CEE2BD188C3312CA33"
+               BlueprintIdentifier = "1DB8D0B5C493E3DCB73D4089"
                BuildableName = "libPods-RSS2-FontasticIcons.a"
                BlueprintName = "Pods-RSS2-FontasticIcons"
                ReferencedContainer = "container:Pods.xcodeproj">

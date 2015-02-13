@@ -21,15 +21,23 @@
 #import "LZFileTools.h"
 #import <MBProgressHUD.h>
 #import "UIImage+ProportionalFill.h"
+#import "LZPopTableViewController.h"
 
 
-@interface LZMainViewController () <MBProgressHUDDelegate>
+
+
+@interface LZMainViewController () <MBProgressHUDDelegate, WYPopoverControllerDelegate>
 @property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSMutableArray *imageURLStringArray;
 @property (nonatomic, strong) NSArray *imageURLStringsToDisplay;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) UIColor *themeColor;
+@property (nonatomic, strong) WYPopoverController *popoverController;
+@property (nonatomic, assign) LZLayoutType currentLayoutType;
+
 @end
+
+
 
 
 @implementation LZMainViewController
@@ -38,6 +46,8 @@
 @synthesize imageURLStringArray, imageURLStringsToDisplay;
 @synthesize hud;
 @synthesize themeColor;
+@synthesize popoverController;
+@synthesize currentLayoutType;
 
 -(AppDelegate*)appDelegate
 {
@@ -51,8 +61,6 @@
     [super viewDidLoad];
     
     // Initialization
-    self.appDelegate = [self appDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
     [self.navigationController.navigationBar setHidden:NO];
     self.refreshControl = [[UIRefreshControl alloc]init];
     self.imageURLStringArray = [[NSMutableArray alloc]init];
@@ -61,6 +69,7 @@
     self.themeColor = [UIColor whiteColor];
     NSInteger colorTag = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:kTextBackgroundColorTag] integerValue];
     self.themeColor = [LZSystemConfig themeColorWithTag:colorTag];
+    currentLayoutType = [(NSNumber *) [[NSUserDefaults standardUserDefaults] objectForKey:kMainViewLayout] intValue];
 
 
     
@@ -68,25 +77,25 @@
                             action:@selector(refreshTableView:)
                   forControlEvents:UIControlEventValueChanged];
     
-    // Setup environment constants
+    // Setup environment constants and notification
+    self.appDelegate = [self appDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
     self.title = @"Blog titles";
     formatter = [[NSDateFormatter alloc]init];
     [formatter setDateStyle:NSDateFormatterShortStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     parsedItems = [[NSMutableArray alloc]init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeThemeColor:) name:kChangeThemeColorNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLayout:) name:kChangeMainViewLayoutNotification object:nil];
 
-    
-    // BarButtons
-    self.navigationItem.leftBarButtonItem =
-    [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
-                                                 target:self action:@selector(openButtonPressed)];
-    
+    // NavigationItem
+    FIIcon *leftIcon = [FIEntypoIcon listIcon];
+    UIImage *leftImage = [leftIcon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:leftImage style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
 
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                 target:self
-                                                 action:@selector(refresh)];
+    FIIcon *rightIcon = [FIEntypoIcon cogIcon];
+    UIImage *rightImage = [rightIcon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(configureTableView:)];
    
     self.feedURLString = @"http://blog.devtang.com/atom.xml";
     
@@ -216,7 +225,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     LZInfoTableViewCell *cell = (LZInfoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewCellIdentifier];
     if (cell==nil) {
         cell = [[LZInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewCellIdentifier];
@@ -230,7 +239,7 @@
     return 80;
 }
 
-- (void)configureCell:(UITableViewCell *)cell withIndexPath:(NSIndexPath *)indexPath{
+- (void)configureCell:(UITableViewCell *)cell withIndexPath:(NSIndexPath *)indexPath {
     
     MWFeedItem *item = [itemsToDisplay objectAtIndex:indexPath.row];
     if (item) {
@@ -243,18 +252,22 @@
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0];
         //cell.backgroundColor = themeColor;
         
-        UIImage *cellImage = nil;
-        if (![imageURLStringsToDisplay[indexPath.row] isEqualToString:@""]) {
-            NSArray *parts = [imageURLStringsToDisplay[indexPath.row] componentsSeparatedByString:@"/"];
-            cellImage = [LZFileTools getImageFromFileWithFileName:[parts lastObject]];
-            cell.imageView.image = [cellImage imageToFitSize:CGSizeMake(60, 60) method:MGImageResizeCrop];
-            
+        
+        if (imageURLStringArray.count > 0 && currentLayoutType == 1) {
+            UIImage *cellImage = nil;
+            if (![imageURLStringsToDisplay[indexPath.row] isEqualToString:@""]) {
+                NSArray *parts = [imageURLStringsToDisplay[indexPath.row] componentsSeparatedByString:@"/"];
+                cellImage = [LZFileTools getImageFromFileWithFileName:[parts lastObject]];
+                cell.imageView.image = [cellImage imageToFitSize:CGSizeMake(60, 60) method:MGImageResizeCrop];
+                
+            } else {
+                cell.imageView.image = [LZImageTools blankImageWithSize:CGSizeMake(60, 60) withColor:cell.backgroundColor];
+            }
+            cell.imageView.layer.masksToBounds = YES;
+            cell.imageView.layer.cornerRadius = 3.0;
         } else {
-            
-            cell.imageView.image = [LZImageTools blankImageWithSize:CGSizeMake(60, 60) withColor:cell.backgroundColor];
+            cell.imageView.image = nil;
         }
-        cell.imageView.layer.masksToBounds = YES;
-        cell.imageView.layer.cornerRadius = 3.0;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 }
@@ -268,10 +281,9 @@
     LZDetailViewController *detail = [[LZDetailViewController alloc]init];
     detail.feedItem = [LZManagedObjectManager convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
     detail.feedTitle = self.feedInfo.title;
-
     [self.navigationController pushViewController:detail animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
 }
 
 
@@ -295,10 +307,49 @@
     [self.sideMenuViewController openMenuAnimated:YES completion:nil];
 }
 
+#pragma mark - Notification responds
 - (void)changeThemeColor:(NSNotification *)notification {
     NSInteger tag = [[notification.userInfo objectForKey:@"themeColorTag"] integerValue];
     themeColor  = [LZSystemConfig themeColorWithTag:tag];
 }
 
+- (void)changeLayout:(NSNotification *)notification {
+    LZLayoutType type = [[notification.userInfo objectForKey:@"layout"] intValue];
+    NSLog(@"layout:%ld", (long)type);
+    currentLayoutType = type;
+    [self.tableView reloadData];
+
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:type] forKey:kMainViewLayout];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+
+
+
+
+#pragma mark - Private Methods
+- (void)configureTableView:(UIBarButtonItem *)sender {
+
+    LZPopTableViewController *layoutSelectionTableVC = [[LZPopTableViewController alloc]initWithNibName:nil bundle:nil];
+    layoutSelectionTableVC.preferredContentSize = CGSizeMake(160, 60);
+
+    popoverController = [[WYPopoverController alloc]initWithContentViewController:layoutSelectionTableVC];
+    popoverController.delegate = self;
+    [popoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:WYPopoverArrowDirectionDown animated:YES];
+}
+
+
+
+
+#pragma mark - Popover Controller delegate
+- (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)controller
+{
+    return YES;
+}
+
+- (void)popoverControllerDidDismissPopover:(WYPopoverController *)controller
+{
+    popoverController.delegate = nil;
+    popoverController = nil;
+}
 
 @end

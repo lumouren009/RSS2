@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-RSS2-WYPopoverController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-RSS2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>16D3312597116E5C9FA220E4</key>
+		<key>11818CA42CC7558B3C58B024</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>23BF4ADEF8647E19E5D46F96</key>
+		<key>1BEE445A066C1F3624B03497</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D8FC7421345F4B31D757E83</key>
+		<key>1DB8D0B5C493E3DCB73D4089</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54FA94D96A61EDE53E3DCDB8</key>
+		<key>21354A10BE33905BF80D610D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>624453CEE2BD188C3312CA33</key>
+		<key>27868ACB2D6F5E44A9F1C574</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E2DD78F5D55D456D83C01CE1</key>
+		<key>59CFF890B0DE03B422A7401D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A901B516912CD92A67EB2142</key>
 		<dict>
 			<key>primary</key>
 			<true/>

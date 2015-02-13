@@ -7,6 +7,7 @@ pod 'MBProgressHud'
 pod 'SBJson4', '~> 4.0.1'
 pod "AFNetworking", "~> 2.0"
 pod 'FontasticIcons'
+pod 'WYPopoverController', '~> 0.2.0'
 end
 
 target 'RSS2Tests' do

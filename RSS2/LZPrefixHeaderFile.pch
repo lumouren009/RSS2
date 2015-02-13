@@ -24,6 +24,8 @@
 #import <FontasticIcons.h>
 #import "LZManagedObjectManager.h"
 #import "LZSystemConfig.h"
+#import <WYPopoverController.h>
+#import <WYStoryboardPopoverSegue.h>
 #endif
 
 #ifdef DEBUG

@@ -14,6 +14,7 @@
 		463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96611A8C8C620084BD55 /* LZStringTools.m */; };
 		463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96641A8C9B130084BD55 /* LZFileTools.m */; };
 		463C96681A8CAB480084BD55 /* LZManagedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96671A8CAB480084BD55 /* LZManagedObjectManager.m */; };
+		463DAC2A1A8DD5920006590E /* LZPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 463DAC291A8DD5920006590E /* LZPopTableViewController.m */; };
 		4646EEF31A8B46F900995B9D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4646EEF51A8B46F900995B9D /* Localizable.strings */; };
 		4665F4951A85E68200A2F031 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4941A85E68200A2F031 /* main.m */; };
 		4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4665F49F1A85E68200A2F031 /* Images.xcassets */; };
@@ -75,6 +76,8 @@
 		463C96641A8C9B130084BD55 /* LZFileTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZFileTools.m; sourceTree = "<group>"; };
 		463C96661A8CAB470084BD55 /* LZManagedObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZManagedObjectManager.h; sourceTree = "<group>"; };
 		463C96671A8CAB480084BD55 /* LZManagedObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZManagedObjectManager.m; sourceTree = "<group>"; };
+		463DAC281A8DD5920006590E /* LZPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZPopTableViewController.h; sourceTree = "<group>"; };
+		463DAC291A8DD5920006590E /* LZPopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZPopTableViewController.m; sourceTree = "<group>"; };
 		4646EEF11A8B46F200995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		4646EEF21A8B46F200995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		4646EEF41A8B46F900995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -164,6 +167,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		463DAC271A8DD56A0006590E /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				463DAC281A8DD5920006590E /* LZPopTableViewController.h */,
+				463DAC291A8DD5920006590E /* LZPopTableViewController.m */,
+			);
+			name = Pop;
+			sourceTree = "<group>";
+		};
 		4665F4861A85E68200A2F031 = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +277,7 @@
 		4665F4BA1A85E6CA00A2F031 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				463DAC271A8DD56A0006590E /* Pop */,
 				46DCEB3A1A8856FD00EED7DF /* Search */,
 				4665F4E61A85E78F00A2F031 /* DetailTableViewController.m */,
 				4665F4E71A85E78F00A2F031 /* DetailTableViewController.h */,
@@ -542,6 +555,7 @@
 				4665F4D81A85E74100A2F031 /* NSString+HTML.m in Sources */,
 				4665F4E21A85E75800A2F031 /* MWFeedParser.m in Sources */,
 				4635D74B1A8CCD4D003E124F /* UIImage+ProportionalFill.m in Sources */,
+				463DAC2A1A8DD5920006590E /* LZPopTableViewController.m in Sources */,
 				4665F4D71A85E74100A2F031 /* NSString+XMLEntities.m in Sources */,
 				463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */,
 				4665F4DA1A85E74100A2F031 /* GTMNSString+HTML.m in Sources */,

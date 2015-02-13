@@ -10,9 +10,11 @@
 #define kAddFeedNotification @"kAddFeedNotification"
 #define kModifyLZLikeItemArrayNotification @"kModifyLZLikeItemArrayNotification"
 #define kChangeThemeColorNotification      @"ChangeThemeColorNotification"
+#define kChangeMainViewLayoutNotification              @"ChangeMainViewLayout"
 
 #define kGlobalFontSize             @"kGlobalFontSize"
 #define kTextBackgroundColorTag     @"kTextBackgroundColorTag"
+#define kMainViewLayout             @"kMainViewLayout"
 #define kTableViewCellIdentifier    @"com.luzheng.sampleCell"
 
 // DB Constants
@@ -30,4 +32,5 @@
 // Feedly search API
 #define kFeedlySearchAPI             @"http://cloud.feedly.com/v3/search/feeds?query="
 
-
+// Enum
+typedef enum { LZLayoutList, LZLayoutView } LZLayoutType;

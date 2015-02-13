@@ -28,6 +28,7 @@ PODS:
   - FontasticIcons (0.5.0)
   - MBProgressHUD (0.9)
   - SBJson4 (4.0.1)
+  - WYPopoverController (0.2.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - FontasticIcons
   - MBProgressHud
   - SBJson4 (~> 4.0.1)
+  - WYPopoverController (~> 0.2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
@@ -42,5 +44,6 @@ SPEC CHECKSUMS:
   FontasticIcons: a19672f86f2bf1b0ad51b21f1f7f1fad1ddd83f7
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   SBJson4: 321a266881e0e1830c5d2cae0beedf14d97da08b
+  WYPopoverController: c233d69fdfd5c7e316b481df1060624d7a9e629d
 
 COCOAPODS: 0.35.0

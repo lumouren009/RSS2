@@ -161,34 +161,64 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 #pragma mark - Table view data source
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewCellIndentifier];
-    if (cell==nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewCellIndentifier];
-    }
-
-
-    LZSubscribeFeed *feed;
+    
+    UITableViewCell *cell;
     switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = @"Read it Later";
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"readItLaterCellIdentifier"];
             break;
-        case 1:
-            if (subscribeFeeds.count>0 && indexPath.row >0) {
-                feed = (LZSubscribeFeed*)[subscribeFeeds objectAtIndex:indexPath.row-1];
-                cell.textLabel.text = feed.feedTitle;
-                
-            }else {
-                cell.textLabel.text = @"Blogs";
-                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        case 1: {
+            cell = [tableView dequeueReusableCellWithIdentifier:kTableViewCellIndentifier];
+            if (cell==nil) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewCellIndentifier];
             }
+        
             break;
+        }
         case 2:
-            cell.textLabel.text = @"Settings";
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingCellIdentifier"];
+            
+            break;
         default:
             break;
     }
+    
+    [self configureCell:cell atIndexPath:indexPath];
+
     return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    LZSubscribeFeed *feed;
+    switch (indexPath.section) {
+        case 0: {
+            cell.textLabel.text = @"Read it Later";
+            FIIcon *icon = [FIEntypoIcon bookmarkIcon];
+            UIImage *image = [icon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
+            cell.imageView.image = image;
+            break;
+        }
+        case 1: {
+
+                feed = (LZSubscribeFeed*)[subscribeFeeds objectAtIndex:indexPath.row];
+                cell.textLabel.text = feed.feedTitle;
+            break;
+        }
+        case 2: {
+            cell.textLabel.text = @"Settings";
+        }
+        default:
+            break;
+    }
+
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section==1) {
+        return @"Blog";
+    } else {
+        return @"";
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -203,7 +233,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             return 1;
             break;
         case 1:
-            return subscribeFeeds.count+1;
+            return subscribeFeeds.count;
             break;
         case 2:
             return 1;
@@ -252,10 +282,10 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"subscribeFeeds.count:%ld", subscribeFeeds.count);
-        LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row-1];
+        LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row];
         [LZManagedObjectManager deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:managedObjectContext];
         
-        [subscribeFeeds removeObjectAtIndex:indexPath.row-1];
+        [subscribeFeeds removeObjectAtIndex:indexPath.row];
         [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         
     }
@@ -289,7 +319,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
     LZSubscribeFeed *feed;
     if (indexPath.row > 0) {
-       feed = [subscribeFeeds objectAtIndex:indexPath.row-1];
+       feed = [subscribeFeeds objectAtIndex:indexPath.row];
     }
     
     NSURL *feedURL = [NSURL URLWithString:feed.feedId];
