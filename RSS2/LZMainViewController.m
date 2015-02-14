@@ -24,8 +24,6 @@
 #import "LZPopTableViewController.h"
 
 
-
-
 @interface LZMainViewController () <MBProgressHUDDelegate, WYPopoverControllerDelegate>
 @property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSMutableArray *imageURLStringArray;
@@ -370,10 +368,14 @@
     popoverController = [[WYPopoverController alloc]initWithContentViewController:layoutSelectionTableVC];
     popoverController.delegate = self;
     [popoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:WYPopoverArrowDirectionDown animated:YES];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(closePopover:) name:kChangeMainViewLayoutNotification object:nil];
 }
 
-
-
+- (void)closePopover:(NSNotification *)notification {
+    [popoverController dismissPopoverAnimated:YES completion:^{
+        [self popoverControllerDidDismissPopover:popoverController];
+    } ];
+}
 
 #pragma mark - Popover Controller delegate
 - (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)controller

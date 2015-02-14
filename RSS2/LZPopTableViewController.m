@@ -8,7 +8,7 @@
 
 #import "LZPopTableViewController.h"
 
-@interface LZPopTableViewController ()
+@interface LZPopTableViewController () <WYPopoverControllerDelegate>
 
 @end
 
@@ -90,7 +90,9 @@
         default:
             break;
     }
+
 }
+
 
 
 @end
