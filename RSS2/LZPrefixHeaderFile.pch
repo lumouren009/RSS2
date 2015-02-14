@@ -27,6 +27,7 @@
 #import <WYPopoverController.h>
 #import <WYStoryboardPopoverSegue.h>
 #import "LZStringTools.h"
+#import <AFNetworking.h>
 #endif
 
 #ifdef DEBUG

@@ -200,12 +200,23 @@
         [imageURLStringArray addObject:str];
         NSLog(@"imageURLStringArray.count:%ld", (long)imageURLStringArray.count);
         if (![str isEqualToString:@""] && ![LZFileTools isFileExistInDocumentDirectory:imageFileName]) {
-            if (![LZFileTools saveImageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]] andFileName:imageFileName]) {
-                str = @"";
-                [imageURLStringArray removeLastObject];
-                [imageURLStringArray addObject:str];
-                
-            }
+            
+            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+            
+            NSURL *URL = [NSURL URLWithString:str];
+            NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+            
+            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+                return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                NSLog(@"File downloaded to: %@", filePath);
+                if (filePath==nil) {
+                }
+            }];
+            [downloadTask resume];
+            
         }
         // Save to LZItem DB
         [LZManagedObjectManager insertIntoItemDBWithMWFeedItem:item coverImageURLString:str withContext:managedObjectContext];
@@ -224,8 +235,6 @@
         [feedParser stopParsing];
         
     }
-    
-    
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser {
@@ -291,8 +300,11 @@
             if (![imageURLStringsToDisplay[indexPath.row] isEqualToString:@""]) {
                 NSArray *parts = [imageURLStringsToDisplay[indexPath.row] componentsSeparatedByString:@"/"];
                 cellImage = [LZFileTools getImageFromFileWithFileName:[parts lastObject]];
-                cell.imageView.image = [cellImage imageToFitSize:CGSizeMake(60, 60) method:MGImageResizeCrop];
-                
+                if (cellImage != nil) {
+                    cell.imageView.image = [cellImage imageToFitSize:CGSizeMake(60, 60) method:MGImageResizeCrop];
+                } else {
+                    cell.imageView.image = [LZImageTools blankImageWithSize:CGSizeMake(60, 60) withColor:cell.backgroundColor];
+                }
             } else {
                 cell.imageView.image = [LZImageTools blankImageWithSize:CGSizeMake(60, 60) withColor:cell.backgroundColor];
             }
