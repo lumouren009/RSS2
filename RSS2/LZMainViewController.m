@@ -117,7 +117,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     [self.tableView reloadData];
 }

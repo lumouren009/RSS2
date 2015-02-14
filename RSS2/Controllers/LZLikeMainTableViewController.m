@@ -51,7 +51,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"%@: %@", THIS_FILE, THIS_METHOD);
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:managedObjectContext];
     [self.tableView reloadData];
     [self.navigationController.navigationBar setHidden:NO];

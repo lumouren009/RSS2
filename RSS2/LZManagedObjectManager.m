@@ -292,8 +292,8 @@
     }
     NSError *error;
     if ([context save:&error]) {
-        return NO;
         NSLog(@"Delete items error occurs in %@", THIS_METHOD);
+        return NO;
     }
     return YES;
     

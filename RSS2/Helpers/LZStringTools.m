@@ -18,11 +18,10 @@
     }
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray *matchedArray = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
-
-    if (matchedArray.count > 0) {
-        firstMatch = [content substringWithRange:[matchedArray[0] range]];
-    } else {
+    NSTextCheckingResult *result = [regex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+    if (result) {
+        firstMatch = [content substringWithRange:result.range];
+    }else {
         NSLog(@"%@.%@:No match string of pattern(%@) in content", THIS_FILE, THIS_METHOD, pattern);
     }
     return firstMatch;
