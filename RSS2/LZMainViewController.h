@@ -24,6 +24,7 @@
 }
 
 @property (nonatomic, strong) NSArray *itemsToDisplay;
+@property (nonatomic, strong) NSMutableArray *parsedItems;
 @property (nonatomic, strong) NSString *feedURLString;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) MWFeedInfo *feedInfo;

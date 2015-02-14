@@ -11,6 +11,7 @@
 #import "LZItem.h"
 #import "LZFeedInfo.h"
 #import "LZSubscribeFeed.h"
+#import "MWFeedItem.h"
 
 
 
@@ -31,9 +32,11 @@
 
 // Manage LZItem entity
 + (LZItem *)getItemByIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)managedObjectContext;
-+ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem withContext:(NSManagedObjectContext *)managedObjectContext;
++ (NSArray *)getAllItemsWithIdentifierPrefix:(NSString *)prefix withContext:(NSManagedObjectContext *)context;
++ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem coverImageURLString:(NSString*)imageURLString withContext:(NSManagedObjectContext *)managedObjectContext;
 + (LZItem *)insertIntoItemDBWithItem:(LZItem *)item withContext:(NSManagedObjectContext *)managedObjectContext;
 + (LZItem *)convertMWFeedItemIntoItem:(MWFeedItem*)feedItem withContext:(NSManagedObjectContext *)managedObjectContext;
+//+ (id)fetchLatestDateofItemByItemIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)context;
 
 
 // Manage LZFeedInfo entity

@@ -34,6 +34,8 @@
 @property (nonatomic, strong) UIColor *themeColor;
 @property (nonatomic, strong) WYPopoverController *popoverController;
 @property (nonatomic, assign) LZLayoutType currentLayoutType;
+@property (nonatomic, assign) BOOL isChangeBlog;
+@property (nonatomic, strong) NSString *identifierHostName;
 
 @end
 
@@ -48,6 +50,9 @@
 @synthesize themeColor;
 @synthesize popoverController;
 @synthesize currentLayoutType;
+@synthesize parsedItems;
+@synthesize isChangeBlog;
+@synthesize identifierHostName;
 
 -(AppDelegate*)appDelegate
 {
@@ -61,34 +66,32 @@
     [super viewDidLoad];
     
     // Initialization
-    [self.navigationController.navigationBar setHidden:NO];
-    self.refreshControl = [[UIRefreshControl alloc]init];
     self.imageURLStringArray = [[NSMutableArray alloc]init];
     self.imageURLStringsToDisplay = [NSArray array];
     self.itemsToDisplay = [NSArray array];
+    self.parsedItems = [[NSMutableArray alloc]init];
+    self.feedURLString = @"http://blog.devtang.com/atom.xml";
+    self.isChangeBlog = YES;
+    
+
+    // Setup environment constants and notification
+    self.appDelegate = [self appDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
     self.themeColor = [UIColor whiteColor];
     NSInteger colorTag = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:kTextBackgroundColorTag] integerValue];
     self.themeColor = [LZSystemConfig themeColorWithTag:colorTag];
     currentLayoutType = [(NSNumber *) [[NSUserDefaults standardUserDefaults] objectForKey:kMainViewLayout] intValue];
 
-
-    
-    [self.refreshControl addTarget:self
-                            action:@selector(refreshTableView:)
-                  forControlEvents:UIControlEventValueChanged];
-    
-    // Setup environment constants and notification
-    self.appDelegate = [self appDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
     self.title = @"Blog titles";
     formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateStyle:NSDateFormatterShortStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    parsedItems = [[NSMutableArray alloc]init];
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeThemeColor:) name:kChangeThemeColorNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLayout:) name:kChangeMainViewLayoutNotification object:nil];
 
     // NavigationItem
+    [self.navigationController.navigationBar setHidden:NO];
     FIIcon *leftIcon = [FIEntypoIcon listIcon];
     UIImage *leftImage = [leftIcon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:leftImage style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
@@ -96,15 +99,19 @@
     FIIcon *rightIcon = [FIEntypoIcon cogIcon];
     UIImage *rightImage = [rightIcon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(configureTableView:)];
-   
-    self.feedURLString = @"http://blog.devtang.com/atom.xml";
+    
+    // Refresh control
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshTableView:)
+                  forControlEvents:UIControlEventValueChanged];
     
     // Hud
-    hud = [[MBProgressHUD alloc]initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:hud];
-   
-    hud.delegate = self;
-    hud.labelText = NSLocalizedString(@"Loading", nil);
+//    hud = [[MBProgressHUD alloc]initWithView:self.navigationController.view];
+//    [self.navigationController.view addSubview:hud];
+//   
+//    hud.delegate = self;
+//    hud.labelText = NSLocalizedString(@"Loading", nil);
     
     [self parseFeedURL:[NSURL URLWithString:_feedURLString]];
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
@@ -121,12 +128,12 @@
 #pragma mark Public Methods
 - (void)parseFeedURL:(NSURL *)feedURL
 {
-    
     DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     // Parse
     // NSURL *feedURL = [NSURL URLWithString:@"http://techcrunch.com/feed/"];
-    //NSURL *feedURL = [NSURL URLWithString:@"http://blog.devtang.com/atom.xml"];
-    //阮一峰 http://www.ruanyifeng.com/blog/atom.xml
+    // NSURL *feedURL = [NSURL URLWithString:@"http://blog.devtang.com/atom.xml"];
+    // 阮一峰 http://www.ruanyifeng.com/blog/atom.xml
+    isChangeBlog = YES;
     [parsedItems removeAllObjects];
     [imageURLStringArray removeAllObjects];
     feedParser = [[MWFeedParser alloc]initWithFeedURL:feedURL];
@@ -143,8 +150,6 @@
 - (void)refresh {
     DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
     self.title = @"Refreshing";
-    [parsedItems removeAllObjects];
-    [imageURLStringArray removeAllObjects];
     [feedParser stopParsing];
     [feedParser parse];
     self.tableView.userInteractionEnabled = NO;
@@ -159,6 +164,7 @@
     self.tableView.userInteractionEnabled = YES;
     self.tableView.alpha = 1;
     [self.tableView reloadData];
+    //isChangeBlog = NO;
 
 }
 
@@ -179,8 +185,15 @@
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
     NSLog(@"Parsed Feed Item: “%@”", item.title);
-    if (item) {
+    
+
+    identifierHostName = [LZStringTools firstMatchInString:item.identifier withPattern:@"https?://[^/]*/"];
+    NSLog(@"identifierHostName:%@", identifierHostName);
+
+    
+    if ([LZManagedObjectManager getItemByIdentifier:item.identifier withContext:managedObjectContext] == nil) {
         [parsedItems addObject:item];
+        
         NSString *itemContent = item.content ? item.content:item.summary;
         itemContent = itemContent ? itemContent : @"[No Content]";
         NSString *imageURLTag = [LZStringTools firstMatchInString:itemContent withPattern:@"src=[^>]*(jpg|png)"];
@@ -189,10 +202,32 @@
         [imageURLStringArray addObject:str];
         NSLog(@"imageURLStringArray.count:%ld", (long)imageURLStringArray.count);
         if (![str isEqualToString:@""] && ![LZFileTools isFileExistInDocumentDirectory:imageFileName]) {
-            [LZFileTools saveImageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]] andFileName:imageFileName];
+            if (![LZFileTools saveImageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]] andFileName:imageFileName]) {
+                str = @"";
+                [imageURLStringArray removeLastObject];
+                [imageURLStringArray addObject:str];
+                
+            }
         }
+        // Save to LZItem DB
+        [LZManagedObjectManager insertIntoItemDBWithMWFeedItem:item coverImageURLString:str withContext:managedObjectContext];
+    } else {
 
+        if (isChangeBlog) {
+            NSArray *fetchedObjects = [LZManagedObjectManager getAllItemsWithIdentifierPrefix:identifierHostName withContext:managedObjectContext];
+            for (LZItem *object in fetchedObjects) {
+                [parsedItems addObject:object];
+                [imageURLStringArray addObject:object.coverImageURLString];
+                
+            }
+            NSLog(@"imageURLStringArray:%@", imageURLStringArray);
+            isChangeBlog = NO;
+        }
+        [feedParser stopParsing];
+        
     }
+    
+    
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser {

@@ -32,8 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     //Initializaiton
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     self.managedObjectContext = appDelegate.managedObjectContext;

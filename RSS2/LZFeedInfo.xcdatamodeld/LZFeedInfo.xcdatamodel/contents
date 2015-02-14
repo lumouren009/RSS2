@@ -10,6 +10,7 @@
     <entity name="LZItem" representedClassName="LZItem" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverImageURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,9 +29,9 @@
         <attribute name="feedTitle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LZFeedInfo" positionX="-63" positionY="-18" width="128" height="118"/>
-        <element name="LZItem" positionX="25" positionY="204" width="128" height="163"/>
-        <element name="LZLikeItem" positionX="124" positionY="-27" width="128" height="103"/>
-        <element name="LZSubscribeFeed" positionX="27" positionY="126" width="128" height="75"/>
+        <element name="LZFeedInfo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LZItem" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LZLikeItem" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LZSubscribeFeed" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

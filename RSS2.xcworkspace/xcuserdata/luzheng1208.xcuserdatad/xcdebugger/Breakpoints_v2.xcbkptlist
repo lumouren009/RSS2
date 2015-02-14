@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZDetailViewController.m"
-            timestampString = "445441415.656422"
+            timestampString = "445592192.842484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
             landmarkName = "-addToBookMarks"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZDetailViewController.m"
-            timestampString = "445441415.656422"
+            timestampString = "445592192.842484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "-addToBookMarks"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZDetailViewController.m"
-            timestampString = "445441415.656422"
+            timestampString = "445592192.842484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "-removeLZLikeItemAndLZItem"
             landmarkType = "5">
          </BreakpointContent>

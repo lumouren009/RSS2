@@ -186,7 +186,30 @@
     return item;
 }
 
-+ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem withContext:(NSManagedObjectContext *)managedObjectContext {
++ (NSArray *)getAllItemsWithIdentifierPrefix:(NSString *)prefix withContext:(NSManagedObjectContext *)context {
+    
+
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kLZItemEntityString inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier like[c] %@", [prefix stringByAppendingString:@"*"]];
+    [fetchRequest setPredicate:predicate];
+    
+    
+    NSError *error;
+    NSArray *fetchObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        NSLog(@"Whoops, couldn't get: %@", [error localizedDescription]);
+        
+    }
+    
+    return fetchObjects;
+}
+
+
++ (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem coverImageURLString:(NSString *)imageURLString withContext:(NSManagedObjectContext *)managedObjectContext {
     
     LZItem *item = [LZManagedObjectManager getItemByIdentifier:feedItem.identifier withContext:managedObjectContext];
     if (item == nil) {
@@ -199,6 +222,7 @@
         item.summary = feedItem.summary;
         item.title = feedItem.summary;
         item.title = feedItem.title;
+        item.coverImageURLString = imageURLString;
         //item.updated = feedItem.updated;
         NSError *error;
         if (![managedObjectContext save:&error]) {
@@ -249,6 +273,50 @@
     }
     return item;
 }
+
+
+    
+
+//+ (id)fetchLatestDateofItemByItemIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)context {
+//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:kLZItemEntityString inManagedObjectContext:context];
+//    [request setEntity:entity];
+//    
+//    // Specify that the request should return dictionaries.
+//    [request setResultType:NSDictionaryResultType];
+//    
+//    // Create an expression for the key path.
+//    NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"date"];
+//    
+//    // Create an expression to represent the minimum value at the key path 'creationDate'
+//    NSExpression *minExpression = [NSExpression expressionForFunction:@"max:" arguments:[NSArray arrayWithObject:keyPathExpression]];
+//    
+//    // Create an expression description using the minExpression and returning a date.
+//    NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
+//    
+//    // The name is the key that will be used in the dictionary for the return value.
+//    [expressionDescription setName:@"maxDate"];
+//    [expressionDescription setExpression:minExpression];
+//    [expressionDescription setExpressionResultType:NSDateAttributeType];
+//    
+//    // Set the request's properties to fetch just the property represented by the expressions.
+//    [request setPropertiesToFetch:[NSArray arrayWithObject:expressionDescription]];
+//    
+//    // Execute the fetch.
+//    NSError *error = nil;
+//    NSArray *objects = [context executeFetchRequest:request error:&error];
+//    if (objects == nil) {
+//        // Handle the error.
+//        NSLog(@"Error occurs in %@", THIS_METHOD);
+//    }
+//    else {
+//        if ([objects count] > 0) {
+//            NSLog(@"Maximum date: %@", [[objects objectAtIndex:0] valueForKey:@"maxDate"]);
+//        }
+//    }
+//    return [objects objectAtIndex:0];
+//
+//}
 
 
 // Manage LZFeedInfo entity

@@ -77,7 +77,7 @@
     
     
     // Setup UI
-    self.blogWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    self.blogWebView = [[UIWebView alloc]initWithFrame:CGRectMake(10, 0, screenWidth-20, screenHeight)];
     [self.view addSubview:blogWebView];
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -275,7 +275,9 @@
                                "p { font-size: %@px; } \n"
                                "a { color:#666666; text-decoration:none; border-bottom:1px dashed #808080} \n"
                                "table { max-width: 100%%; width: auto; } \n"
-                               "html { width: 100%%; overflow: hidden; } \n"
+                               "html { width: 100%%; max-width: 100%% overflow: hidden; } \n"
+                               "div { max-width: 100%%;} \n"
+                               "pre { white-space:pre-wrap;} \n"
                                "p.date { font-size: %@px; }"
                                "body { color:#888888 }</style>", @(23*ratio), @(18*ratio), @(15*ratio), @(12*ratio)];
     
@@ -309,9 +311,18 @@
 }
 
 
-- (void) webViewDidFinishLoad:(UIWebView *)webView {
+- (void) webViewDidFinishLoad:(UIWebView *)aWebView {
     DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
+//    CGRect frame = aWebView.frame;
+//    frame.size.height = 1;
+//    aWebView.frame = frame;
+//    CGSize fittingSize = [aWebView sizeThatFits:CGSizeZero];
+//    frame.size = fittingSize;
+//    aWebView.frame = frame;
+//    
+//    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     [self reloadWebViewWithFontSize:globalFontSize];
+    
 }
 
 - (void)reloadWebViewWithFontSize:(NSInteger)fontSize {
