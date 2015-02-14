@@ -36,6 +36,8 @@
 + (LZItem *)insertIntoItemDBWithMWFeedItem:(MWFeedItem *)feedItem coverImageURLString:(NSString*)imageURLString withContext:(NSManagedObjectContext *)managedObjectContext;
 + (LZItem *)insertIntoItemDBWithItem:(LZItem *)item withContext:(NSManagedObjectContext *)managedObjectContext;
 + (LZItem *)convertMWFeedItemIntoItem:(MWFeedItem*)feedItem withContext:(NSManagedObjectContext *)managedObjectContext;
++ (BOOL)deleteAllItemsWithIdentifierPrefix:(NSString *)prefix withContext:(NSManagedObjectContext *)context;
+
 //+ (id)fetchLatestDateofItemByItemIdentifier:(NSString *)identifier withContext:(NSManagedObjectContext *)context;
 
 

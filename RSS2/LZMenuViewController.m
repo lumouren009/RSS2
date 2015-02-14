@@ -257,8 +257,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             [self.sideMenuViewController closeMenuAnimated:YES completion:^(BOOL finished) {
                 [self loadLZLikeMainViewController];
             }];
-            
-            
             break;
         }
         case 1: {
@@ -289,7 +287,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         
         [subscribeFeeds removeObjectAtIndex:indexPath.row];
         [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
     }
 }
 
@@ -319,21 +316,17 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         [appDelegate.sideMenuViewController setMainViewController:nvController animated:NO closeMenu:YES];
     }
 
-    LZSubscribeFeed *feed;
-    if (indexPath.row > 0) {
-       feed = [subscribeFeeds objectAtIndex:indexPath.row];
+    NSURL *feedURL;
+    if (indexPath.section==1) {
+       LZSubscribeFeed *feed = [subscribeFeeds objectAtIndex:indexPath.row];
+        feedURL = [NSURL URLWithString:feed.feedId];
     }
-    
-    NSURL *feedURL = [NSURL URLWithString:feed.feedId];
     
     switch (indexPath.section) {
         case 0:
-            
             break;
         case 1:
-            if (indexPath.row > 0) {
-                [mainViewController parseFeedURL:feedURL];
-            }
+            [mainViewController parseFeedURL:feedURL];
             break;
         default:
             break;

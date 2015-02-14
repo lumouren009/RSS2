@@ -81,7 +81,16 @@
 + (BOOL)deleteSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context {
     LZSubscribeFeed *feed = [LZManagedObjectManager getSubscribeFeedWithFeedId:feedId withContext:context];
     if (feed) {
+
+        NSString *prefix = [LZStringTools firstMatchInString:feedId withPattern:@"https?://[^/]*/"];
+        
+        BOOL success = [self deleteAllItemsWithIdentifierPrefix:prefix withContext:context];
         [context deleteObject:feed];
+        NSError *error;
+        if ([context save:&error]==NO && success) {
+            NSLog(@"Delete subscribe feed failed in %@", THIS_METHOD);
+        }
+        
         return YES;
     } else {
         NSLog(@"Delete subscribe feed failure!!");
@@ -274,6 +283,21 @@
     return item;
 }
 
+
++ (BOOL)deleteAllItemsWithIdentifierPrefix:(NSString *)prefix withContext:(NSManagedObjectContext *)context {
+    NSArray *deleteObjects = [self getAllItemsWithIdentifierPrefix:prefix
+                                                       withContext:context];
+    for (LZItem *item in deleteObjects) {
+        [context deleteObject:item];
+    }
+    NSError *error;
+    if ([context save:&error]) {
+        return NO;
+        NSLog(@"Delete items error occurs in %@", THIS_METHOD);
+    }
+    return YES;
+    
+}
 
     
 
