@@ -187,7 +187,6 @@
 
     identifierHostName = [LZStringTools firstMatchInString:item.identifier withPattern:@"https?://[^/]*/"];
     NSLog(@"identifierHostName:%@", identifierHostName);
-
     
     if ([LZManagedObjectManager getItemByIdentifier:item.identifier withContext:managedObjectContext] == nil) {
         [parsedItems addObject:item];
@@ -200,23 +199,7 @@
         [imageURLStringArray addObject:str];
         NSLog(@"imageURLStringArray.count:%ld", (long)imageURLStringArray.count);
         if (![str isEqualToString:@""] && ![LZFileTools isFileExistInDocumentDirectory:imageFileName]) {
-            
-            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-            AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-            
-            NSURL *URL = [NSURL URLWithString:str];
-            NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-            
-            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-                return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-                NSLog(@"File downloaded to: %@", filePath);
-                if (filePath==nil) {
-                }
-            }];
-            [downloadTask resume];
-            
+            [self downloadCoverImageWithURLString:str];
         }
         // Save to LZItem DB
         [LZManagedObjectManager insertIntoItemDBWithMWFeedItem:item coverImageURLString:str withContext:managedObjectContext];
@@ -324,33 +307,20 @@
 {
     DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     LZDetailViewController *detail = [[LZDetailViewController alloc]init];
-    detail.feedItem = [LZManagedObjectManager convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
+    detail.currentFeedItem = [LZManagedObjectManager convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
     detail.feedTitle = self.feedInfo.title;
+    //detail.feedItems = self.itemsToDisplay;
+    detail.feedItems = [[NSMutableArray alloc]init];
+    for (NSInteger i=0; i<self.itemsToDisplay.count; i++) {
+        LZItem *item = [LZManagedObjectManager convertMWFeedItemIntoItem:self.itemsToDisplay[i] withContext:managedObjectContext];
+        [detail.feedItems addObject:item];
+    }
+    detail.currentItemIndex = indexPath.row;
     [self.navigationController pushViewController:detail animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 
-
-#pragma mark - Refresh control action
-- (void)refreshTableView:(UIRefreshControl *)sender {
-    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
-    [self refresh];
-   
-    UILabel *titleLabel = [[[[self.refreshControl subviews] firstObject] subviews] lastObject];
-    if (titleLabel) {
-        titleLabel.numberOfLines = 0;
-        NSString *dateString = [formatter stringFromDate:[NSDate date]];
-        NSString *title = [NSString stringWithFormat:@"Refresh...\nLast update:%@",dateString];
-        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:title];
-    }
-    [sender endRefreshing];
-}
-
-- (void)openButtonPressed
-{
-    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
-}
 
 #pragma mark - Notification responds
 - (void)changeThemeColor:(NSNotification *)notification {
@@ -368,10 +338,34 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
+- (void)closePopover:(NSNotification *)notification {
+    [popoverController dismissPopoverAnimated:YES completion:^{
+        [self popoverControllerDidDismissPopover:popoverController];
+    } ];
+}
 
 
 
-#pragma mark - Private Methods
+#pragma mark - Outlet action
+- (void)refreshTableView:(UIRefreshControl *)sender {
+    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
+    [self refresh];
+    
+    UILabel *titleLabel = [[[[self.refreshControl subviews] firstObject] subviews] lastObject];
+    if (titleLabel) {
+        titleLabel.numberOfLines = 0;
+        NSString *dateString = [formatter stringFromDate:[NSDate date]];
+        NSString *title = [NSString stringWithFormat:@"Refresh...\nLast update:%@",dateString];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:title];
+    }
+    [sender endRefreshing];
+}
+
+- (void)openButtonPressed
+{
+    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
+}
+
 - (void)configureTableView:(UIBarButtonItem *)sender {
 
     LZPopTableViewController *layoutSelectionTableVC = [[LZPopTableViewController alloc]initWithNibName:nil bundle:nil];
@@ -381,12 +375,6 @@
     popoverController.delegate = self;
     [popoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:WYPopoverArrowDirectionDown animated:YES];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(closePopover:) name:kChangeMainViewLayoutNotification object:nil];
-}
-
-- (void)closePopover:(NSNotification *)notification {
-    [popoverController dismissPopoverAnimated:YES completion:^{
-        [self popoverControllerDidDismissPopover:popoverController];
-    } ];
 }
 
 #pragma mark - Popover Controller delegate
@@ -400,5 +388,27 @@
     popoverController.delegate = nil;
     popoverController = nil;
 }
+
+
+#pragma mark - Private Methods
+- (void)downloadCoverImageWithURLString:(NSString*)str {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:str];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath);
+        if (filePath==nil) {
+        }
+    }];
+    [downloadTask resume];
+
+}
+
 
 @end

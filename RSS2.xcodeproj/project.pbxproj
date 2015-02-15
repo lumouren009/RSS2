@@ -15,7 +15,6 @@
 		463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96641A8C9B130084BD55 /* LZFileTools.m */; };
 		463C96681A8CAB480084BD55 /* LZManagedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 463C96671A8CAB480084BD55 /* LZManagedObjectManager.m */; };
 		463DAC2A1A8DD5920006590E /* LZPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 463DAC291A8DD5920006590E /* LZPopTableViewController.m */; };
-		463DAC331A8F1EC10006590E /* LZItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 463DAC321A8F1EC10006590E /* LZItem.m */; };
 		4646EEF31A8B46F900995B9D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4646EEF51A8B46F900995B9D /* Localizable.strings */; };
 		4665F4951A85E68200A2F031 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F4941A85E68200A2F031 /* main.m */; };
 		4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4665F49F1A85E68200A2F031 /* Images.xcassets */; };
@@ -44,6 +43,9 @@
 		4665F5161A85EC5300A2F031 /* LZLikeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F5151A85EC5300A2F031 /* LZLikeItem.m */; };
 		468232FF1A8C451B00356B38 /* LZImageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 468232FE1A8C451B00356B38 /* LZImageTools.m */; };
 		4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4693A8B21A88A5F000AF1B5E /* LZInfoTableViewCell.m */; };
+		46A23CBF1A90AC0C003E589C /* LZItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A23CBE1A90AC0C003E589C /* LZItem.m */; };
+		46A23CC21A90AD2F003E589C /* LZToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A23CC11A90AD2F003E589C /* LZToolbar.m */; };
+		46A23CC51A90BC52003E589C /* LZFontConfigPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A23CC41A90BC52003E589C /* LZFontConfigPane.m */; };
 		46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */; };
 		46DF39EF1A8CE30000A1E8C1 /* LZSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */; };
 		46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */; };
@@ -78,8 +80,6 @@
 		463C96671A8CAB480084BD55 /* LZManagedObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZManagedObjectManager.m; sourceTree = "<group>"; };
 		463DAC281A8DD5920006590E /* LZPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZPopTableViewController.h; sourceTree = "<group>"; };
 		463DAC291A8DD5920006590E /* LZPopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZPopTableViewController.m; sourceTree = "<group>"; };
-		463DAC311A8F1EC10006590E /* LZItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZItem.h; path = Model/LZItem.h; sourceTree = "<group>"; };
-		463DAC321A8F1EC10006590E /* LZItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZItem.m; path = Model/LZItem.m; sourceTree = "<group>"; };
 		4646EEF11A8B46F200995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		4646EEF21A8B46F200995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		4646EEF41A8B46F900995B9D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -138,6 +138,12 @@
 		468232FE1A8C451B00356B38 /* LZImageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZImageTools.m; path = Helpers/LZImageTools.m; sourceTree = "<group>"; };
 		4693A8B11A88A5F000AF1B5E /* LZInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZInfoTableViewCell.h; path = Views/LZInfoTableViewCell.h; sourceTree = "<group>"; };
 		4693A8B21A88A5F000AF1B5E /* LZInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZInfoTableViewCell.m; path = Views/LZInfoTableViewCell.m; sourceTree = "<group>"; };
+		46A23CBD1A90AC0C003E589C /* LZItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZItem.h; path = Model/LZItem.h; sourceTree = "<group>"; };
+		46A23CBE1A90AC0C003E589C /* LZItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZItem.m; path = Model/LZItem.m; sourceTree = "<group>"; };
+		46A23CC01A90AD2F003E589C /* LZToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZToolbar.h; path = Views/LZToolbar.h; sourceTree = "<group>"; };
+		46A23CC11A90AD2F003E589C /* LZToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZToolbar.m; path = Views/LZToolbar.m; sourceTree = "<group>"; };
+		46A23CC31A90BC52003E589C /* LZFontConfigPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZFontConfigPane.h; path = Views/LZFontConfigPane.h; sourceTree = "<group>"; };
+		46A23CC41A90BC52003E589C /* LZFontConfigPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZFontConfigPane.m; path = Views/LZFontConfigPane.m; sourceTree = "<group>"; };
 		46D005BF1A86308500C44E1F /* LZPrefixHeaderFile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZPrefixHeaderFile.pch; path = RSS2/LZPrefixHeaderFile.pch; sourceTree = "<group>"; };
 		46DCEB3E1A88592500EED7DF /* LZFeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZFeedSearchViewController.h; path = Controllers/LZFeedSearchViewController.h; sourceTree = "<group>"; };
 		46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZFeedSearchViewController.m; path = Controllers/LZFeedSearchViewController.m; sourceTree = "<group>"; };
@@ -255,8 +261,8 @@
 				4665F5121A85EC5300A2F031 /* LZFeedInfo.m */,
 				463C96661A8CAB470084BD55 /* LZManagedObjectManager.h */,
 				463C96671A8CAB480084BD55 /* LZManagedObjectManager.m */,
-				463DAC311A8F1EC10006590E /* LZItem.h */,
-				463DAC321A8F1EC10006590E /* LZItem.m */,
+				46A23CBD1A90AC0C003E589C /* LZItem.h */,
+				46A23CBE1A90AC0C003E589C /* LZItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -270,6 +276,10 @@
 				4665F4C91A85E6F600A2F031 /* LZSubscribeTextField.m */,
 				4693A8B11A88A5F000AF1B5E /* LZInfoTableViewCell.h */,
 				4693A8B21A88A5F000AF1B5E /* LZInfoTableViewCell.m */,
+				46A23CC01A90AD2F003E589C /* LZToolbar.h */,
+				46A23CC11A90AD2F003E589C /* LZToolbar.m */,
+				46A23CC31A90BC52003E589C /* LZFontConfigPane.h */,
+				46A23CC41A90BC52003E589C /* LZFontConfigPane.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -556,6 +566,7 @@
 				4665F4E21A85E75800A2F031 /* MWFeedParser.m in Sources */,
 				4635D74B1A8CCD4D003E124F /* UIImage+ProportionalFill.m in Sources */,
 				463DAC2A1A8DD5920006590E /* LZPopTableViewController.m in Sources */,
+				46A23CC51A90BC52003E589C /* LZFontConfigPane.m in Sources */,
 				4665F4D71A85E74100A2F031 /* NSString+XMLEntities.m in Sources */,
 				463C96621A8C8C620084BD55 /* LZStringTools.m in Sources */,
 				4665F4DA1A85E74100A2F031 /* GTMNSString+HTML.m in Sources */,
@@ -570,7 +581,8 @@
 				46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */,
 				46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */,
 				463C96681A8CAB480084BD55 /* LZManagedObjectManager.m in Sources */,
-				463DAC331A8F1EC10006590E /* LZItem.m in Sources */,
+				46A23CC21A90AD2F003E589C /* LZToolbar.m in Sources */,
+				46A23CBF1A90AC0C003E589C /* LZItem.m in Sources */,
 				463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */,
 				4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */,
 				4665F5131A85EC5300A2F031 /* LZFeedInfo.m in Sources */,

@@ -129,9 +129,16 @@
     // Show detail
     LZDetailViewController *detail = [[LZDetailViewController alloc]init];
     LZLikeItem *likeItem = [likeItemArray objectAtIndex:indexPath.row];
-    detail.feedItem = likeItem.item;
+    detail.currentFeedItem = likeItem.item;
     detail.feedTitle = likeItem.feedtitle;
-
+    detail.feedItems = [[NSMutableArray alloc]init];
+    for (NSInteger i=0; i<likeItemArray.count; i++) {
+        LZItem *item = [LZManagedObjectManager getItemByIdentifier:[likeItemArray[i] identifier] withContext:managedObjectContext];
+        item.isBookmarked = [NSNumber numberWithBool:YES];
+        [managedObjectContext save:nil];
+        [detail.feedItems addObject:item];
+    }
+    detail.currentItemIndex = indexPath.row;
     [self.navigationController pushViewController:detail animated:YES];
     
     // Deselect

@@ -12,7 +12,6 @@
 
 
 + (UIColor *)themeColorWithTag:(NSInteger)tag {
-    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
     UIColor *themeColor = nil;
     switch (tag) {
         case 0:

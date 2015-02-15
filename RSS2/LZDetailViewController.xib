@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LZDetailViewController">
             <connections>
-                <outlet property="blogWebView" destination="rgI-AT-c7f" id="5ls-ST-4zR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,27 +13,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <webView contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgI-AT-c7f">
-                    <rect key="frame" x="10" y="10" width="580" height="580"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </webView>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="rgI-AT-c7f" secondAttribute="bottom" constant="10" id="7Xn-cf-b4q"/>
-                <constraint firstItem="rgI-AT-c7f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="8DL-0M-ZQq"/>
-                <constraint firstAttribute="trailing" secondItem="rgI-AT-c7f" secondAttribute="trailing" constant="10" id="9zP-ws-9rU"/>
-                <constraint firstItem="rgI-AT-c7f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="pgB-V5-DGe"/>
-            </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="7Xn-cf-b4q"/>
-                    <exclude reference="8DL-0M-ZQq"/>
-                    <exclude reference="9zP-ws-9rU"/>
-                    <exclude reference="pgB-V5-DGe"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="274" y="272"/>
         </view>
     </objects>

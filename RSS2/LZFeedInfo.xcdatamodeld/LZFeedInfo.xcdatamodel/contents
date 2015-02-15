@@ -13,6 +13,7 @@
         <attribute name="coverImageURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isBookmarked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -29,9 +30,9 @@
         <attribute name="feedTitle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LZFeedInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LZItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LZLikeItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="LZSubscribeFeed" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LZFeedInfo" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="LZItem" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="LZLikeItem" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="LZSubscribeFeed" positionX="0" positionY="0" width="128" height="75"/>
     </elements>
 </model>

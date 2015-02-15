@@ -15,20 +15,20 @@ extern int globalFontSize;
 
 @interface LZDetailViewController : UIViewController {
     //MWFeedItem *feedItem;
-    LZItem *feedItem;
-    
+    LZItem *currentFeedItem;
+    NSMutableArray *feedItems;
+    NSInteger currentItemIndex;
     NSString *itemTitle, *dateString, *summaryString, *contentString, *feedTitle, *identifierString;
 
 
 }
 
 //@property (nonatomic, strong) MWFeedItem *feedItem;
-@property (nonatomic, strong) LZItem *feedItem;
+@property (nonatomic, strong) LZItem *currentFeedItem;
+@property (nonatomic, strong) NSMutableArray *feedItems;
+@property (nonatomic, assign) NSInteger currentItemIndex;
 @property (nonatomic, strong) NSString *itemTitle, *dateString, *summaryString, *contentString, *feedTitle, *identifierString;
 @property (nonatomic, strong) MWFeedInfo *feedInfo;
-
-//@property (strong, nonatomic) IBOutlet UIWebView *blogWebView;
-
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
