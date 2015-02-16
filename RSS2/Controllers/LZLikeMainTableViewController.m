@@ -7,36 +7,28 @@
 //
 
 #import "LZLikeMainTableViewController.h"
-#import "AppDelegate.h"
 #import "constants.h"
 #import "TWTSideMenuViewController.h"
 #import "LZLikeItem.h"
 #import "NSString+HTML.h"
 #import "LZDetailViewController.h"
 @interface LZLikeMainTableViewController ()
-
-@property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, strong) TWTSideMenuViewController *sideMenuViewController;
 @property (nonatomic, strong) NSMutableArray *likeItemArray;
 @property (nonatomic, strong) NSDateFormatter *formatter;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @end
 
 
 @implementation LZLikeMainTableViewController
-@synthesize appDelegate;
 @synthesize likeItemArray;
 @synthesize formatter;
-@synthesize managedObjectContext;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Initializaiton
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
-    self.sideMenuViewController = appDelegate.sideMenuViewController;
-    self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:managedObjectContext];
+    self.sideMenuViewController = [__appDelegate sideMenuViewController];
+    self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:__managedObjectContextOfAppDelegate];
     self.title = @"Bookmarks";
     
     formatter = [[NSDateFormatter alloc]init];
@@ -52,7 +44,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"%@: %@", THIS_FILE, THIS_METHOD);
     [super viewWillAppear:animated];
-    self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:managedObjectContext];
+    self.likeItemArray = [LZManagedObjectManager getAllLikeItemsWithContext:__managedObjectContextOfAppDelegate];
     [self.tableView reloadData];
     [self.navigationController.navigationBar setHidden:NO];
 }
@@ -114,8 +106,8 @@
         NSLog(@"likeItem.count%ld", (long)likeItemArray.count);
         LZLikeItem *deleteLikeItem = [likeItemArray objectAtIndex:indexPath.row];
         if (deleteLikeItem) {
-            [managedObjectContext deleteObject:deleteLikeItem];
-            [managedObjectContext save:nil];
+            [__managedObjectContextOfAppDelegate deleteObject:deleteLikeItem];
+            [__managedObjectContextOfAppDelegate save:nil];
             
         }
         [likeItemArray removeObjectAtIndex:indexPath.row];
@@ -133,9 +125,9 @@
     detail.feedTitle = likeItem.feedtitle;
     detail.feedItems = [[NSMutableArray alloc]init];
     for (NSInteger i=0; i<likeItemArray.count; i++) {
-        LZItem *item = [LZManagedObjectManager getItemByIdentifier:[likeItemArray[i] identifier] withContext:managedObjectContext];
+        LZItem *item = [LZManagedObjectManager getItemByIdentifier:[likeItemArray[i] identifier] withContext:__managedObjectContextOfAppDelegate];
         item.isBookmarked = [NSNumber numberWithBool:YES];
-        [managedObjectContext save:nil];
+        [__managedObjectContextOfAppDelegate save:nil];
         [detail.feedItems addObject:item];
     }
     detail.currentItemIndex = indexPath.row;

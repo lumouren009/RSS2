@@ -25,6 +25,5 @@ extern int globalFontSize;
 @property (nonatomic, assign) NSInteger currentItemIndex;
 @property (nonatomic, strong) NSString *itemTitle, *dateString, *summaryString, *contentString, *feedTitle, *identifierString;
 @property (nonatomic, strong) MWFeedInfo *feedInfo;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

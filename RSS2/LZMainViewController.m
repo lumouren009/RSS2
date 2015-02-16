@@ -11,7 +11,6 @@
 #import "NSString+HTML.h"
 #import "LZDetailViewController.h"
 #import "DetailTableViewController.h"
-#import "AppDelegate.h"
 #import "LZFeedInfo.h"
 #import "constants.h"
 #import "LZInfoTableViewCell.h"
@@ -26,7 +25,6 @@
 
 
 @interface LZMainViewController () <MBProgressHUDDelegate, WYPopoverControllerDelegate>
-@property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSMutableArray *imageURLStringArray;
 @property (nonatomic, strong) NSArray *imageURLStringsToDisplay;
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -41,7 +39,7 @@
 
 
 @implementation LZMainViewController
-@synthesize itemsToDisplay, appDelegate, managedObjectContext;
+@synthesize itemsToDisplay;
 @synthesize imageURLStringArray, imageURLStringsToDisplay;
 @synthesize hud;
 @synthesize themeColor;
@@ -52,11 +50,6 @@
 @synthesize identifierHostName;
 @synthesize coverImageViewFrame;
 
-
--(AppDelegate*)appDelegate
-{
-    return (AppDelegate*)[[UIApplication sharedApplication]delegate];
-}
 
 - (void)viewDidLoad
 {
@@ -74,8 +67,6 @@
     
 
     // Setup environment constants and notification
-    self.appDelegate = [self appDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
     self.themeColor = [UIColor whiteColor];
     NSInteger colorTag = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:kTextBackgroundColorTag] integerValue];
     self.themeColor = [LZSystemConfig themeColorWithTag:colorTag];
@@ -190,7 +181,7 @@
     NSLog(@"Parsed Feed Info: “%@”", info.title);
     self.title = info.title;
     self.feedInfo = info;
-    [LZManagedObjectManager insertIntoFeedInfoWithMWFeedInfo:info withContext:managedObjectContext];
+    [LZManagedObjectManager insertIntoFeedInfoWithMWFeedInfo:info withContext:__managedObjectContextOfAppDelegate];
     
 }
 
@@ -201,7 +192,7 @@
     identifierHostName = [LZStringTools firstMatchInString:item.identifier withPattern:@"https?://[^/]*/"];
     NSLog(@"identifierHostName:%@", identifierHostName);
     
-    if ([LZManagedObjectManager getItemByIdentifier:item.identifier withContext:managedObjectContext] == nil) {
+    if ([LZManagedObjectManager getItemByIdentifier:item.identifier withContext:__managedObjectContextOfAppDelegate] == nil) {
         [parsedItems addObject:item];
         
         NSString *itemContent = item.content ? item.content:item.summary;
@@ -215,11 +206,11 @@
             [self downloadCoverImageWithURLString:str];
         }
         // Save to LZItem DB
-        [LZManagedObjectManager insertIntoItemDBWithMWFeedItem:item coverImageURLString:str withContext:managedObjectContext];
+        [LZManagedObjectManager insertIntoItemDBWithMWFeedItem:item coverImageURLString:str withContext:__managedObjectContextOfAppDelegate];
     } else {
 
         if (isChangeBlog) {
-            NSArray *fetchedObjects = [LZManagedObjectManager getAllItemsWithIdentifierPrefix:identifierHostName withContext:managedObjectContext];
+            NSArray *fetchedObjects = [LZManagedObjectManager getAllItemsWithIdentifierPrefix:identifierHostName withContext:__managedObjectContextOfAppDelegate];
             for (LZItem *object in fetchedObjects) {
                 [parsedItems addObject:object];
                 [imageURLStringArray addObject:object.coverImageURLString];
@@ -314,7 +305,7 @@
     //detail.feedItems = self.itemsToDisplay;
     detail.feedItems = [[NSMutableArray alloc]init];
     for (NSInteger i=0; i<self.itemsToDisplay.count; i++) {
-        LZItem *item = [LZManagedObjectManager convertMWFeedItemIntoItem:self.itemsToDisplay[i] withContext:managedObjectContext];
+        LZItem *item = [LZManagedObjectManager convertMWFeedItemIntoItem:self.itemsToDisplay[i] withContext:__managedObjectContextOfAppDelegate];
         [detail.feedItems addObject:item];
     }
     detail.currentItemIndex = indexPath.row;

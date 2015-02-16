@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 luzheng. All rights reserved.
 //
 
+#import "AppDelegate.h"
+
 // Notification
 #define kAddFeedNotification                            @"kAddFeedNotification"
 #define kModifyLZLikeItemArrayNotification              @"kModifyLZLikeItemArrayNotification"
@@ -28,8 +30,10 @@
 
 // Macro
 #define OBJ_IS_NIL(s) (s==nil || [s isKindOfClass:[NSNull class]])
-#define kScreenWidth        [UIScreen mainScreen].bounds.size.width
-#define kScreenHeight       [UIScreen mainScreen].bounds.size.height
+#define kScreenWidth                                    [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight                                   [UIScreen mainScreen].bounds.size.height
+#define __appDelegate                                   (AppDelegate*)[[UIApplication sharedApplication]delegate]
+#define __managedObjectContextOfAppDelegate             [(AppDelegate*)[[UIApplication sharedApplication]delegate] managedObjectContext]
 
 // Feedly search API
 #define kFeedlySearchAPI                                @"http://cloud.feedly.com/v3/search/feeds?query="

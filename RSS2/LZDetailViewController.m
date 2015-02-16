@@ -8,7 +8,6 @@
 
 #import "LZDetailViewController.h"
 #import "NSString+HTML.h"
-
 #import "constants.h"
 #import "LZLikeItem.h"
 #import "AppDelegate.h"
@@ -32,7 +31,6 @@
 @property (nonatomic, assign) NSInteger globalFontSize;
 @property (nonatomic, assign) CGFloat fontRatio;
 @property (nonatomic, assign) NSInteger textBackgroundColorTag;
-@property (nonatomic, strong) AppDelegate *appDelegate;
 @property (nonatomic, assign) BOOL isBookmarked;
 @property (nonatomic, assign) NSInteger nPagesViewd;
 @property (nonatomic, strong) NSMutableArray *blogWebViews;
@@ -65,7 +63,6 @@
 @synthesize isFontChangeViewDisplayed;
 @synthesize userDefaults;
 @synthesize globalFontSize, fontRatio, textBackgroundColorTag;
-@synthesize managedObjectContext, appDelegate;
 @synthesize isBookmarked;
 @synthesize nPagesViewd;
 
@@ -82,7 +79,7 @@
 
     
     // Initialize array to hold web views
-    itemCount = feedItems.count; NSLog(@"itemCount:%ld", (long)itemCount);
+    itemCount = feedItems.count;
     blogWebViews = [[NSMutableArray alloc]init];
     for (NSInteger i=0; i<itemCount; i++) {
         [blogWebViews addObject:[NSNull null]];
@@ -197,8 +194,7 @@
 #pragma mark - Scroll View delegate
 
 - (void)setupEnvVariables {
-    appDelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
-    managedObjectContext = appDelegate.managedObjectContext;
+
     
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -210,11 +206,11 @@
     nPagesViewd = 0;
     isFontChangeViewDisplayed = NO;
     currentPage = currentItemIndex;
-    if (OBJ_IS_NIL([LZManagedObjectManager getLikeItemByIdentifier:[(LZItem *)feedItems[currentPage] identifier] withContext:managedObjectContext])) {
+    if (OBJ_IS_NIL([LZManagedObjectManager getLikeItemByIdentifier:[(LZItem *)feedItems[currentPage] identifier] withContext:__managedObjectContextOfAppDelegate])) {
         isBookmarked = NO;
     } else {
-        NSLog(@"LZItem:%@",[[LZManagedObjectManager getItemByIdentifier:[(LZItem *)feedItems[currentPage] identifier] withContext:managedObjectContext]description ]);
-        NSLog(@"LZLikeItem:%@", [[LZManagedObjectManager getLikeItemByIdentifier:[(LZItem *)feedItems[currentPage] identifier] withContext:managedObjectContext]description]);
+        NSLog(@"LZItem:%@",[[LZManagedObjectManager getItemByIdentifier:[(LZItem *)feedItems[currentPage] identifier] withContext:__managedObjectContextOfAppDelegate]description ]);
+        NSLog(@"LZLikeItem:%@", [[LZManagedObjectManager getLikeItemByIdentifier:[(LZItem *)feedItems[currentPage] identifier] withContext:__managedObjectContextOfAppDelegate]description]);
         isBookmarked = YES;
     }
     // Date and time formatter
@@ -282,7 +278,7 @@
 - (void)setupToolBar {
     DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
     toolbar = [[LZToolbar alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height-44, self.view.frame.size.width, 44)];
-    if ([[[LZManagedObjectManager getItemByIdentifier:currentDisplayedItem.identifier withContext:managedObjectContext] isBookmarked] boolValue]) {
+    if ([[[LZManagedObjectManager getItemByIdentifier:currentDisplayedItem.identifier withContext:__managedObjectContextOfAppDelegate] isBookmarked] boolValue]) {
 
         toolbar.bookmarkBtn.image  = [[FIEntypoIcon starIcon] imageWithBounds:CGRectMake(0, 0, 23, 23) color:[UIColor colorWithRed:0.99 green:0.87 blue:0.18 alpha:1.0]];
         toolbar.bookmarkBtn.tintColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.38 alpha:1.0];
@@ -433,13 +429,13 @@
 }
 
 - (void)bookmarkButtonPressed {
-    LZItem *item = [LZManagedObjectManager getItemByIdentifier:currentDisplayedItem.identifier withContext:managedObjectContext];
+    LZItem *item = [LZManagedObjectManager getItemByIdentifier:currentDisplayedItem.identifier withContext:__managedObjectContextOfAppDelegate];
     
     if (!item.isBookmarked.boolValue) {
         item.isBookmarked = [NSNumber numberWithBool:YES];
         [LZManagedObjectManager insertIntoLikeDBWithItem:item
                                             andFeedTitle:feedTitle
-                                             withContext:managedObjectContext];
+                                             withContext:__managedObjectContextOfAppDelegate];
         FIEntypoIcon *icon = [FIEntypoIcon starIcon];
         UIImage *starImage = [icon imageWithBounds:CGRectMake(0, 0, 23, 23) color:[UIColor colorWithRed:0.99 green:0.87 blue:0.18 alpha:1.0]];
         self.toolbar.bookmarkBtn.image = starImage;
@@ -494,13 +490,13 @@
 }
 
 - (void)removeLZLikeItem {
-    LZLikeItem *likeItem = [LZManagedObjectManager getLikeItemByIdentifier:[(LZItem*)feedItems[currentPage] identifier] withContext:managedObjectContext];
+    LZLikeItem *likeItem = [LZManagedObjectManager getLikeItemByIdentifier:[(LZItem*)feedItems[currentPage] identifier] withContext:__managedObjectContextOfAppDelegate];
     if (likeItem==nil) {
         NSLog(@"%@:likeItem is nil", THIS_METHOD);
     }
     if (likeItem) {
-        [managedObjectContext deleteObject:likeItem];
-        [managedObjectContext save:nil];
+        [__managedObjectContextOfAppDelegate deleteObject:likeItem];
+        [__managedObjectContextOfAppDelegate save:nil];
     }
 
 }
@@ -583,7 +579,6 @@
             scrollView.contentOffset = CGPointMake((currentPage+1)*screenWidth, 0);
         }
     }];
-    
     [self loadVisiblePages];
     [scrollView setScrollEnabled:NO];
     

@@ -9,7 +9,6 @@
 #import "LZMenuViewController.h"
 #import "TWTSideMenuViewController.h"
 #import "LZMainViewController.h"
-#import "AppDelegate.h"
 #import "LZFeedInfo.h"
 #import "constants.h"
 #import "LZSubscribeTextField.h"
@@ -31,14 +30,12 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 @property (nonatomic, strong) UIButton *addWebsiteBtn, *subscribeBtn;
 
-
 @property (nonatomic, strong) UITableView *feedsTitleTableView;
 
 @property (nonatomic, strong) NSMutableArray *feedURLArray;
 
 @property (nonatomic, strong) NSMutableArray *subscribeFeeds;
 
-@property (nonatomic, strong) AppDelegate *appDelegate;
 
 
 
@@ -46,28 +43,16 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 @implementation LZMenuViewController
 
-
-@synthesize  subscribeURLTextField, addWebsiteBtn, subscribeBtn, appDelegate, feedsTitleTableView, managedObjectContext;
-
+@synthesize  subscribeURLTextField, addWebsiteBtn, subscribeBtn, feedsTitleTableView;
 @synthesize subscribeFeeds;
 
-
-
--(AppDelegate*)appDelegate
-{
-   return (AppDelegate*)[[UIApplication sharedApplication]delegate];
-}
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Initialization
-    self.appDelegate = [self appDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
-    
     // Fetch blog titles
-    self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
+    self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:__managedObjectContextOfAppDelegate] mutableCopy];
     
     // Setup UI
     [self setupUI];
@@ -154,7 +139,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 }
 
 - (void)updateFeedsTitleTableView:(NSNotification*)notification{
-    self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:managedObjectContext] mutableCopy];
+    self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:__managedObjectContextOfAppDelegate] mutableCopy];
     NSLog(@"Observe the notification");
     [feedsTitleTableView reloadData];
 }
@@ -268,8 +253,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         default:
             break;
     }
-
-
 }
 
 
@@ -279,11 +262,10 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"subscribeFeeds.count:%ld", subscribeFeeds.count);
         LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row];
-        [LZManagedObjectManager deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:managedObjectContext];
+        [LZManagedObjectManager deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:__managedObjectContextOfAppDelegate];
         
         [subscribeFeeds removeObjectAtIndex:indexPath.row];
         [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -297,7 +279,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     LZLikeMainTableViewController *likeMainViewController = [[LZLikeMainTableViewController alloc]initWithNibName:nil bundle:nil];
     UINavigationController *nvController = [[UINavigationController alloc]initWithRootViewController:likeMainViewController];
    
-    [appDelegate.sideMenuViewController setMainViewController:nvController animated:NO closeMenu:YES];
+    [[__appDelegate sideMenuViewController] setMainViewController:nvController animated:NO closeMenu:YES];
 }
 
 
@@ -311,9 +293,9 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         mainViewController = [nvController.viewControllers objectAtIndex:0];
     } else {
         //mainViewController = [[LZMainViewController alloc]initWithNibName:nil bundle:nil];
-        mainViewController = appDelegate.mainViewController;
+        mainViewController = [__appDelegate mainViewController];
         nvController = [[UINavigationController alloc]initWithRootViewController:mainViewController];
-        [appDelegate.sideMenuViewController setMainViewController:nvController animated:NO closeMenu:YES];
+        [[__appDelegate sideMenuViewController] setMainViewController:nvController animated:NO closeMenu:YES];
     }
 
     NSURL *feedURL;
@@ -339,15 +321,12 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
 {
 
     UITableViewController *resultTableVC = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
-    
-
     LZFeedSearchViewController *searchVC = [[LZFeedSearchViewController alloc]initWithSearchResultsController:resultTableVC];
     
     resultTableVC.tableView.delegate = searchVC;
     resultTableVC.tableView.dataSource = searchVC;
     
     [searchVC setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    
     [self presentViewController:searchVC animated:YES completion:nil];
     
     
