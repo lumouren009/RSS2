@@ -26,8 +26,6 @@
 @property (nonatomic, assign) BOOL isFontChangeViewDisplayed;
 @property (nonatomic, assign) CGFloat screenWidth;
 @property (nonatomic, assign) CGFloat screenHeight;
-//@property (nonatomic, strong) UIView *fontSizeChangeView;
-//@property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) LZFontConfigPane *fontSizeChangeView;
 @property (nonatomic, strong) LZToolbar *toolbar;
 @property (nonatomic, strong) NSUserDefaults *userDefaults;
@@ -35,7 +33,6 @@
 @property (nonatomic, assign) CGFloat fontRatio;
 @property (nonatomic, assign) NSInteger textBackgroundColorTag;
 @property (nonatomic, strong) AppDelegate *appDelegate;
-//@property (nonatomic, strong) UIBarButtonItem *bookmarkBtn, *leftBtnItem, *fontBtn, *shareBtn, *flexibleSpace, *fixedSpace;
 @property (nonatomic, assign) BOOL isBookmarked;
 @property (nonatomic, assign) NSInteger nPagesViewd;
 @property (nonatomic, strong) NSMutableArray *blogWebViews;
@@ -69,7 +66,6 @@
 @synthesize userDefaults;
 @synthesize globalFontSize, fontRatio, textBackgroundColorTag;
 @synthesize managedObjectContext, appDelegate;
-//@synthesize bookmarkBtn, leftBtnItem, fontBtn, shareBtn, flexibleSpace, fixedSpace;
 @synthesize isBookmarked;
 @synthesize nPagesViewd;
 
@@ -95,6 +91,7 @@
     // Initialize ScrollView
     scrollView = [[UIScrollView alloc]init];
     self.scrollView.delegate = self;
+    [scrollView setScrollEnabled:NO];
     [self.view addSubview:scrollView];
     
 }
@@ -225,7 +222,6 @@
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterMediumStyle];
 }
-
 
 - (void)setupGestures {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onSingleTap)];
@@ -509,7 +505,6 @@
 
 }
 
-
 #pragma mark -
 #pragma mark Recognizer methods
 
@@ -566,27 +561,31 @@
 
 #pragma mark - Navigation bar item action
 - (void)backToPreviousBlog {
+    [scrollView setScrollEnabled:YES];
     
     [UIView animateWithDuration:0.2f animations:^{
         if (currentPage > 0) {
             fontSizeChangeView.frame = CGRectMake(0, screenHeight, screenWidth, 170);
-            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x-screenWidth, 0);
+            scrollView.contentOffset = CGPointMake((currentPage-1)*screenWidth, 0);
         }
     }];
     
     [self loadVisiblePages];
+    [scrollView setScrollEnabled:NO];
     
 }
 
 - (void)forwardToNextBlog {
+    [scrollView setScrollEnabled:YES];
     [UIView animateWithDuration:0.2f animations:^{
         if (currentPage < itemCount-1) {
             fontSizeChangeView.frame = CGRectMake(0, screenHeight, screenWidth, 170);
-            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x+screenWidth, 0);
+            scrollView.contentOffset = CGPointMake((currentPage+1)*screenWidth, 0);
         }
     }];
     
     [self loadVisiblePages];
+    [scrollView setScrollEnabled:NO];
     
 }
 

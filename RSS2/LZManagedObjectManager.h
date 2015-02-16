@@ -21,7 +21,7 @@
 +(void)insertIntoSubscribeFeedDBWithTitle:(NSString *)title andFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
 + (BOOL)deleteSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
 +(LZSubscribeFeed *)getSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context;
-+(NSArray *)getAllSubscribeFeedsWithContext:(NSManagedObjectContext *)context;
++(NSArray *)getAllSubscribeFeedsWithContext:(NSManagedObjectContext *)context;  
 
 
 // Manage LZLikeItem entity

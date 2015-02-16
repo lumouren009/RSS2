@@ -102,12 +102,74 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZMainViewController.m"
-            timestampString = "445701087.659868"
+            timestampString = "445764591.653169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "-configureTableView:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RSS2/Views/LZItemFullTableViewCell.h"
+            timestampString = "445714838.328087"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "coverImageView"
+            landmarkType = "19">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LZItemFullTableViewCell coverImageView]"
+                  moduleName = "RSS2"
+                  urlString = "file:///Users/luzheng1208/develope/2015.2.2/RSS2/RSS2/Views/LZItemFullTableViewCell.h"
+                  timestampString = "445748237.977694"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LZItemFullTableViewCell setCoverImageView:]"
+                  moduleName = "RSS2"
+                  urlString = "file:///Users/luzheng1208/develope/2015.2.2/RSS2/RSS2/Views/LZItemFullTableViewCell.h"
+                  timestampString = "445748237.979657"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RSS2/LZMainViewController.m"
+            timestampString = "445764591.653169"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
+            landmarkName = "-configureFullCell:withIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

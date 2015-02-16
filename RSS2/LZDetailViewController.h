@@ -14,16 +14,12 @@
 extern int globalFontSize;
 
 @interface LZDetailViewController : UIViewController {
-    //MWFeedItem *feedItem;
     LZItem *currentFeedItem;
     NSMutableArray *feedItems;
     NSInteger currentItemIndex;
     NSString *itemTitle, *dateString, *summaryString, *contentString, *feedTitle, *identifierString;
-
-
 }
 
-//@property (nonatomic, strong) MWFeedItem *feedItem;
 @property (nonatomic, strong) LZItem *currentFeedItem;
 @property (nonatomic, strong) NSMutableArray *feedItems;
 @property (nonatomic, assign) NSInteger currentItemIndex;

@@ -7,21 +7,23 @@
 //
 
 // Notification
-#define kAddFeedNotification @"kAddFeedNotification"
-#define kModifyLZLikeItemArrayNotification @"kModifyLZLikeItemArrayNotification"
-#define kChangeThemeColorNotification      @"ChangeThemeColorNotification"
-#define kChangeMainViewLayoutNotification              @"ChangeMainViewLayout"
+#define kAddFeedNotification                            @"kAddFeedNotification"
+#define kModifyLZLikeItemArrayNotification              @"kModifyLZLikeItemArrayNotification"
+#define kChangeThemeColorNotification                   @"ChangeThemeColorNotification"
+#define kChangeMainViewLayoutNotification               @"ChangeMainViewLayout"
 
-#define kGlobalFontSize             @"kGlobalFontSize"
-#define kTextBackgroundColorTag     @"kTextBackgroundColorTag"
-#define kMainViewLayout             @"kMainViewLayout"
-#define kTableViewCellIdentifier    @"com.luzheng.sampleCell"
+// Global varibles key
+#define kGlobalFontSize                                 @"kGlobalFontSize"
+#define kTextBackgroundColorTag                         @"kTextBackgroundColorTag"
+#define kMainViewLayout                                 @"kMainViewLayout"
+#define kTableViewCellIdentifier                        @"com.luzheng.sampleCell"
+#define kLastOpenFeedIdentifier                         @"kLastOpenFeedIdentifier"
 
 // DB Constants
-#define kLZLikeItemEntityString     @"LZLikeItem"
-#define kLZItemEntityString         @"LZItem"
-#define kLZFeedInfoEntityString                 @"LZFeedInfo"
-#define kLZSubsFeedEntityString                 @"LZSubscribeFeed"
+#define kLZLikeItemEntityString                         @"LZLikeItem"
+#define kLZItemEntityString                             @"LZItem"
+#define kLZFeedInfoEntityString                         @"LZFeedInfo"
+#define kLZSubsFeedEntityString                         @"LZSubscribeFeed"
 
 
 // Macro
@@ -30,7 +32,12 @@
 #define kScreenHeight       [UIScreen mainScreen].bounds.size.height
 
 // Feedly search API
-#define kFeedlySearchAPI             @"http://cloud.feedly.com/v3/search/feeds?query="
+#define kFeedlySearchAPI                                @"http://cloud.feedly.com/v3/search/feeds?query="
+
+
+// Table view cell identifier
+#define kItemFullTableViewCellIdentifier                @"kItemFullTableViewCellIdentifier"
+
 
 // Enum
-typedef enum { LZLayoutList, LZLayoutView } LZLayoutType;
+typedef enum { LZLayoutList, LZLayoutView, LZLayoutFull } LZLayoutType;

@@ -22,6 +22,7 @@
 #import <MBProgressHUD.h>
 #import "UIImage+ProportionalFill.h"
 #import "LZPopTableViewController.h"
+#import "LZItemFullTableViewCell.h"
 
 
 @interface LZMainViewController () <MBProgressHUDDelegate, WYPopoverControllerDelegate>
@@ -34,14 +35,12 @@
 @property (nonatomic, assign) LZLayoutType currentLayoutType;
 @property (nonatomic, assign) BOOL isChangeBlog;
 @property (nonatomic, strong) NSString *identifierHostName;
+@property (nonatomic, assign) CGRect coverImageViewFrame;
 
 @end
 
 
-
-
 @implementation LZMainViewController
-
 @synthesize itemsToDisplay, appDelegate, managedObjectContext;
 @synthesize imageURLStringArray, imageURLStringsToDisplay;
 @synthesize hud;
@@ -51,6 +50,8 @@
 @synthesize parsedItems;
 @synthesize isChangeBlog;
 @synthesize identifierHostName;
+@synthesize coverImageViewFrame;
+
 
 -(AppDelegate*)appDelegate
 {
@@ -68,8 +69,8 @@
     self.imageURLStringsToDisplay = [NSArray array];
     self.itemsToDisplay = [NSArray array];
     self.parsedItems = [[NSMutableArray alloc]init];
-    self.feedURLString = @"http://blog.devtang.com/atom.xml";
     self.isChangeBlog = YES;
+
     
 
     // Setup environment constants and notification
@@ -79,6 +80,8 @@
     NSInteger colorTag = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:kTextBackgroundColorTag] integerValue];
     self.themeColor = [LZSystemConfig themeColorWithTag:colorTag];
     currentLayoutType = [(NSNumber *) [[NSUserDefaults standardUserDefaults] objectForKey:kMainViewLayout] intValue];
+    self.feedURLString = [[NSUserDefaults standardUserDefaults] objectForKey:kLastOpenFeedIdentifier];
+    
 
     self.title = @"Blog titles";
     formatter = [[NSDateFormatter alloc]init];
@@ -103,8 +106,8 @@
     [self.refreshControl addTarget:self
                             action:@selector(refreshTableView:)
                   forControlEvents:UIControlEventValueChanged];
-    
-    // Hud
+
+// Hud
 //    hud = [[MBProgressHUD alloc]initWithView:self.navigationController.view];
 //    [self.navigationController.view addSubview:hud];
 //   
@@ -116,7 +119,7 @@
 
 }
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     [self.tableView reloadData];
@@ -131,14 +134,24 @@
     // NSURL *feedURL = [NSURL URLWithString:@"http://techcrunch.com/feed/"];
     // NSURL *feedURL = [NSURL URLWithString:@"http://blog.devtang.com/atom.xml"];
     // 阮一峰 http://www.ruanyifeng.com/blog/atom.xml
+    [[NSUserDefaults standardUserDefaults] setObject:feedURL.absoluteString forKey:kLastOpenFeedIdentifier];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     isChangeBlog = YES;
     [parsedItems removeAllObjects];
     [imageURLStringArray removeAllObjects];
-    feedParser = [[MWFeedParser alloc]initWithFeedURL:feedURL];
-    feedParser.delegate = self;
-    feedParser.feedParseType = ParseTypeFull;
-    feedParser.connectionType = ConnectionTypeAsynchronously;
-    [feedParser parse];
+    if (feedURL) {
+        feedParser = [[MWFeedParser alloc]initWithFeedURL:feedURL];
+        feedParser.delegate = self;
+        feedParser.feedParseType = ParseTypeFull;
+        feedParser.connectionType = ConnectionTypeAsynchronously;
+        [feedParser parse];
+    } else
+    {
+        UIAlertView *alterView = [[UIAlertView alloc]initWithTitle:nil message:@"Subscribe on the left menu" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil];
+        [alterView show];
+        
+    }
+    
 }
 
 #pragma mark -
@@ -250,20 +263,67 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    LZInfoTableViewCell *cell = (LZInfoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewCellIdentifier];
-    if (cell==nil) {
-        cell = [[LZInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewCellIdentifier];
+    UITableViewCell *cell;
+    NSLog(@"currentLayoutType:%ld", (long)currentLayoutType);
+    if (currentLayoutType==LZLayoutList || currentLayoutType==LZLayoutView) {
+        cell = (LZInfoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewCellIdentifier];
+        if (cell==nil) {
+            cell = [[LZInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewCellIdentifier];
+        }
+        [self configureCell:cell withIndexPath:indexPath];
     }
-    [self configureCell:cell withIndexPath:indexPath];
+    
+    else if (currentLayoutType == LZLayoutFull) {
+        cell = (LZItemFullTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kItemFullTableViewCellIdentifier];
+        if (cell==nil) {
+            NSArray *cellTeam =
+            [[NSBundle mainBundle] loadNibNamed:@"LZItemFullTableViewCell"
+                                          owner:self options:nil];
+            cell = (LZItemFullTableViewCell *)[cellTeam objectAtIndex:0];
+        }
+        [self configureFullCell:(LZItemFullTableViewCell *)cell withIndexPath:indexPath];
+    }
     return cell;
 
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    if (currentLayoutType==LZLayoutList || currentLayoutType==LZLayoutView || [imageURLStringsToDisplay[indexPath.row] isEqualToString:@""])
+        return 80;
+    else {
+        NSArray *parts = [imageURLStringsToDisplay[indexPath.row] componentsSeparatedByString:@"/"];
+
+        if ([LZFileTools isFileExistInDocumentDirectory:[parts lastObject]]) {
+            return 230;
+        } else {
+            return 80;
+        }
+        
+
+    }
+
+    
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
+    LZDetailViewController *detail = [[LZDetailViewController alloc]init];
+    detail.currentFeedItem = [LZManagedObjectManager convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
+    detail.feedTitle = self.feedInfo.title;
+    //detail.feedItems = self.itemsToDisplay;
+    detail.feedItems = [[NSMutableArray alloc]init];
+    for (NSInteger i=0; i<self.itemsToDisplay.count; i++) {
+        LZItem *item = [LZManagedObjectManager convertMWFeedItemIntoItem:self.itemsToDisplay[i] withContext:managedObjectContext];
+        [detail.feedItems addObject:item];
+    }
+    detail.currentItemIndex = indexPath.row;
+    [self.navigationController pushViewController:detail animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+}
+
+#pragma mark -  Private methods 
 - (void)configureCell:(UITableViewCell *)cell withIndexPath:(NSIndexPath *)indexPath {
     
     MWFeedItem *item = [itemsToDisplay objectAtIndex:indexPath.row];
@@ -273,7 +333,7 @@
         cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0];
         cell.textLabel.text = item.title ? [item.title stringByConvertingHTMLToPlainText] : @"[No Title]";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@", [formatter stringFromDate:item.date ? item.date : [NSDate date]], item.summary ? [item.summary stringByConvertingHTMLToPlainText] : @"[No Summary]"];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@", [formatter stringFromDate:item.date ? item.date : [NSDate date]], item.summary ? [item.summary stringByConvertingHTMLToPlainText] : @"[No Summary]"];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0];
         //cell.backgroundColor = themeColor;
         
@@ -299,26 +359,41 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 }
-
-#pragma mark - 
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
-    LZDetailViewController *detail = [[LZDetailViewController alloc]init];
-    detail.currentFeedItem = [LZManagedObjectManager convertMWFeedItemIntoItem:(MWFeedItem *)[itemsToDisplay objectAtIndex:indexPath.row] withContext:nil];
-    detail.feedTitle = self.feedInfo.title;
-    //detail.feedItems = self.itemsToDisplay;
-    detail.feedItems = [[NSMutableArray alloc]init];
-    for (NSInteger i=0; i<self.itemsToDisplay.count; i++) {
-        LZItem *item = [LZManagedObjectManager convertMWFeedItemIntoItem:self.itemsToDisplay[i] withContext:managedObjectContext];
-        [detail.feedItems addObject:item];
+- (void)configureFullCell:(LZItemFullTableViewCell *)cell withIndexPath:(NSIndexPath *)indexPath {
+    MWFeedItem *item = [itemsToDisplay objectAtIndex:indexPath.row];
+    if (item) {
+    
+        cell.itemTitleLabel.text = item.title ? [item.title stringByConvertingHTMLToPlainText] : @"[No Title]";
+        cell.itemDetailLabel.text = item.summary ? [[item.summary stringByConvertingHTMLToPlainText] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] : @"[No Summary]";
+        
+        UIImage *cellImage = nil;
+        if (![imageURLStringArray[indexPath.row] isEqualToString:@""]) {
+            
+            if (cell.coverImageView.frame.size.width==0) {
+                cell.containerView.frame = CGRectMake(13, 13, 283, 195);
+                cell.coverImageView.frame = coverImageViewFrame;
+                cell.itemTitleLabel.frame = CGRectMake(6, 136, 283, 24);
+                cell.itemDetailLabel.frame = CGRectMake(6, 169, 278, 15);
+            }
+            
+            NSArray *parts = [imageURLStringsToDisplay[indexPath.row] componentsSeparatedByString:@"/"];
+            cellImage = [LZFileTools getImageFromFileWithFileName:[parts lastObject]];
+            if (cellImage != nil) {
+                cell.coverImageView.image = [cellImage imageToFitSize:CGSizeMake(320, 118) method:MGImageResizeCropStart];
+            } else {
+                if (cell.coverImageView.frame.size.width != 0) {
+                    coverImageViewFrame = cell.coverImageView.frame;
+                }
+                [cell convertsSimpleFrame];
+            }
+        } else {
+            if (cell.coverImageView.frame.size.width != 0) {
+                coverImageViewFrame = cell.coverImageView.frame;
+            }
+            [cell convertsSimpleFrame];
+        }
     }
-    detail.currentItemIndex = indexPath.row;
-    [self.navigationController pushViewController:detail animated:YES];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    NSLog(@"current indexpath.row:%ld", (long)indexPath.row);
 }
 
 
@@ -345,7 +420,6 @@
 }
 
 
-
 #pragma mark - Outlet action
 - (void)refreshTableView:(UIRefreshControl *)sender {
     DDLogVerbose(@"%@.%@", THIS_FILE, THIS_METHOD);
@@ -369,7 +443,7 @@
 - (void)configureTableView:(UIBarButtonItem *)sender {
 
     LZPopTableViewController *layoutSelectionTableVC = [[LZPopTableViewController alloc]initWithNibName:nil bundle:nil];
-    layoutSelectionTableVC.preferredContentSize = CGSizeMake(160, 60);
+    layoutSelectionTableVC.preferredContentSize = CGSizeMake(160, 90);
 
     popoverController = [[WYPopoverController alloc]initWithContentViewController:layoutSelectionTableVC];
     popoverController.delegate = self;
@@ -389,7 +463,6 @@
     popoverController = nil;
 }
 
-
 #pragma mark - Private Methods
 - (void)downloadCoverImageWithURLString:(NSString*)str {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -403,11 +476,9 @@
         return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         NSLog(@"File downloaded to: %@", filePath);
-        if (filePath==nil) {
-        }
+        
     }];
     [downloadTask resume];
-
 }
 
 

@@ -49,6 +49,8 @@
 		46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */; };
 		46DF39EF1A8CE30000A1E8C1 /* LZSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */; };
 		46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */; };
+		46F5AFEA1A90F79800A34AF1 /* LZItemFullTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5AFE81A90F79800A34AF1 /* LZItemFullTableViewCell.m */; };
+		46F5AFEB1A90F79800A34AF1 /* LZItemFullTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46F5AFE91A90F79800A34AF1 /* LZItemFullTableViewCell.xib */; };
 		8210BB7027119C86F88BF1E4 /* libPods-RSS2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74AEC36DA7D9DEBD34E19329 /* libPods-RSS2.a */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +152,9 @@
 		46DF39ED1A8CE30000A1E8C1 /* LZSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSystemConfig.h; path = Helpers/LZSystemConfig.h; sourceTree = "<group>"; };
 		46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSystemConfig.m; path = Helpers/LZSystemConfig.m; sourceTree = "<group>"; };
 		46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		46F5AFE71A90F79800A34AF1 /* LZItemFullTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZItemFullTableViewCell.h; path = Views/LZItemFullTableViewCell.h; sourceTree = "<group>"; };
+		46F5AFE81A90F79800A34AF1 /* LZItemFullTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZItemFullTableViewCell.m; path = Views/LZItemFullTableViewCell.m; sourceTree = "<group>"; };
+		46F5AFE91A90F79800A34AF1 /* LZItemFullTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LZItemFullTableViewCell.xib; path = Views/LZItemFullTableViewCell.xib; sourceTree = "<group>"; };
 		74AEC36DA7D9DEBD34E19329 /* libPods-RSS2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RSS2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD0F32B94651D250401EE87C /* Pods-RSS2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS2.release.xcconfig"; path = "Pods/Target Support Files/Pods-RSS2/Pods-RSS2.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -280,6 +285,9 @@
 				46A23CC11A90AD2F003E589C /* LZToolbar.m */,
 				46A23CC31A90BC52003E589C /* LZFontConfigPane.h */,
 				46A23CC41A90BC52003E589C /* LZFontConfigPane.m */,
+				46F5AFE71A90F79800A34AF1 /* LZItemFullTableViewCell.h */,
+				46F5AFE81A90F79800A34AF1 /* LZItemFullTableViewCell.m */,
+				46F5AFE91A90F79800A34AF1 /* LZItemFullTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -506,6 +514,7 @@
 				4646EEF31A8B46F900995B9D /* Localizable.strings in Resources */,
 				4665F5021A85E88B00A2F031 /* mainWindow.xib in Resources */,
 				4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */,
+				46F5AFEB1A90F79800A34AF1 /* LZItemFullTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +589,7 @@
 				4665F50C1A85E93700A2F031 /* LZFeedInfo.xcdatamodeld in Sources */,
 				46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */,
 				46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */,
+				46F5AFEA1A90F79800A34AF1 /* LZItemFullTableViewCell.m in Sources */,
 				463C96681A8CAB480084BD55 /* LZManagedObjectManager.m in Sources */,
 				46A23CC21A90AD2F003E589C /* LZToolbar.m in Sources */,
 				46A23CBF1A90AC0C003E589C /* LZItem.m in Sources */,

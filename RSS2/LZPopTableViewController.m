@@ -42,7 +42,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,6 +70,13 @@
             cell.imageView.image = image;
             break;
         }
+        case 2:{
+            cell.textLabel.text = @"Full View";
+            FIIcon *icon = [FIEntypoIcon pictureIcon];
+            UIImage *image = [icon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
+            cell.imageView.image = image;
+            break;
+        }
         default:
             break;
     }
@@ -86,6 +93,9 @@
             break;
         case 1:
             [[NSNotificationCenter defaultCenter]postNotificationName:kChangeMainViewLayoutNotification object:nil userInfo:@{@"layout":[NSNumber numberWithInt:LZLayoutView]}];
+            break;
+        case 2:
+            [[NSNotificationCenter defaultCenter]postNotificationName:kChangeMainViewLayoutNotification object:nil userInfo:@{@"layout":[NSNumber numberWithInt:LZLayoutFull]}];
             break;
         default:
             break;
