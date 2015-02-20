@@ -14,6 +14,7 @@
 #import <DDASLLogger.h>
 #import <DDTTYLogger.h>
 #import <DDFileLogger.h>
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -33,6 +34,25 @@
     [self setupSideMenuViewController];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // Setup Parse
+    [Parse setApplicationId:@"ijE3AzCagK9qTRMgRushxbFtBCB6SSiAIDwp27Gj"
+                  clientKey:@"TdRl9lcTWkpPU2jYPDp0ToTn1vBRMygT9SyAruK9"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // Parse objects
+    self.subscribeFeeds = [PFObject objectWithClassName:@"SubscribeFeeds"];
+    //self.subscribeFeeds[@"feeds"] = [[NSMutableArray alloc]init];
+//    if ([PFUser currentUser]) {
+//        self.subscribeFeeds[@"user"] = [PFUser currentUser];
+//    } 
+
+    
+    self.favoriteItems = [PFObject objectWithClassName:@"FavoriteItems"];
+    self.userSettings = [PFObject objectWithClassName:@"UserSettings"];
+    
+    
+    
     
     //Overide point for customization
     [DDLog addLogger:[DDASLLogger sharedInstance]];

@@ -238,9 +238,24 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     if ([[cancelButton titleForState:UIControlStateNormal] isEqualToString:NSLocalizedString(@"Save", nil)]) {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"SubscribeFeeds"];
+        [query whereKey:@"user" equalTo:[PFUser currentUser]];
+        PFObject *userFeeds = [[query findObjects] objectAtIndex:0];
+        NSLog(@"userFeeds.objectId:%@", userFeeds.objectId);
+        [query getObjectInBackgroundWithId:userFeeds.objectId block:^(PFObject *subscribeFeeds, NSError *error) {
+            for (NSNumber *number in self.subscribeIndexs) {
+                [subscribeFeeds[@"feeds"] addObject:@{@"feedId":[self.feedIds objectAtIndex:number.integerValue], @"feedTitle":[self.feedTitles objectAtIndex:number.integerValue]}];
+
+            }
+            [subscribeFeeds saveInBackground];
+        }];
+         
         for (NSNumber *number in self.subscribeIndexs) {
             [LZManagedObjectManager insertIntoSubscribeFeedDBWithTitle:[self.feedTitles objectAtIndex:number.integerValue] andFeedId:[self.feedIds objectAtIndex:number.integerValue] withContext:context];
+            
         }
+        
     }
     
     [self setActive:NO];

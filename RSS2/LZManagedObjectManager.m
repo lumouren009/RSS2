@@ -61,7 +61,7 @@
     LZSubscribeFeed *feed = [LZManagedObjectManager getSubscribeFeedWithFeedId:feedId withContext:context];
     
     if (feed != nil) {
-        NSLog(@"subscribeFeed is not nil!!!!");
+        return;
     }
     
     if (feed == nil) {
@@ -76,6 +76,23 @@
         }
     }
 }
+
+
++(void)insertIntoSubscribeFeedDBWithTitle:(NSString *)title andFeedId:(NSString *)feedId {
+    DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
+    LZSubscribeFeed *feed = [LZManagedObjectManager getSubscribeFeedWithFeedId:feedId withContext:__managedObjectContextOfAppDelegate];
+    
+    if (feed != nil) {
+        return;
+    }
+    
+    if (feed == nil) {
+        feed = (LZSubscribeFeed *)[NSEntityDescription insertNewObjectForEntityForName:kLZSubsFeedEntityString inManagedObjectContext:__managedObjectContextOfAppDelegate];
+        feed.feedId = feedId;
+        feed.feedTitle = title;
+    }
+}
+
 
 
 + (BOOL)deleteSubscribeFeedWithFeedId:(NSString *)feedId withContext:(NSManagedObjectContext *)context {

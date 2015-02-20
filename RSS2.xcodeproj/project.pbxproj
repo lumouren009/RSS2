@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */; };
+		463404B91A925348003C949E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404B41A925348003C949E /* Bolts.framework */; };
+		463404BA1A925348003C949E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404B51A925348003C949E /* Parse.framework */; };
+		463404BD1A925348003C949E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404B81A925348003C949E /* ParseUI.framework */; };
+		463404BF1A925366003C949E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404BE1A925366003C949E /* Accounts.framework */; };
+		463404C11A92536F003C949E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404C01A92536F003C949E /* AudioToolbox.framework */; };
+		463404C31A925379003C949E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404C21A925379003C949E /* CFNetwork.framework */; };
+		463404C51A925382003C949E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404C41A925382003C949E /* CoreGraphics.framework */; };
+		463404C71A92538C003C949E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404C61A92538C003C949E /* CoreLocation.framework */; };
+		463404C91A925395003C949E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404C81A925395003C949E /* MobileCoreServices.framework */; };
+		463404CB1A92539E003C949E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404CA1A92539E003C949E /* QuartzCore.framework */; };
+		463404CF1A9253AD003C949E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404CE1A9253AD003C949E /* Social.framework */; };
+		463404D11A9253BB003C949E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404D01A9253BB003C949E /* StoreKit.framework */; };
+		463404D31A9253C5003C949E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404D21A9253C5003C949E /* SystemConfiguration.framework */; };
+		463404D51A9253D1003C949E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404D41A9253D1003C949E /* libz.dylib */; };
+		463404D71A9253DC003C949E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 463404D61A9253DC003C949E /* libsqlite3.dylib */; };
 		46358F731A86485B00FF37F6 /* LZLikeMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */; };
 		4635D74B1A8CCD4D003E124F /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 4635D7481A8CCD4D003E124F /* UIImage+ProportionalFill.m */; };
 		4635D74C1A8CCD4D003E124F /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4635D74A1A8CCD4D003E124F /* UIImage+Tint.m */; };
@@ -46,6 +61,11 @@
 		46A23CBF1A90AC0C003E589C /* LZItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A23CBE1A90AC0C003E589C /* LZItem.m */; };
 		46A23CC21A90AD2F003E589C /* LZToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A23CC11A90AD2F003E589C /* LZToolbar.m */; };
 		46A23CC51A90BC52003E589C /* LZFontConfigPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A23CC41A90BC52003E589C /* LZFontConfigPane.m */; };
+		46D5A7F91A95E18A005591EB /* LZSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D5A7F81A95E18A005591EB /* LZSettingTableViewController.m */; };
+		46D5A7FE1A95EF07005591EB /* LZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D5A7FC1A95EF07005591EB /* LZLoginViewController.m */; };
+		46D5A7FF1A95EF07005591EB /* LZLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46D5A7FD1A95EF07005591EB /* LZLoginViewController.xib */; };
+		46D5A8041A96C2E4005591EB /* LZSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D5A8021A96C2E4005591EB /* LZSignupViewController.m */; };
+		46D5A8051A96C2E4005591EB /* LZSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46D5A8031A96C2E4005591EB /* LZSignupViewController.xib */; };
 		46DCEB401A88592500EED7DF /* LZFeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */; };
 		46DF39EF1A8CE30000A1E8C1 /* LZSystemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DF39EE1A8CE30000A1E8C1 /* LZSystemConfig.m */; };
 		46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */; };
@@ -68,6 +88,24 @@
 		277E47D3768A5A998B1EB693 /* Pods-RSS2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSS2/Pods-RSS2.debug.xcconfig"; sourceTree = "<group>"; };
 		46269C5A1A890BF9006DD639 /* LZSubscribeFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSubscribeFeed.h; path = Model/LZSubscribeFeed.h; sourceTree = "<group>"; };
 		46269C5B1A890BF9006DD639 /* LZSubscribeFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSubscribeFeed.m; path = Model/LZSubscribeFeed.m; sourceTree = "<group>"; };
+		463404B41A925348003C949E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		463404B51A925348003C949E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		463404B61A925348003C949E /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		463404B71A925348003C949E /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		463404B81A925348003C949E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		463404BE1A925366003C949E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		463404C01A92536F003C949E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		463404C21A925379003C949E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		463404C41A925382003C949E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		463404C61A92538C003C949E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		463404C81A925395003C949E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		463404CA1A92539E003C949E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		463404CC1A9253A5003C949E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		463404CE1A9253AD003C949E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		463404D01A9253BB003C949E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		463404D21A9253C5003C949E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		463404D41A9253D1003C949E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		463404D61A9253DC003C949E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		46358F711A86485B00FF37F6 /* LZLikeMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZLikeMainTableViewController.h; path = Controllers/LZLikeMainTableViewController.h; sourceTree = "<group>"; };
 		46358F721A86485B00FF37F6 /* LZLikeMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZLikeMainTableViewController.m; path = Controllers/LZLikeMainTableViewController.m; sourceTree = "<group>"; };
 		4635D7471A8CCD4D003E124F /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
@@ -147,6 +185,14 @@
 		46A23CC31A90BC52003E589C /* LZFontConfigPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZFontConfigPane.h; path = Views/LZFontConfigPane.h; sourceTree = "<group>"; };
 		46A23CC41A90BC52003E589C /* LZFontConfigPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZFontConfigPane.m; path = Views/LZFontConfigPane.m; sourceTree = "<group>"; };
 		46D005BF1A86308500C44E1F /* LZPrefixHeaderFile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZPrefixHeaderFile.pch; path = RSS2/LZPrefixHeaderFile.pch; sourceTree = "<group>"; };
+		46D5A7F71A95E18A005591EB /* LZSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSettingTableViewController.h; path = Controllers/LZSettingTableViewController.h; sourceTree = "<group>"; };
+		46D5A7F81A95E18A005591EB /* LZSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSettingTableViewController.m; path = Controllers/LZSettingTableViewController.m; sourceTree = "<group>"; };
+		46D5A7FB1A95EF07005591EB /* LZLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZLoginViewController.h; path = Controllers/LZLoginViewController.h; sourceTree = "<group>"; };
+		46D5A7FC1A95EF07005591EB /* LZLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZLoginViewController.m; path = Controllers/LZLoginViewController.m; sourceTree = "<group>"; };
+		46D5A7FD1A95EF07005591EB /* LZLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LZLoginViewController.xib; path = Controllers/LZLoginViewController.xib; sourceTree = "<group>"; };
+		46D5A8011A96C2E4005591EB /* LZSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSignupViewController.h; path = Controllers/LZSignupViewController.h; sourceTree = "<group>"; };
+		46D5A8021A96C2E4005591EB /* LZSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZSignupViewController.m; path = Controllers/LZSignupViewController.m; sourceTree = "<group>"; };
+		46D5A8031A96C2E4005591EB /* LZSignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LZSignupViewController.xib; path = Controllers/LZSignupViewController.xib; sourceTree = "<group>"; };
 		46DCEB3E1A88592500EED7DF /* LZFeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZFeedSearchViewController.h; path = Controllers/LZFeedSearchViewController.h; sourceTree = "<group>"; };
 		46DCEB3F1A88592500EED7DF /* LZFeedSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LZFeedSearchViewController.m; path = Controllers/LZFeedSearchViewController.m; sourceTree = "<group>"; };
 		46DF39ED1A8CE30000A1E8C1 /* LZSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LZSystemConfig.h; path = Helpers/LZSystemConfig.h; sourceTree = "<group>"; };
@@ -164,7 +210,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				463404D71A9253DC003C949E /* libsqlite3.dylib in Frameworks */,
+				463404D51A9253D1003C949E /* libz.dylib in Frameworks */,
+				463404D31A9253C5003C949E /* SystemConfiguration.framework in Frameworks */,
+				463404D11A9253BB003C949E /* StoreKit.framework in Frameworks */,
+				463404CF1A9253AD003C949E /* Social.framework in Frameworks */,
+				463404CB1A92539E003C949E /* QuartzCore.framework in Frameworks */,
+				463404C91A925395003C949E /* MobileCoreServices.framework in Frameworks */,
+				463404C71A92538C003C949E /* CoreLocation.framework in Frameworks */,
+				463404C51A925382003C949E /* CoreGraphics.framework in Frameworks */,
+				463404C31A925379003C949E /* CFNetwork.framework in Frameworks */,
+				463404C11A92536F003C949E /* AudioToolbox.framework in Frameworks */,
+				463404BF1A925366003C949E /* Accounts.framework in Frameworks */,
+				463404BD1A925348003C949E /* ParseUI.framework in Frameworks */,
 				8210BB7027119C86F88BF1E4 /* libPods-RSS2.a in Frameworks */,
+				463404BA1A925348003C949E /* Parse.framework in Frameworks */,
+				463404B91A925348003C949E /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +239,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		463404B31A925348003C949E /* parse-library-1 */ = {
+			isa = PBXGroup;
+			children = (
+				463404B41A925348003C949E /* Bolts.framework */,
+				463404B51A925348003C949E /* Parse.framework */,
+				463404B61A925348003C949E /* ParseCrashReporting.framework */,
+				463404B71A925348003C949E /* ParseFacebookUtils.framework */,
+				463404B81A925348003C949E /* ParseUI.framework */,
+			);
+			path = "parse-library-1";
+			sourceTree = "<group>";
+		};
 		463DAC271A8DD56A0006590E /* Pop */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +263,7 @@
 		4665F4861A85E68200A2F031 = {
 			isa = PBXGroup;
 			children = (
+				463404B31A925348003C949E /* parse-library-1 */,
 				46D005BF1A86308500C44E1F /* LZPrefixHeaderFile.pch */,
 				46E02BF81A85EE9000238AA1 /* Default-568h@2x.png */,
 				4665F4911A85E68200A2F031 /* RSS2 */,
@@ -295,6 +369,9 @@
 		4665F4BA1A85E6CA00A2F031 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46D5A8001A96C2C8005591EB /* Signup */,
+				46D5A7FA1A95EECD005591EB /* Login */,
+				46D5A7F61A95E16F005591EB /* Setting */,
 				463DAC271A8DD56A0006590E /* Pop */,
 				46DCEB3A1A8856FD00EED7DF /* Search */,
 				4665F4E61A85E78F00A2F031 /* DetailTableViewController.m */,
@@ -390,6 +467,35 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
+		46D5A7F61A95E16F005591EB /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				46D5A7F71A95E18A005591EB /* LZSettingTableViewController.h */,
+				46D5A7F81A95E18A005591EB /* LZSettingTableViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		46D5A7FA1A95EECD005591EB /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				46D5A7FB1A95EF07005591EB /* LZLoginViewController.h */,
+				46D5A7FC1A95EF07005591EB /* LZLoginViewController.m */,
+				46D5A7FD1A95EF07005591EB /* LZLoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		46D5A8001A96C2C8005591EB /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				46D5A8011A96C2E4005591EB /* LZSignupViewController.h */,
+				46D5A8021A96C2E4005591EB /* LZSignupViewController.m */,
+				46D5A8031A96C2E4005591EB /* LZSignupViewController.xib */,
+			);
+			name = Signup;
+			sourceTree = "<group>";
+		};
 		46DCEB3A1A8856FD00EED7DF /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +526,19 @@
 		A196A31D7A083AABE94E3859 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				463404D61A9253DC003C949E /* libsqlite3.dylib */,
+				463404D41A9253D1003C949E /* libz.dylib */,
+				463404D21A9253C5003C949E /* SystemConfiguration.framework */,
+				463404D01A9253BB003C949E /* StoreKit.framework */,
+				463404CE1A9253AD003C949E /* Social.framework */,
+				463404CC1A9253A5003C949E /* Security.framework */,
+				463404CA1A92539E003C949E /* QuartzCore.framework */,
+				463404C81A925395003C949E /* MobileCoreServices.framework */,
+				463404C61A92538C003C949E /* CoreLocation.framework */,
+				463404C41A925382003C949E /* CoreGraphics.framework */,
+				463404C21A925379003C949E /* CFNetwork.framework */,
+				463404C01A92536F003C949E /* AudioToolbox.framework */,
+				463404BE1A925366003C949E /* Accounts.framework */,
 				74AEC36DA7D9DEBD34E19329 /* libPods-RSS2.a */,
 			);
 			name = Frameworks;
@@ -507,6 +626,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46D5A8051A96C2E4005591EB /* LZSignupViewController.xib in Resources */,
 				4665F5041A85E88B00A2F031 /* LZDetailViewController.xib in Resources */,
 				4665F5031A85E88B00A2F031 /* galaxy.png in Resources */,
 				46E02BF91A85EE9000238AA1 /* Default-568h@2x.png in Resources */,
@@ -515,6 +635,7 @@
 				4665F5021A85E88B00A2F031 /* mainWindow.xib in Resources */,
 				4665F4A01A85E68200A2F031 /* Images.xcassets in Resources */,
 				46F5AFEB1A90F79800A34AF1 /* LZItemFullTableViewCell.xib in Resources */,
+				46D5A7FF1A95EF07005591EB /* LZLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46D5A7FE1A95EF07005591EB /* LZLoginViewController.m in Sources */,
 				46DF39EF1A8CE30000A1E8C1 /* LZSystemConfig.m in Sources */,
 				4665F4F01A85E78F00A2F031 /* DetailTableViewController.m in Sources */,
 				4665F5161A85EC5300A2F031 /* LZLikeItem.m in Sources */,
@@ -585,6 +707,7 @@
 				4665F4F41A85E78F00A2F031 /* LZDetailViewController.m in Sources */,
 				4665F4F11A85E78F00A2F031 /* LZMenuViewController.m in Sources */,
 				468232FF1A8C451B00356B38 /* LZImageTools.m in Sources */,
+				46D5A7F91A95E18A005591EB /* LZSettingTableViewController.m in Sources */,
 				4665F4D91A85E74100A2F031 /* NSDate+InternetDateTime.m in Sources */,
 				4665F50C1A85E93700A2F031 /* LZFeedInfo.xcdatamodeld in Sources */,
 				46269C5C1A890BF9006DD639 /* LZSubscribeFeed.m in Sources */,
@@ -595,6 +718,7 @@
 				46A23CBF1A90AC0C003E589C /* LZItem.m in Sources */,
 				463C96651A8C9B130084BD55 /* LZFileTools.m in Sources */,
 				4693A8B31A88A5F000AF1B5E /* LZInfoTableViewCell.m in Sources */,
+				46D5A8041A96C2E4005591EB /* LZSignupViewController.m in Sources */,
 				4665F5131A85EC5300A2F031 /* LZFeedInfo.m in Sources */,
 				4665F4F21A85E78F00A2F031 /* LZMainViewController.m in Sources */,
 				4665F4951A85E68200A2F031 /* main.m in Sources */,
@@ -734,6 +858,10 @@
 			baseConfigurationReference = 277E47D3768A5A998B1EB693 /* Pods-RSS2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/parse-library-1",
+				);
 				GCC_PREFIX_HEADER = RSS2/LZPrefixHeaderFile.pch;
 				INFOPLIST_FILE = RSS2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -746,6 +874,10 @@
 			baseConfigurationReference = FD0F32B94651D250401EE87C /* Pods-RSS2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/parse-library-1",
+				);
 				GCC_PREFIX_HEADER = RSS2/LZPrefixHeaderFile.pch;
 				INFOPLIST_FILE = RSS2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LZLoginViewController">
+            <connections>
+                <outlet property="loginBtn" destination="6DQ-bF-Ca0" id="Kje-jV-Cd3"/>
+                <outlet property="pwdTextField" destination="Xoh-pi-0tr" id="eUp-rB-phy"/>
+                <outlet property="userNameTextField" destination="K2D-t8-M5s" id="mbm-P4-h3u"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K2D-t8-M5s">
+                    <rect key="frame" x="177" y="153" width="245" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="245" id="bGO-Wm-xJ1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xoh-pi-0tr">
+                    <rect key="frame" x="177" y="192" width="245" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-bF-Ca0">
+                    <rect key="frame" x="177" y="240" width="245" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Log in">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginBtnPressed:" destination="-1" eventType="touchUpInside" id="BXP-3p-wW7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWU-Bh-I2d">
+                    <rect key="frame" x="177" y="278" width="124" height="30"/>
+                    <state key="normal" title="Forget password?">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="signUpBtnPressed:" destination="-1" eventType="touchUpInside" id="WI3-Za-v91"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGz-zX-wcC">
+                    <rect key="frame" x="369" y="278" width="53" height="30"/>
+                    <state key="normal" title="Sign up">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="signUpBtnPressed:" destination="-1" eventType="touchUpInside" id="4X2-Jb-gk1"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="nGz-zX-wcC" firstAttribute="top" secondItem="6DQ-bF-Ca0" secondAttribute="bottom" constant="8" id="9d5-8q-8ql"/>
+                <constraint firstItem="TWU-Bh-I2d" firstAttribute="leading" secondItem="6DQ-bF-Ca0" secondAttribute="leading" id="9eu-r9-RDS"/>
+                <constraint firstItem="TWU-Bh-I2d" firstAttribute="top" secondItem="6DQ-bF-Ca0" secondAttribute="bottom" constant="8" id="AvV-Vz-ohf"/>
+                <constraint firstItem="6DQ-bF-Ca0" firstAttribute="top" secondItem="Xoh-pi-0tr" secondAttribute="bottom" constant="22" id="Dne-y9-Uki"/>
+                <constraint firstItem="Xoh-pi-0tr" firstAttribute="width" secondItem="6DQ-bF-Ca0" secondAttribute="width" id="Ehh-gt-yId"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="centerX" secondItem="Xoh-pi-0tr" secondAttribute="centerX" id="JMO-4h-OyT"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="width" secondItem="Xoh-pi-0tr" secondAttribute="width" id="Mbm-EW-LTZ"/>
+                <constraint firstItem="6DQ-bF-Ca0" firstAttribute="top" secondItem="Xoh-pi-0tr" secondAttribute="bottom" constant="18" id="PHP-Ev-3e1"/>
+                <constraint firstAttribute="centerX" secondItem="K2D-t8-M5s" secondAttribute="centerX" id="b1g-mx-wh9"/>
+                <constraint firstAttribute="centerX" secondItem="6DQ-bF-Ca0" secondAttribute="centerX" id="cJb-ZN-SGm"/>
+                <constraint firstItem="6DQ-bF-Ca0" firstAttribute="centerX" secondItem="nGz-zX-wcC" secondAttribute="centerX" constant="-96" id="eMc-2N-JdL"/>
+                <constraint firstItem="Xoh-pi-0tr" firstAttribute="top" secondItem="K2D-t8-M5s" secondAttribute="bottom" constant="9" id="kgm-dL-tEg"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="width" secondItem="Xoh-pi-0tr" secondAttribute="width" id="koV-Zi-EVn"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="leading" secondItem="Xoh-pi-0tr" secondAttribute="leading" id="loh-Eq-mAo"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="153" id="oK8-oX-3tH"/>
+                <constraint firstItem="6DQ-bF-Ca0" firstAttribute="trailing" secondItem="nGz-zX-wcC" secondAttribute="trailing" id="oL6-f8-W2a"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="leading" secondItem="Xoh-pi-0tr" secondAttribute="leading" id="plO-Sd-3Ug"/>
+                <constraint firstItem="K2D-t8-M5s" firstAttribute="width" secondItem="Xoh-pi-0tr" secondAttribute="width" id="qom-2c-EWN"/>
+                <constraint firstItem="Xoh-pi-0tr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="192" id="wpV-Lz-OnR"/>
+                <constraint firstAttribute="centerX" secondItem="K2D-t8-M5s" secondAttribute="centerX" id="ypb-Nn-8w8"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="JMO-4h-OyT"/>
+                    <exclude reference="Mbm-EW-LTZ"/>
+                    <exclude reference="koV-Zi-EVn"/>
+                    <exclude reference="plO-Sd-3Ug"/>
+                    <exclude reference="ypb-Nn-8w8"/>
+                    <exclude reference="wpV-Lz-OnR"/>
+                    <exclude reference="Dne-y9-Uki"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="535" y="228"/>
+        </view>
+    </objects>
+</document>

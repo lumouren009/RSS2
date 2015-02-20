@@ -12,6 +12,7 @@
 #import "LZMainViewController.h"
 #import "LZMenuViewController.h"
 #import "LZLikeMainTableViewController.h"
+@class PFObject;
 @interface AppDelegate : UIResponder <UIApplicationDelegate, TWTSideMenuViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -24,6 +25,10 @@
 @property (nonatomic, strong) LZMainViewController *mainViewController;
 @property (nonatomic, strong) LZMenuViewController *menuViewController;
 @property (nonatomic, strong) LZLikeMainTableViewController *likeMainViewController;
+
+@property (nonatomic, strong) PFObject *subscribeFeeds;
+@property (nonatomic, strong) PFObject *favoriteItems;
+@property (nonatomic, strong) PFObject *userSettings;
 
 
 - (void)saveContext;

@@ -29,7 +29,6 @@
 
 + (UIImage *)getImageFromFileWithFileName:(NSString *)fileName {
     
-    DDLogVerbose(@"%@:%@", THIS_FILE, THIS_METHOD);
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     NSLog(@"Geting image");

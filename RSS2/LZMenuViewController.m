@@ -15,7 +15,7 @@
 #import "LZLikeMainTableViewController.h"
 #import "LZFeedSearchViewController.h"
 #import "LZSubscribeFeed.h"
-
+#import "LZSettingTableViewController.h"
 
 
 static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewController.sampleCell";
@@ -160,10 +160,10 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         
             break;
         }
-        case 2:
+        case 2:{
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingCellIdentifier"];
-            
             break;
+        }
         default:
             break;
     }
@@ -193,6 +193,9 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         }
         case 2: {
             cell.textLabel.text = @"Settings";
+            FIIcon *icon = [FIEntypoIcon cogIcon];
+            UIImage *image = [icon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
+            cell.imageView.image = image;
         }
         default:
             break;
@@ -250,6 +253,18 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             }];
             break;
         }
+        
+        case 2: {
+            [self.sideMenuViewController closeMenuAnimated:YES completion:^(BOOL finished) {
+                LZSettingTableViewController *settingVC = [[LZSettingTableViewController alloc]init];
+                UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:settingVC];
+                
+                settingVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                [self presentViewController:nc animated:YES
+                                 completion:nil];
+                                                    
+            }];
+        }
         default:
             break;
     }
@@ -271,7 +286,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
-
 
 - (void) loadLZLikeMainViewController {
     NSLog(@"%@:%@", THIS_FILE, THIS_METHOD);
@@ -331,8 +345,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     
     
 }
-
-
 
 - (void)subscribeBtnPressed
 {

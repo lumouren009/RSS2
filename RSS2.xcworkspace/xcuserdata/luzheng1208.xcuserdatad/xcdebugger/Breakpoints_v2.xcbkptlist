@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZMenuViewController.m"
-            timestampString = "445766320.27614"
+            timestampString = "446124946.2267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -102,12 +102,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZMainViewController.m"
-            timestampString = "445764591.653169"
+            timestampString = "446129993.593063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
-            landmarkName = "-configureTableView:"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
+            landmarkName = "-refreshTableView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,12 +164,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RSS2/LZMainViewController.m"
-            timestampString = "445764591.653169"
+            timestampString = "446124946.2267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
-            landmarkName = "-configureFullCell:withIndexPath:"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "-configureCell:withIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

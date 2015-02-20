@@ -9,10 +9,11 @@
 #import "AppDelegate.h"
 
 // Notification
-#define kAddFeedNotification                            @"kAddFeedNotification"
-#define kModifyLZLikeItemArrayNotification              @"kModifyLZLikeItemArrayNotification"
-#define kChangeThemeColorNotification                   @"ChangeThemeColorNotification"
-#define kChangeMainViewLayoutNotification               @"ChangeMainViewLayout"
+#define kAddFeedNotification                            @"LZAddFeedNotification"
+#define kModifyLZLikeItemArrayNotification              @"LZModifyLZLikeItemArrayNotification"
+#define kChangeThemeColorNotification                   @"LZChangeThemeColorNotification"
+#define kChangeMainViewLayoutNotification               @"LZChangeMainViewLayout"
+#define kLoginSuccessNotification                       @"LZLoginSuccessNotification"
 
 // Global varibles key
 #define kGlobalFontSize                                 @"kGlobalFontSize"

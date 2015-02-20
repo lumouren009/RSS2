@@ -28,6 +28,8 @@
 #import <WYStoryboardPopoverSegue.h>
 #import "LZStringTools.h"
 #import <AFNetworking.h>
+#import <Parse/Parse.h>
+#import <MBProgressHUD.h>
 #endif
 
 #ifdef DEBUG

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LZSignupViewController">
+            <connections>
+                <outlet property="emailTextField" destination="GOG-DB-uA7" id="6kL-QL-awF"/>
+                <outlet property="pwdTextField" destination="TNF-lH-3Bl" id="eE3-dx-m6i"/>
+                <outlet property="userNameTextField" destination="Rgh-sw-j23" id="nl9-Vg-w1K"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TNF-lH-3Bl">
+                    <rect key="frame" x="188" y="198" width="224" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="189" id="4d6-m0-8L5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="4d6-m0-8L5"/>
+                        </mask>
+                    </variation>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GOG-DB-uA7">
+                    <rect key="frame" x="188" y="236" width="224" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="123" id="e37-oF-pmf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="e37-oF-pmf"/>
+                        </mask>
+                    </variation>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rgh-sw-j23">
+                    <rect key="frame" x="188" y="160" width="224" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="224" id="p5s-bc-rU2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmK-1O-zEd">
+                    <rect key="frame" x="188" y="274" width="224" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Sign up">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="signupBtnPressed:" destination="-1" eventType="touchUpInside" id="zWu-yy-XaR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="TNF-lH-3Bl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="198" id="1W1-Hc-Wf0"/>
+                <constraint firstItem="TNF-lH-3Bl" firstAttribute="top" secondItem="Rgh-sw-j23" secondAttribute="bottom" constant="8" id="6ir-wM-afz"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="leading" secondItem="TNF-lH-3Bl" secondAttribute="leading" id="E9S-BM-D6n"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="leading" secondItem="TNF-lH-3Bl" secondAttribute="leading" id="EY3-T0-yaJ"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="JqO-AK-lWt"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="width" secondItem="TNF-lH-3Bl" secondAttribute="width" id="L6o-cS-qzt"/>
+                <constraint firstAttribute="centerX" secondItem="jmK-1O-zEd" secondAttribute="centerX" id="Lz0-h7-DBc"/>
+                <constraint firstItem="jmK-1O-zEd" firstAttribute="leading" secondItem="GOG-DB-uA7" secondAttribute="trailing" constant="-4.5" id="PhG-ix-0Vv"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="top" secondItem="TNF-lH-3Bl" secondAttribute="bottom" constant="8" symbolic="YES" id="U2p-V8-Qkd"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="236" id="XZz-qw-hbG"/>
+                <constraint firstItem="jmK-1O-zEd" firstAttribute="top" secondItem="GOG-DB-uA7" secondAttribute="bottom" constant="8" id="Xs1-N2-CbZ"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="top" secondItem="Rgh-sw-j23" secondAttribute="bottom" constant="46" id="YU8-5d-jWd"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="width" secondItem="TNF-lH-3Bl" secondAttribute="width" id="ctj-9L-WXU"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="trailing" secondItem="TNF-lH-3Bl" secondAttribute="trailing" id="eVl-xh-6hB"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="leading" secondItem="TNF-lH-3Bl" secondAttribute="leading" id="hpd-jc-lwJ"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="width" secondItem="jmK-1O-zEd" secondAttribute="width" id="k01-Vx-fcd"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="centerX" secondItem="TNF-lH-3Bl" secondAttribute="centerX" id="l0l-2s-kpP"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="leading" secondItem="TNF-lH-3Bl" secondAttribute="leading" id="lIG-e5-j9F"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="trailing" secondItem="Rgh-sw-j23" secondAttribute="trailing" constant="-111" id="lTv-Go-dTd"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="width" secondItem="TNF-lH-3Bl" secondAttribute="width" id="mqA-8a-Vfo"/>
+                <constraint firstItem="TNF-lH-3Bl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="207" id="o18-qN-JyK"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="width" secondItem="TNF-lH-3Bl" secondAttribute="width" id="o47-fQ-bMw"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="centerX" secondItem="TNF-lH-3Bl" secondAttribute="centerX" id="q81-0Q-KWo"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="leading" secondItem="Rgh-sw-j23" secondAttribute="leading" id="rFe-ut-c4s"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="leading" secondItem="Rgh-sw-j23" secondAttribute="leading" constant="-33" id="tJR-dV-C2a"/>
+                <constraint firstItem="GOG-DB-uA7" firstAttribute="width" secondItem="Rgh-sw-j23" secondAttribute="width" id="weq-HX-bmI"/>
+                <constraint firstItem="Rgh-sw-j23" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="160" id="xMf-Wv-jkF"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="L6o-cS-qzt"/>
+                    <exclude reference="ctj-9L-WXU"/>
+                    <exclude reference="hpd-jc-lwJ"/>
+                    <exclude reference="lIG-e5-j9F"/>
+                    <exclude reference="q81-0Q-KWo"/>
+                    <exclude reference="1W1-Hc-Wf0"/>
+                    <exclude reference="o18-qN-JyK"/>
+                    <exclude reference="E9S-BM-D6n"/>
+                    <exclude reference="U2p-V8-Qkd"/>
+                    <exclude reference="XZz-qw-hbG"/>
+                    <exclude reference="eVl-xh-6hB"/>
+                    <exclude reference="l0l-2s-kpP"/>
+                    <exclude reference="lTv-Go-dTd"/>
+                    <exclude reference="o47-fQ-bMw"/>
+                    <exclude reference="tJR-dV-C2a"/>
+                    <exclude reference="PhG-ix-0Vv"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="499" y="228"/>
+        </view>
+    </objects>
+</document>

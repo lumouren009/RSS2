@@ -255,7 +255,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    NSLog(@"currentLayoutType:%ld", (long)currentLayoutType);
     if (currentLayoutType==LZLayoutList || currentLayoutType==LZLayoutView) {
         cell = (LZInfoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewCellIdentifier];
         if (cell==nil) {
@@ -313,6 +312,12 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
 
 #pragma mark -  Private methods 
 - (void)configureCell:(UITableViewCell *)cell withIndexPath:(NSIndexPath *)indexPath {
@@ -384,7 +389,6 @@
             [cell convertsSimpleFrame];
         }
     }
-    NSLog(@"current indexpath.row:%ld", (long)indexPath.row);
 }
 
 
