@@ -245,8 +245,7 @@
         NSLog(@"userFeeds.objectId:%@", userFeeds.objectId);
         [query getObjectInBackgroundWithId:userFeeds.objectId block:^(PFObject *subscribeFeeds, NSError *error) {
             for (NSNumber *number in self.subscribeIndexs) {
-                [subscribeFeeds[@"feeds"] addObject:@{@"feedId":[self.feedIds objectAtIndex:number.integerValue], @"feedTitle":[self.feedTitles objectAtIndex:number.integerValue]}];
-
+                [subscribeFeeds addObject:@{@"feedId":[self.feedIds objectAtIndex:number.integerValue], @"feedTitle":[self.feedTitles objectAtIndex:number.integerValue]} forKey:@"feeds"];
             }
             [subscribeFeeds saveInBackground];
         }];
@@ -259,7 +258,7 @@
     }
     
     [self setActive:NO];
-    [[NSNotificationCenter defaultCenter]postNotificationName:kAddFeedNotification object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kUpdateSubscribeFeedListNotification object:nil];
     
 }
 

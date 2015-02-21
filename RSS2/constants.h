@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 // Notification
-#define kAddFeedNotification                            @"LZAddFeedNotification"
+#define kUpdateSubscribeFeedListNotification                            @"LZAddFeedNotification"
 #define kModifyLZLikeItemArrayNotification              @"LZModifyLZLikeItemArrayNotification"
 #define kChangeThemeColorNotification                   @"LZChangeThemeColorNotification"
 #define kChangeMainViewLayoutNotification               @"LZChangeMainViewLayout"

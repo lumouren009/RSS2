@@ -104,8 +104,6 @@
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Log out", nil) message:NSLocalizedString(@"Are you sure to log out and remove all the feeds from your iPhone?", nil)  delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Log out", nil), nil]show];
                 
-                
-                
             }
             break;
         }
@@ -133,6 +131,10 @@
         [self.tableView beginUpdates];
         [self.tableView reloadRowsAtIndexPaths:@[loginStatusIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
+        
+        // Remove all subscribe feeds in db
+        [LZManagedObjectManager removeAllSubscribeFeedsInDBwithContext:__managedObjectContextOfAppDelegate];
+        [[NSNotificationCenter defaultCenter]postNotificationName:kUpdateSubscribeFeedListNotification object:nil];
     }
 }
 

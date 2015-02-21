@@ -115,6 +115,19 @@
     }
 }
 
++ (BOOL)removeAllSubscribeFeedsInDBwithContext:(NSManagedObjectContext *)context {
+    NSArray *fetchedObjects = [LZManagedObjectManager getAllSubscribeFeedsWithContext:context];
+    NSError *error;
+    for (LZSubscribeFeed *feed in fetchedObjects) {
+        [context deleteObject:feed];
+    }
+    if (![context save:&error]) {
+        NSLog(@"%@.%@:%@", THIS_FILE, THIS_METHOD, [error localizedDescription]);
+        return NO;
+    }
+    return YES;
+}
+
 
 // Manage LZLikeItem entity
 + (void)insertIntoLikeDBWithItem:(LZItem *)item andFeedTitle:(NSString *)feedTitle withContext:(NSManagedObjectContext *)managedObjectContext {

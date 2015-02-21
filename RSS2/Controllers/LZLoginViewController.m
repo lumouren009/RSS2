@@ -74,14 +74,11 @@
                     if (![__managedObjectContextOfAppDelegate save:&error]) {
                         NSLog(@"%@,%@:Import subscribeFeeds failed:%@", THIS_FILE, THIS_METHOD, error);
                     }
+                    [[NSNotificationCenter defaultCenter]postNotificationName:kUpdateSubscribeFeedListNotification object:nil];
                 }
                 
                 
             });
-            
-            
-            
-            
             
         } else {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Login error", nil)

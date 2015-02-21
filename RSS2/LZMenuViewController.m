@@ -58,7 +58,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     [self setupUI];
     
     // Setup observer
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFeedsTitleTableView:) name:kAddFeedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFeedsTitleTableView:) name:kUpdateSubscribeFeedListNotification object:nil];
     
 }
 
@@ -157,7 +157,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             if (cell==nil) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewCellIndentifier];
             }
-        
             break;
         }
         case 2:{
@@ -280,7 +279,30 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"subscribeFeeds.count:%ld", subscribeFeeds.count);
         LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row];
+        NSString *delFeedId = delFeed.feedId;
         [LZManagedObjectManager deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:__managedObjectContextOfAppDelegate];
+        
+        
+
+        // Remove the feed in Parse cloud
+        PFQuery *query = [PFQuery queryWithClassName:@"SubscribeFeeds"];
+        [query whereKey:@"user" equalTo:[PFUser currentUser]];
+        PFObject *userFeeds = [[query findObjects] objectAtIndex:0];
+        [query getObjectInBackgroundWithId:userFeeds.objectId block:^(PFObject *object, NSError *error) {
+
+
+            dispatch_async(dispatch_queue_create("com.luzheng1208.asyncQueue", NULL), ^{
+                for (NSDictionary *feed in object[@"feeds"]) {
+                    if ([feed[@"feedId"] isEqualToString:delFeedId]) {
+                        [object removeObject:feed forKey:@"feeds"];
+                        break;
+                    }
+                }
+                [object saveInBackground];
+
+            });
+
+        }];
         
         [subscribeFeeds removeObjectAtIndex:indexPath.row];
         [feedsTitleTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
