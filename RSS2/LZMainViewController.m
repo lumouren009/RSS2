@@ -363,7 +363,7 @@
         cell.itemDetailLabel.text = item.summary ? [[item.summary stringByConvertingHTMLToPlainText] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] : @"[No Summary]";
         
         UIImage *cellImage = nil;
-        if (![imageURLStringArray[indexPath.row] isEqualToString:@""]) {
+        if (![imageURLStringsToDisplay[indexPath.row] isEqualToString:@""]) {
             
             if (cell.coverImageView.frame.size.width==0) {
                 cell.containerView.frame = CGRectMake(13, 13, 283, 195);

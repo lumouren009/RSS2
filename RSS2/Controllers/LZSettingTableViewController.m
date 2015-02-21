@@ -62,11 +62,11 @@
     switch (indexPath.section) {
         case 0: {
             loginStatusIndexPath = indexPath;
-            PFUser *currentUser = [PFUser currentUser];
-            if (currentUser) {
-                cell.textLabel.text = NSLocalizedString(@"Log out", nil);
-            } else {
+            //PFUser *currentUser = [PFUser currentUser];
+            if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
                 cell.textLabel.text = NSLocalizedString(@"Log in", nil);
+            } else {
+                cell.textLabel.text = NSLocalizedString(@"Log out", nil);
             }
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -128,6 +128,16 @@
     if (buttonIndex == 1) {
         NSLog(@"Log out button pressed!");
         [PFUser logOut];
+        // Add anonymous user
+        [PFUser enableAutomaticUser];
+        if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
+            PFObject *subscribeFeeds = [PFObject objectWithClassName:@"SubscribeFeeds"];
+            subscribeFeeds[@"user"] = [PFUser currentUser];
+            subscribeFeeds[@"feeds"] = [[NSMutableArray alloc]init];
+            [subscribeFeeds save];
+            
+        }
+        
         [self.tableView beginUpdates];
         [self.tableView reloadRowsAtIndexPaths:@[loginStatusIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];

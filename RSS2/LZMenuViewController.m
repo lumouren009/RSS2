@@ -58,23 +58,16 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     [self setupUI];
     
     // Setup observer
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFeedsTitleTableView:) name:kUpdateSubscribeFeedListNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFeedsTitleSection:) name:kUpdateSubscribeFeedListNotification object:nil];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 #pragma mark -
 #pragma mark Private Methods
-
-//- (NSArray *) feedInfos
-//{
-//    NSError *error;
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LZFeedInfo" inManagedObjectContext:managedObjectContext];
-//    [fetchRequest setEntity:entity];
-//    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-//    return fetchedObjects;
-//}
-
 
 - (void)setupUI
 {
@@ -127,7 +120,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     [self.view addSubview:subscribeURLTextField];
     subscribeURLTextField.alpha = 0.0;
     
-    
     // Feeds Title Table View
     feedsTitleTableView = [[UITableView alloc]initWithFrame:CGRectMake(10.0f, 160.0f, 228.0f, 280.0f) style:UITableViewStyleGrouped];
     //feedsTitleTableView.scrollEnabled = NO;
@@ -138,10 +130,10 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     
 }
 
-- (void)updateFeedsTitleTableView:(NSNotification*)notification{
+- (void)updateFeedsTitleSection:(NSNotification*)notification{
     self.subscribeFeeds = [[LZManagedObjectManager getAllSubscribeFeedsWithContext:__managedObjectContextOfAppDelegate] mutableCopy];
     NSLog(@"Observe the notification");
-    [feedsTitleTableView reloadData];
+    [self.feedsTitleTableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -150,17 +142,24 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
     UITableViewCell *cell;
     switch (indexPath.section) {
         case 0:
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"readItLaterCellIdentifier"];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"readItLaterCellIdentifier"];
+            if (cell==nil) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"readItLaterCellIdentifier"];
+            }
             break;
         case 1: {
-            cell = [tableView dequeueReusableCellWithIdentifier:kTableViewCellIndentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"feedTitleCellIdentifier"];
             if (cell==nil) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewCellIndentifier];
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedTitleCellIdentifier"];
             }
             break;
         }
         case 2:{
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingCellIdentifier"];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"settingCellIdentifier"];
+            if (cell==nil) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingCellIdentifier"];
+            }
+            
             break;
         }
         default:
@@ -195,6 +194,7 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             FIIcon *icon = [FIEntypoIcon cogIcon];
             UIImage *image = [icon imageWithBounds:CGRectMake(0, 0, 20, 20) color:[UIColor grayColor]];
             cell.imageView.image = image;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         default:
             break;
@@ -252,7 +252,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
             }];
             break;
         }
-        
         case 2: {
             [self.sideMenuViewController closeMenuAnimated:YES completion:^(BOOL finished) {
                 LZSettingTableViewController *settingVC = [[LZSettingTableViewController alloc]init];
@@ -281,8 +280,6 @@ static NSString * const kTableViewCellIndentifier = @"com.luzheng.LZMenuViewCont
         LZSubscribeFeed *delFeed = subscribeFeeds[indexPath.row];
         NSString *delFeedId = delFeed.feedId;
         [LZManagedObjectManager deleteSubscribeFeedWithFeedId:delFeed.feedId withContext:__managedObjectContextOfAppDelegate];
-        
-        
 
         // Remove the feed in Parse cloud
         PFQuery *query = [PFQuery queryWithClassName:@"SubscribeFeeds"];

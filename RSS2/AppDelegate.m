@@ -42,17 +42,18 @@
     
     // Parse objects
     self.subscribeFeeds = [PFObject objectWithClassName:@"SubscribeFeeds"];
-    //self.subscribeFeeds[@"feeds"] = [[NSMutableArray alloc]init];
-//    if ([PFUser currentUser]) {
-//        self.subscribeFeeds[@"user"] = [PFUser currentUser];
-//    } 
-
-    
     self.favoriteItems = [PFObject objectWithClassName:@"FavoriteItems"];
     self.userSettings = [PFObject objectWithClassName:@"UserSettings"];
     
-    
-    
+
+    [PFUser enableAutomaticUser];
+    if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
+        PFObject *subscribeFeeds = [PFObject objectWithClassName:@"SubscribeFeeds"];
+        subscribeFeeds[@"user"] = [PFUser currentUser];
+        subscribeFeeds[@"feeds"] = [[NSMutableArray alloc]init];
+        [subscribeFeeds save];
+
+    }
     
     //Overide point for customization
     [DDLog addLogger:[DDASLLogger sharedInstance]];

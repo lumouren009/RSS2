@@ -49,6 +49,7 @@
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:activityIndicatorView];
     [activityIndicatorView startAnimating];
+    
     [PFUser logInWithUsernameInBackground:userNameString password:pwdString block:^(PFUser *user, NSError *error) {
         [activityIndicatorView stopAnimating];
         if (user) {
@@ -73,10 +74,14 @@
                     NSError *error;
                     if (![__managedObjectContextOfAppDelegate save:&error]) {
                         NSLog(@"%@,%@:Import subscribeFeeds failed:%@", THIS_FILE, THIS_METHOD, error);
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSNotificationCenter defaultCenter]postNotificationName:kUpdateSubscribeFeedListNotification object:nil];
+                        });
+                        
                     }
-                    [[NSNotificationCenter defaultCenter]postNotificationName:kUpdateSubscribeFeedListNotification object:nil];
+                    
                 }
-                
                 
             });
             

@@ -9,11 +9,6 @@
 #import "LZSignupViewController.h"
 
 @interface LZSignupViewController ()
-//@property (nonatomic, strong) NSString *usernameString;
-//@property (nonatomic, strong) NSString *pwdString;
-//@property (nonatomic, strong) NSString *emailString;
-
-
 @end
 
 @implementation LZSignupViewController
@@ -30,18 +25,37 @@
 }
 
 - (IBAction)signupBtnPressed:(id)sender {
-    PFUser *user = [PFUser user];
-    user.username = self.userNameTextField.text;
-    user.password = self.pwdTextField.text;
-    user.email = self.emailTextField.text;
     
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:activityIndicatorView];
     [activityIndicatorView startAnimating];
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [activityIndicatorView stopAnimating];
+    PFUser *signupUser;
+    signupUser = [PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]] ? [PFUser currentUser] : [PFUser user];
+    signupUser.username = self.userNameTextField.text;
+    signupUser.password = self.pwdTextField.text;
+    signupUser.email = self.emailTextField.text;
+    signupUser[@"anonymous"]  = [NSNumber numberWithBool:[PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]];
+    
+    __unsafe_unretained LZSignupViewController *__self = self;
+    
+    [signupUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [PFUser logInWithUsernameInBackground:signupUser.username password:signupUser.password block:^(PFUser *user, NSError *error) {
+                [activityIndicatorView stopAnimating];
+                if (!error) {
+                    NSLog(@"Log in successfully!!");
+                    if ([user[@"anonymous"]boolValue]) {
+                        PFObject *subscribeFeeds = [PFObject objectWithClassName:@"SubscribeFeeds"];
+                        subscribeFeeds[@"user"] = [PFUser currentUser];
+                        subscribeFeeds[@"feeds"] = [[NSMutableArray alloc]init];
+                        [subscribeFeeds save];
+                    }
+                    
+                    [__self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+                } else {
+                    NSLog(@"error occurs in login:%@", [error localizedDescription]);
+                }
+            }];
         } else {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Login error", nil)
                                        message:NSLocalizedString([error localizedDescription], nil)
@@ -49,6 +63,7 @@
                              cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil] show];
         }
     }];
+    
 }
 
 - (void)cancelBtnPressed:(UIBarButtonItem *)sender {
